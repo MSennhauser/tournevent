@@ -153,3 +153,10 @@ C:\Quartalsarbeit\turnevent\Tournavent\bin\System.Numerics.Vectors.xml
 C:\Quartalsarbeit\turnevent\Tournavent\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Quartalsarbeit\turnevent\Tournavent\bin\System.Text.Encodings.Web.xml
 C:\Quartalsarbeit\turnevent\Tournavent\bin\System.Threading.Tasks.Extensions.xml
+C:\Quartalsarbeit\turnevent\Tournavent\bin\Microsoft.AspNetCore.Metadata.dll
+C:\Quartalsarbeit\turnevent\Tournavent\bin\System.IO.Pipelines.dll
+C:\Quartalsarbeit\turnevent\Tournavent\bin\Microsoft.AspNetCore.Metadata.xml
+C:\Quartalsarbeit\turnevent\Tournavent\bin\System.IO.Pipelines.xml
+C:\Quartalsarbeit\turnevent\Tournavent\bin\Microsoft.Owin.dll
+C:\Quartalsarbeit\turnevent\Tournavent\bin\Owin.dll
+C:\Quartalsarbeit\turnevent\Tournavent\bin\Microsoft.Owin.xml

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Tournavent.Models;
 
@@ -11,7 +11,7 @@ namespace Tournavent.Controllers
     {
         private List<Employee> empList = new List<Employee>();
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
             var employees = from e in GetEmployeeList()
                             orderby e.ID
@@ -33,10 +33,12 @@ namespace Tournavent.Controllers
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create([Microsoft.AspNetCore.Mvc.FromBody] Employee emp)
+        public ActionResult Create(Employee emp)
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine("Test");
+                System.Diagnostics.Debug.WriteLine(emp);
                 empList.Add(emp);
                 return RedirectToAction("Index");
             }

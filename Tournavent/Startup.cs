@@ -1,0 +1,34 @@
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Owin;
+using Owin;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Tournavent.Models;
+
+[assembly: OwinStartup(typeof(Tournavent.Startup))]
+namespace Tournavent
+{
+   
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+        public IConfiguration Configuration { get; }
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<IPersonModel, PersonModel>();
+        }
+
+        public void Configure(IAppBuilder app)
+        {
+        }
+    }
+}

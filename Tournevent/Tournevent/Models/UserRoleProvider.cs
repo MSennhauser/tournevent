@@ -12,7 +12,44 @@ namespace Tournevent.Models
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
-            throw new NotImplementedException();
+            using (UserContext _Context = new UserContext())
+            {
+                foreach(string username in usernames)
+                {
+                    foreach(string roleName in roleNames)
+                    {
+                        int userId = (from user in _Context.Users
+                                      where user.Email == username
+                                      select user.Id).FirstOrDefault();
+                        int rolesId = (from role in _Context.Roles
+                                      where role.RoleName == roleName
+                                      select role.Id).FirstOrDefault();
+                        UserRolesMapping userRolesMapping = new UserRolesMapping();
+                        userRolesMapping.UserId = userId;
+                        userRolesMapping.RoleId = rolesId;
+                        _Context.UserRolesMapping.Add(userRolesMapping);
+                        _Context.SaveChanges();
+                    }
+                }
+                
+            }
+        }
+        public  void AddUserToRole(string username, string roleName)
+        {
+            using (UserContext _Context = new UserContext())
+            {
+                int userId = (from user in _Context.Users
+                                                where user.Email == username
+                                                select user.Id).FirstOrDefault();
+                int rolesId = (from role in _Context.Roles
+                                                where role.RoleName == roleName
+                                                select role.Id).FirstOrDefault();
+                UserRolesMapping userRolesMapping = new UserRolesMapping();
+                userRolesMapping.UserId = userId;
+                userRolesMapping.RoleId = rolesId;
+                _Context.UserRolesMapping.Add(userRolesMapping);
+                _Context.SaveChanges();
+            }
         }
 
         public override void CreateRole(string roleName)

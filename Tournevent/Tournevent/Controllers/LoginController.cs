@@ -37,7 +37,10 @@ namespace Tournevent.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            ModelState.AddModelError("", "invalid Username or Password");
+            ModelState.AddModelError("", "invalid Email or Password");
+
+
+
             return View();
         }
 
@@ -53,6 +56,10 @@ namespace Tournevent.Controllers
             {
                 _dbContext.Users.Add(registerUser);
                 _dbContext.SaveChanges();
+
+                UserRoleProvider roleProvider = new UserRoleProvider();
+                roleProvider.AddUserToRole(registerUser.Name, "Vereinsverantwortlicher");
+
                 return RedirectToAction("Login");
 
             }

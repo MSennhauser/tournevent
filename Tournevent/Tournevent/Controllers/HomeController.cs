@@ -6,22 +6,18 @@ using System.Web.Mvc;
 
 namespace Tournevent.Controllers
 {
-    
     public class HomeController : Controller
     {
-        [Authorize(Roles ="Administrator,Vereinsverantwortlicher")]
         public ActionResult Index()
         {
             return View();
         }
-        [Authorize(Roles = "Administrator")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
-        [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

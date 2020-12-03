@@ -175,3 +175,8 @@ C:\Quartalsarbeit\turnevent\Tournevent\Tournevent\bin\EntityFramework.SqlServer.
 C:\Quartalsarbeit\turnevent\Tournevent\Tournevent\bin\EntityFramework.xml
 C:\Quartalsarbeit\turnevent\Tournevent\Tournevent\bin\EntityFramework.SqlServer.xml
 C:\Quartalsarbeit\turnevent\Tournevent\Tournevent\bin\de\EntityFramework.resources.dll
+C:\tournevent\Tournevent\Tournevent\bin\EntityFramework.dll
+C:\tournevent\Tournevent\Tournevent\bin\EntityFramework.SqlServer.dll
+C:\tournevent\Tournevent\Tournevent\bin\EntityFramework.xml
+C:\tournevent\Tournevent\Tournevent\bin\EntityFramework.SqlServer.xml
+C:\tournevent\Tournevent\Tournevent\bin\de\EntityFramework.resources.dll

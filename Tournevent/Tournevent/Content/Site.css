@@ -22,3 +22,49 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.sidenav {
+    height: 100%;
+    width: 230px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: whitesmoke;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+    .sidenav a, select {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: black;
+        display: block;
+    }
+
+        .sidenav a:hover, select:hover {
+            color: #818181;
+        }
+
+    .sidenav select {
+        border: none;
+        margin-bottom: 70px;
+        width: 230px;
+    }
+
+.main {
+    margin-left: 230px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+}

@@ -35,6 +35,12 @@ textarea {
     padding-top: 20px;
 }
 
+#vereinsName {
+    color:black;
+    font-size:30px;
+    margin-bottom: 25px;
+}
+
     .sidenav a, select {
         padding: 6px 8px 6px 16px;
         text-decoration: none;

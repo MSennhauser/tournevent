@@ -26,7 +26,7 @@ namespace Tournevent.Models
         public string Name { get; set; }
         [Required]
         [EmailAddress]
-        [DoesExistValidation(ErrorMessage = "Diese Email-Adresse hat bereits einen Account")]
+        [DoesExistValidation(Table = "Users", Attribute = "Email")]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }

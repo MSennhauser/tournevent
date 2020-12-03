@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -10,11 +11,20 @@ namespace Tournevent.Models
     {
         private readonly UserContext _dbContext = new UserContext();
 
-        public override bool IsValid(object value)
+        public string Table { get; set; }
+        public string Attribute { get; set; }
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            string email = value.ToString();
-            var userWithEmail = _dbContext.Users.Where(u => u.Email == email).ToList();
-            return userWithEmail.Count() == 0;
+            int anzEmail = _dbContext.Database.ExecuteSqlCommand("Select COUNT(*) From " + Table + " WHERE " + Attribute + " = '" + value.ToString() + "'");
+            if (anzEmail == 0)
+            {
+                return ValidationResult.Success;
+            }
+            else
+            {
+                return new ValidationResult("Das " + validationContext.DisplayName +"-Attribut existiert bereits");
+            }
         }
     }
 }

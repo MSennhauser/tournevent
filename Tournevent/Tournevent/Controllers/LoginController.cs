@@ -54,17 +54,24 @@ namespace Tournevent.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Users.Add(registerUser);
-                _dbContext.SaveChanges();
 
-                UserRoleProvider roleProvider = new UserRoleProvider();
-                roleProvider.AddUserToRole(registerUser.Name, "Vereinsverantwortlicher");
+                    registerUser.Name = "test";
+                    _dbContext.Users.Add(registerUser);
+                    _dbContext.SaveChanges();
 
-                return RedirectToAction("Login");
+                    UserRoleProvider roleProvider = new UserRoleProvider();
+                    roleProvider.AddUserToRole(registerUser.Name, "Vereinsverantwortlicher");
 
+                    return RedirectToAction("WaitForConfirmation");
             }
             return View();
         }
+
+        public ActionResult WaitForConfirmation()
+        {
+            return View();
+        }
+
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

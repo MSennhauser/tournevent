@@ -24,8 +24,8 @@ namespace Tournevent.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Users user)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 bool IsValidUser = _dbContext.Users
                .Any(u => u.Email.ToLower() == user
                .Email.ToLower() && user
@@ -36,7 +36,7 @@ namespace Tournevent.Controllers
                     FormsAuthentication.SetAuthCookie(user.Email, false);
                     return RedirectToAction("Index", "Home");
                 }
-            }
+            //}
             ModelState.AddModelError("", "invalid Email or Password");
 
 
@@ -55,7 +55,7 @@ namespace Tournevent.Controllers
             if (ModelState.IsValid)
             {
 
-                    registerUser.Name = "test";
+                registerUser.Name = "test";
                     _dbContext.Users.Add(registerUser);
                     _dbContext.SaveChanges();
 
@@ -63,7 +63,7 @@ namespace Tournevent.Controllers
                     roleProvider.AddUserToRole(registerUser.Name, "Vereinsverantwortlicher");
 
                     return RedirectToAction("WaitForConfirmation");
-            }
+        }
             return View();
         }
 

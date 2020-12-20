@@ -34,6 +34,12 @@ namespace Tournevent.Controllers
                 if (IsValidUser)
                 {
                     FormsAuthentication.SetAuthCookie(user.Email, false);
+                    UserRoleProvider roleProvider = new UserRoleProvider();
+                    string rolle = roleProvider.GetRolesForUser(user.Email).ElementAt(0);
+                    if(rolle == "WartetAufBestaetigung")
+                    {
+                        return RedirectToAction("WaitForConfirmation", "Login");
+                    }
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -60,7 +66,7 @@ namespace Tournevent.Controllers
                     _dbContext.SaveChanges();
 
                     UserRoleProvider roleProvider = new UserRoleProvider();
-                    roleProvider.AddUserToRole(registerUser.Email, "Vereinsverantwortlicher");
+                    roleProvider.AddUserToRole(registerUser.Email, "WartetAufBestaetigung");
 
                     return RedirectToAction("WaitForConfirmation");
                 }
@@ -71,7 +77,7 @@ namespace Tournevent.Controllers
             }
             return View();
         }
-
+        [Authorize(Roles = "WartetAufBestaetigung")]
         public ActionResult WaitForConfirmation()
         {
             return View();

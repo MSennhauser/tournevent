@@ -10,7 +10,7 @@ namespace Tournevent.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly UserContext _dbContext = new UserContext();
+        private readonly Entities _dbContext = new Entities();
         // GET: Login
         public ActionResult Index()
         {
@@ -22,23 +22,22 @@ namespace Tournevent.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(Users user)
+        public ActionResult Login(Benutzer user)
         {
-            //if (ModelState.IsValid)
-            //{
-                bool IsValidUser = _dbContext.Users
-               .Any(u => u.Email.ToLower() == user
-               .Email.ToLower() && user
-               .Password == user.Password);
+            if (ModelState.IsValid)
+            {
+                bool IsValidUser = _dbContext.Benutzer
+               .Any(u => 
+               u.Email.ToLower() == user.Email.ToLower() && 
+               u.Passwort == user.Passwort);
 
                 if (IsValidUser)
                 {
                     FormsAuthentication.SetAuthCookie(user.Email, false);
                     return RedirectToAction("Index", "Home");
                 }
-            //}
+            }
             ModelState.AddModelError("", "invalid Email or Password");
-
 
 
             return View();
@@ -50,20 +49,26 @@ namespace Tournevent.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(Users registerUser)
+        public ActionResult Register(Benutzer registerUser)
         {
             if (ModelState.IsValid)
             {
-
-                registerUser.Name = "test";
-                    _dbContext.Users.Add(registerUser);
+                Benutzer email = _dbContext.Benutzer.FirstOrDefault(u => u.Email.ToLower() == registerUser.Email.ToLower());
+                if(email == null)
+                {
+                    _dbContext.Benutzer.Add(registerUser);
                     _dbContext.SaveChanges();
 
                     UserRoleProvider roleProvider = new UserRoleProvider();
-                    roleProvider.AddUserToRole(registerUser.Name, "Vereinsverantwortlicher");
+                    roleProvider.AddUserToRole(registerUser.Email, "Vereinsverantwortlicher");
 
                     return RedirectToAction("WaitForConfirmation");
-        }
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "Diese Email Adresse existiert bereits.");
+                }
+            }
             return View();
         }
 

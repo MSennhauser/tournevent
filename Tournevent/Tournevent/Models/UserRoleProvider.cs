@@ -12,22 +12,22 @@ namespace Tournevent.Models
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
-            using (UserContext _Context = new UserContext())
+            using (Entities _Context = new Entities())
             {
                 foreach(string username in usernames)
                 {
                     foreach(string roleName in roleNames)
                     {
-                        int userId = (from user in _Context.Users
+                        int userId = (from user in _Context.Benutzer
                                       where user.Email == username
                                       select user.Id).FirstOrDefault();
-                        int rolesId = (from role in _Context.Roles
-                                      where role.RoleName == roleName
+                        int rolesId = (from role in _Context.Rollen
+                                       where role.Rolle == roleName
                                       select role.Id).FirstOrDefault();
-                        UserRolesMapping userRolesMapping = new UserRolesMapping();
-                        userRolesMapping.UserId = userId;
-                        userRolesMapping.RoleId = rolesId;
-                        _Context.UserRolesMapping.Add(userRolesMapping);
+                        BenutzerRollen userRolesMapping = new BenutzerRollen();
+                        userRolesMapping.BenutzerId = userId;
+                        userRolesMapping.RollenId = rolesId;
+                        _Context.BenutzerRollen.Add(userRolesMapping);
                         _Context.SaveChanges();
                     }
                 }
@@ -36,18 +36,18 @@ namespace Tournevent.Models
         }
         public  void AddUserToRole(string username, string roleName)
         {
-            using (UserContext _Context = new UserContext())
+            using (Entities _Context = new Entities())
             {
-                int userId = (from user in _Context.Users
-                                                where user.Email == username
+                int userId = (from user in _Context.Benutzer
+                              where user.Email == username
                                                 select user.Id).FirstOrDefault();
-                int rolesId = (from role in _Context.Roles
-                                                where role.RoleName == roleName
+                int rolesId = (from role in _Context.Rollen
+                               where role.Rolle == roleName
                                                 select role.Id).FirstOrDefault();
-                UserRolesMapping userRolesMapping = new UserRolesMapping();
-                userRolesMapping.UserId = userId;
-                userRolesMapping.RoleId = rolesId;
-                _Context.UserRolesMapping.Add(userRolesMapping);
+                BenutzerRollen userRolesMapping = new BenutzerRollen();
+                userRolesMapping.BenutzerId = userId;
+                userRolesMapping.RollenId = rolesId;
+                _Context.BenutzerRollen.Add(userRolesMapping);
                 _Context.SaveChanges();
             }
         }
@@ -74,15 +74,15 @@ namespace Tournevent.Models
 
         public override string[] GetRolesForUser(string username)
         {
-            using (UserContext _Context = new UserContext())
+            using (Entities _Context = new Entities())
             {
-                var userRoles = (from user in _Context.Users
-                                 join roleMapping in _Context.UserRolesMapping
-                                 on user.Id equals roleMapping.UserId
-                                 join role in _Context.Roles
-                                 on roleMapping.RoleId equals role.Id
+                var userRoles = (from user in _Context.Benutzer
+                                 join roleMapping in _Context.BenutzerRollen
+                                 on user.Id equals roleMapping.BenutzerId
+                                 join role in _Context.Rollen
+                                 on roleMapping.RollenId equals role.Id
                                  where user.Email == username
-                                 select role.RoleName).ToArray();
+                                 select role.Rolle).ToArray();
                 return userRoles;
             }
         }

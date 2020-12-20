@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Benutzer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vorname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Nachname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Passwort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telefon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="VereinId" Type="Int32" />
+    <NavigationProperty Name="BenutzerRollen" Relationship="Self.fk_user" FromRole="Benutzer" ToRole="BenutzerRollen" />
+    <NavigationProperty Name="Verein" Relationship="Self.fk_verein" FromRole="Benutzer" ToRole="Verein" />
+  </EntityType>
+  <EntityType Name="BenutzerRollen">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BenutzerId" Type="Int32" />
+    <Property Name="RollenId" Type="Int32" />
+    <NavigationProperty Name="Benutzer" Relationship="Self.fk_user" FromRole="BenutzerRollen" ToRole="Benutzer" />
+    <NavigationProperty Name="Rollen" Relationship="Self.fk_role" FromRole="BenutzerRollen" ToRole="Rollen" />
+  </EntityType>
+  <EntityType Name="Bewertungsart">
+    <Key>
+      <PropertyRef Name="Index" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Disziplinen" Relationship="Self.Disziplinen_Liste_BewertungsartListe_Disziplinen" FromRole="Bewertungsart" ToRole="Disziplinen" />
+  </EntityType>
+  <EntityType Name="Disziplinen">
+    <Key>
+      <PropertyRef Name="Index" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Wettkampfgruppe_Index" Type="Int32" />
+    <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Abkürzung" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Bewertungsart" Type="Int32" />
+    <Property Name="Zeit_pro_Resultat" Type="Int32" />
+    <Property Name="ResultatArt" Type="Int32" />
+    <Property Name="MinAnzGrpResultate" Type="Int32" />
+    <Property Name="MaxAnzGrpResultate" Type="Int32" />
+    <Property Name="AnzResultateBestenLeistung" Type="Int32" />
+    <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+    <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bewertungsart1" Relationship="Self.Disziplinen_Liste_BewertungsartListe_Disziplinen" FromRole="Disziplinen" ToRole="Bewertungsart" />
+    <NavigationProperty Name="Wettkampfart" Relationship="Self.Disziplinen_Liste_WettkampfgruppenListe_Disziplinen" FromRole="Disziplinen" ToRole="Wettkampfart" />
+    <NavigationProperty Name="Teilnehmer_Leistung" Relationship="Self.Teilnehmer_Leistung_Reference17" FromRole="Disziplinen" ToRole="Teilnehmer_Leistung" />
+    <NavigationProperty Name="DisziplinenAuswahl_Beschreibung" Relationship="Self.DisziplinenAuswahl" FromRole="Disziplinen" ToRole="DisziplinenAuswahl_Beschreibung" />
+  </EntityType>
+  <EntityType Name="DisziplinenAuswahl_Beschreibung">
+    <Key>
+      <PropertyRef Name="Index" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Wettkampfart_Index" Type="Int32" />
+    <Property Name="Anzahl_Auswahlmöglichkeit" Type="Double" />
+    <Property Name="Anzahl_Auszuwählen" Type="Double" />
+    <Property Name="Beschreibung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+    <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="Wettkampfart" Relationship="Self.DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung" FromRole="DisziplinenAuswahl_Beschreibung" ToRole="Wettkampfart" />
+    <NavigationProperty Name="KategorienDisziplinen" Relationship="Self.KategorienDisziplinen_Reference6" FromRole="DisziplinenAuswahl_Beschreibung" ToRole="KategorienDisziplinen" />
+    <NavigationProperty Name="Disziplinen" Relationship="Self.DisziplinenAuswahl" FromRole="DisziplinenAuswahl_Beschreibung" ToRole="Disziplinen" />
+  </EntityType>
+  <EntityType Name="Geschlechter">
+    <Key>
+      <PropertyRef Name="Index" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Definition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Abkürzung_Geschlecht" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="KategorienDisziplinen">
+    <Key>
+      <PropertyRef Name="Index_Kategorien" />
+      <PropertyRef Name="Index_DisziplinenAuswahl_Beschreibung" />
+    </Key>
+    <Property Name="Index_Kategorien" Type="Int32" Nullable="false" />
+    <Property Name="Index_DisziplinenAuswahl_Beschreibung" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DisziplinenAuswahl_Beschreibung" Relationship="Self.KategorienDisziplinen_Reference6" FromRole="KategorienDisziplinen" ToRole="DisziplinenAuswahl_Beschreibung" />
+  </EntityType>
+  <EntityType Name="Rollen">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rolle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BenutzerRollen" Relationship="Self.fk_role" FromRole="Rollen" ToRole="BenutzerRollen" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Teilnehmer">
+    <Key>
+      <PropertyRef Name="Index" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Jahrgang" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="Kategorie" Type="Int32" Nullable="false" />
+    <Property Name="Verein" Type="Int32" Nullable="false" />
+    <Property Name="Auszeichnung" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="Rang" Type="Double" />
+    <Property Name="Bemerkung" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DisziplinenListe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="GesamtPunktZahl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gast" Type="Boolean" />
+    <Property Name="Mutation" Type="Boolean" />
+    <Property Name="Mutationsgrund" Type="Int32" />
+    <Property Name="MutationsDatum" Type="DateTime" Precision="0" />
+    <Property Name="SonstigerMutationsgrund" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+    <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Verein1" Relationship="Self.Teilnehmer_VereinTeilnehmer" FromRole="Teilnehmer" ToRole="Verein" />
+    <NavigationProperty Name="Teilnehmer_Leistung" Relationship="Self.Teilnehmer_Leistung_Reference16" FromRole="Teilnehmer" ToRole="Teilnehmer_Leistung" />
+  </EntityType>
+  <EntityType Name="Teilnehmer_Leistung">
+    <Key>
+      <PropertyRef Name="Index" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Index_Teilnehmer" Type="Int32" Nullable="false" />
+    <Property Name="Index_Disziplin" Type="Int32" Nullable="false" />
+    <Property Name="Leistung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Punkte" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Unfall" Type="Boolean" />
+    <Property Name="Nicht_Gestartet" Type="Boolean" />
+    <Property Name="Eintrag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IndexDisziplinenAuswahl" Type="Int32" />
+    <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+    <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="Disziplinen" Relationship="Self.Teilnehmer_Leistung_Reference17" FromRole="Teilnehmer_Leistung" ToRole="Disziplinen" />
+    <NavigationProperty Name="Teilnehmer" Relationship="Self.Teilnehmer_Leistung_Reference16" FromRole="Teilnehmer_Leistung" ToRole="Teilnehmer" />
+  </EntityType>
+  <EntityType Name="Verein">
+    <Key>
+      <PropertyRef Name="Index" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vereinsname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PC_Konto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bank_Konto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Strasse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PLZ" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="Ort" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Telefon_privat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Telefon_geschäft" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Natel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="E_Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+    <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="ImportDatei" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ExportDatei" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Vorrunde" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IndexVereinVorrunde" Type="Int32" />
+    <NavigationProperty Name="Benutzer" Relationship="Self.fk_verein" FromRole="Verein" ToRole="Benutzer" />
+    <NavigationProperty Name="Teilnehmer" Relationship="Self.Teilnehmer_VereinTeilnehmer" FromRole="Verein" ToRole="Teilnehmer" />
+    <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_vereinWettkampf" FromRole="Verein" ToRole="VereineWettkampf" />
+  </EntityType>
+  <EntityType Name="VereineWettkampf">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VereinId" Type="Int32" Nullable="false" />
+    <Property Name="WettkampfId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Verein" Relationship="Self.fk_vereinWettkampf" FromRole="VereineWettkampf" ToRole="Verein" />
+    <NavigationProperty Name="Wettkampf" Relationship="Self.fk_wettkampf" FromRole="VereineWettkampf" ToRole="Wettkampf" />
+  </EntityType>
+  <EntityType Name="Wettkampf">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WettkampfName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_wettkampf" FromRole="Wettkampf" ToRole="VereineWettkampf" />
+  </EntityType>
+  <EntityType Name="Wettkampfart">
+    <Key>
+      <PropertyRef Name="Index" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Wettkampfart1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Abkürzung" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Einzelwettkampf" Type="Boolean" />
+    <Property Name="JedenTeilnehmer_erfassen" Type="Boolean" />
+    <Property Name="AnzahlTeilnehmerMind" Type="Int16" />
+    <Property Name="AnzahlTeilnehmerMax" Type="Int16" />
+    <Property Name="RangierungAbgeschlossen" Type="Boolean" />
+    <Property Name="RanglisteAusgabeformat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mit_Jahrgang" Type="Boolean" />
+    <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+    <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="Disziplinen" Relationship="Self.Disziplinen_Liste_WettkampfgruppenListe_Disziplinen" FromRole="Wettkampfart" ToRole="Disziplinen" />
+    <NavigationProperty Name="DisziplinenAuswahl_Beschreibung" Relationship="Self.DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung" FromRole="Wettkampfart" ToRole="DisziplinenAuswahl_Beschreibung" />
+  </EntityType>
+  <EntityType Name="Kategorien">
+    <Key>
+      <PropertyRef Name="Index" />
+      <PropertyRef Name="Abkürzung_Kategorie" />
+      <PropertyRef Name="Jahrgang_von" />
+      <PropertyRef Name="Jahrgang_bis" />
+      <PropertyRef Name="SSMA_TimeStamp" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Abkürzung_Kategorie" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Jahrgang_von" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Jahrgang_bis" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Index_Zuweisung_Disziplinengruppe" Type="Int32" />
+    <Property Name="Auszeichnung_Art" Type="Int32" />
+    <Property Name="Auszeichnung_in_Prozent" Type="Double" />
+    <Property Name="Auszeichnung_bis_mind_Rang" Type="Int32" />
+    <Property Name="Auszeichnung_bis_Rang" Type="Int16" />
+    <Property Name="AuszeichnungAbPunktzahl" Type="Int32" />
+    <Property Name="Abkürzung_Art" Type="Int32" />
+    <Property Name="Abkürzung_Vorgabe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Abkürzung_Benutzer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RanglistenBerechnung" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+    <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <Association Name="fk_user">
+    <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
+    <End Role="BenutzerRollen" Type="Self.BenutzerRollen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Benutzer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BenutzerRollen">
+        <PropertyRef Name="BenutzerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_verein">
+    <End Role="Verein" Type="Self.Verein" Multiplicity="0..1" />
+    <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verein">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Benutzer">
+        <PropertyRef Name="VereinId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_role">
+    <End Role="Rollen" Type="Self.Rollen" Multiplicity="0..1" />
+    <End Role="BenutzerRollen" Type="Self.BenutzerRollen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rollen">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BenutzerRollen">
+        <PropertyRef Name="RollenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Disziplinen_Liste_BewertungsartListe_Disziplinen">
+    <End Role="Bewertungsart" Type="Self.Bewertungsart" Multiplicity="0..1" />
+    <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bewertungsart">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Disziplinen">
+        <PropertyRef Name="Bewertungsart" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Disziplinen_Liste_WettkampfgruppenListe_Disziplinen">
+    <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="0..1" />
+    <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wettkampfart">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Disziplinen">
+        <PropertyRef Name="Wettkampfgruppe_Index" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Teilnehmer_Leistung_Reference17">
+    <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="1" />
+    <End Role="Teilnehmer_Leistung" Type="Self.Teilnehmer_Leistung" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Disziplinen">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Teilnehmer_Leistung">
+        <PropertyRef Name="Index_Disziplin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung">
+    <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="0..1" />
+    <End Role="DisziplinenAuswahl_Beschreibung" Type="Self.DisziplinenAuswahl_Beschreibung" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wettkampfart">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="DisziplinenAuswahl_Beschreibung">
+        <PropertyRef Name="Wettkampfart_Index" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="KategorienDisziplinen_Reference6">
+    <End Role="DisziplinenAuswahl_Beschreibung" Type="Self.DisziplinenAuswahl_Beschreibung" Multiplicity="1" />
+    <End Role="KategorienDisziplinen" Type="Self.KategorienDisziplinen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DisziplinenAuswahl_Beschreibung">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="KategorienDisziplinen">
+        <PropertyRef Name="Index_DisziplinenAuswahl_Beschreibung" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Teilnehmer_VereinTeilnehmer">
+    <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+    <End Role="Teilnehmer" Type="Self.Teilnehmer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verein">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Teilnehmer">
+        <PropertyRef Name="Verein" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Teilnehmer_Leistung_Reference16">
+    <End Role="Teilnehmer" Type="Self.Teilnehmer" Multiplicity="1" />
+    <End Role="Teilnehmer_Leistung" Type="Self.Teilnehmer_Leistung" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teilnehmer">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Teilnehmer_Leistung">
+        <PropertyRef Name="Index_Teilnehmer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_vereinWettkampf">
+    <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+    <End Role="VereineWettkampf" Type="Self.VereineWettkampf" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verein">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="VereineWettkampf">
+        <PropertyRef Name="VereinId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_wettkampf">
+    <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+    <End Role="VereineWettkampf" Type="Self.VereineWettkampf" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wettkampf">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VereineWettkampf">
+        <PropertyRef Name="WettkampfId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DisziplinenAuswahl">
+    <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="*" />
+    <End Role="DisziplinenAuswahl_Beschreibung" Type="Self.DisziplinenAuswahl_Beschreibung" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Benutzer" EntityType="Self.Benutzer" />
+    <EntitySet Name="BenutzerRollen" EntityType="Self.BenutzerRollen" />
+    <EntitySet Name="Bewertungsart" EntityType="Self.Bewertungsart" />
+    <EntitySet Name="Disziplinen" EntityType="Self.Disziplinen" />
+    <EntitySet Name="DisziplinenAuswahl_Beschreibung" EntityType="Self.DisziplinenAuswahl_Beschreibung" />
+    <EntitySet Name="Geschlechter" EntityType="Self.Geschlechter" />
+    <EntitySet Name="KategorienDisziplinen" EntityType="Self.KategorienDisziplinen" />
+    <EntitySet Name="Rollen" EntityType="Self.Rollen" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Teilnehmer" EntityType="Self.Teilnehmer" />
+    <EntitySet Name="Teilnehmer_Leistung" EntityType="Self.Teilnehmer_Leistung" />
+    <EntitySet Name="Verein" EntityType="Self.Verein" />
+    <EntitySet Name="VereineWettkampf" EntityType="Self.VereineWettkampf" />
+    <EntitySet Name="Wettkampf" EntityType="Self.Wettkampf" />
+    <EntitySet Name="Wettkampfart" EntityType="Self.Wettkampfart" />
+    <EntitySet Name="Kategorien" EntityType="Self.Kategorien" />
+    <AssociationSet Name="fk_user" Association="Self.fk_user">
+      <End Role="Benutzer" EntitySet="Benutzer" />
+      <End Role="BenutzerRollen" EntitySet="BenutzerRollen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_verein" Association="Self.fk_verein">
+      <End Role="Verein" EntitySet="Verein" />
+      <End Role="Benutzer" EntitySet="Benutzer" />
+    </AssociationSet>
+    <AssociationSet Name="fk_role" Association="Self.fk_role">
+      <End Role="Rollen" EntitySet="Rollen" />
+      <End Role="BenutzerRollen" EntitySet="BenutzerRollen" />
+    </AssociationSet>
+    <AssociationSet Name="Disziplinen_Liste_BewertungsartListe_Disziplinen" Association="Self.Disziplinen_Liste_BewertungsartListe_Disziplinen">
+      <End Role="Bewertungsart" EntitySet="Bewertungsart" />
+      <End Role="Disziplinen" EntitySet="Disziplinen" />
+    </AssociationSet>
+    <AssociationSet Name="Disziplinen_Liste_WettkampfgruppenListe_Disziplinen" Association="Self.Disziplinen_Liste_WettkampfgruppenListe_Disziplinen">
+      <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+      <End Role="Disziplinen" EntitySet="Disziplinen" />
+    </AssociationSet>
+    <AssociationSet Name="Teilnehmer_Leistung_Reference17" Association="Self.Teilnehmer_Leistung_Reference17">
+      <End Role="Disziplinen" EntitySet="Disziplinen" />
+      <End Role="Teilnehmer_Leistung" EntitySet="Teilnehmer_Leistung" />
+    </AssociationSet>
+    <AssociationSet Name="DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung" Association="Self.DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung">
+      <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+      <End Role="DisziplinenAuswahl_Beschreibung" EntitySet="DisziplinenAuswahl_Beschreibung" />
+    </AssociationSet>
+    <AssociationSet Name="KategorienDisziplinen_Reference6" Association="Self.KategorienDisziplinen_Reference6">
+      <End Role="DisziplinenAuswahl_Beschreibung" EntitySet="DisziplinenAuswahl_Beschreibung" />
+      <End Role="KategorienDisziplinen" EntitySet="KategorienDisziplinen" />
+    </AssociationSet>
+    <AssociationSet Name="Teilnehmer_VereinTeilnehmer" Association="Self.Teilnehmer_VereinTeilnehmer">
+      <End Role="Verein" EntitySet="Verein" />
+      <End Role="Teilnehmer" EntitySet="Teilnehmer" />
+    </AssociationSet>
+    <AssociationSet Name="Teilnehmer_Leistung_Reference16" Association="Self.Teilnehmer_Leistung_Reference16">
+      <End Role="Teilnehmer" EntitySet="Teilnehmer" />
+      <End Role="Teilnehmer_Leistung" EntitySet="Teilnehmer_Leistung" />
+    </AssociationSet>
+    <AssociationSet Name="fk_vereinWettkampf" Association="Self.fk_vereinWettkampf">
+      <End Role="Verein" EntitySet="Verein" />
+      <End Role="VereineWettkampf" EntitySet="VereineWettkampf" />
+    </AssociationSet>
+    <AssociationSet Name="fk_wettkampf" Association="Self.fk_wettkampf">
+      <End Role="Wettkampf" EntitySet="Wettkampf" />
+      <End Role="VereineWettkampf" EntitySet="VereineWettkampf" />
+    </AssociationSet>
+    <AssociationSet Name="DisziplinenAuswahl" Association="Self.DisziplinenAuswahl">
+      <End Role="Disziplinen" EntitySet="Disziplinen" />
+      <End Role="DisziplinenAuswahl_Beschreibung" EntitySet="DisziplinenAuswahl_Beschreibung" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

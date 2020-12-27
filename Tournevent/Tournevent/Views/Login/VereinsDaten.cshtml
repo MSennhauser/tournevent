@@ -1,0 +1,49 @@
+﻿@model Tournevent.Models.VereinsDaten
+@{
+    ViewBag.Title = "VereinsDaten";
+    Layout = null;
+}
+
+<h2>VereinsDaten</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card custom-card">
+        <div class="card-header bg-primary text-white">
+            <h3>Register Form</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.userId)
+                @Html.TextBoxFor(m => m.userId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.userId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.VereinsName)
+                @Html.TextBoxFor(m => m.VereinsName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.VereinsName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Vorname)
+                @Html.TextBoxFor(m => m.Vorname, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Vorname, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Nachname)
+                @Html.TextBoxFor(m => m.Nachname, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Nachname, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Telefon)
+                @Html.TextBoxFor(m => m.Telefon, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Telefon, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary rounded-0">Register</button>
+                @Html.ActionLink("Login here", "Login")
+            </div>
+
+        </div>
+    </div>
+}

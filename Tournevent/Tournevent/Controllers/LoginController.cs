@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,7 +11,8 @@ namespace Tournevent.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly Entities _dbContext = new Entities();
+        private readonly Entities db = new Entities();
+        private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Login
         public ActionResult Index()
         {
@@ -26,7 +28,7 @@ namespace Tournevent.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool IsValidUser = _dbContext.Benutzer
+                bool IsValidUser = db.Benutzer
                .Any(u => 
                u.Email.ToLower() == user.Email.ToLower() && 
                u.Passwort == user.Passwort);
@@ -40,7 +42,14 @@ namespace Tournevent.Controllers
                     {
                         return RedirectToAction("WaitForConfirmation", "Login");
                     }
-                    return RedirectToAction("Index", "Home");
+                    if (rolle == "Administrator")
+                    {
+                        return RedirectToAction("Index", "Anfrage");
+                    }
+                    if (rolle == "Vereinsverantwortlicher")
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
             ModelState.AddModelError("", "invalid Email or Password");
@@ -55,20 +64,34 @@ namespace Tournevent.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(Benutzer registerUser)
+        public ActionResult Register(KontoDaten daten)
         {
             if (ModelState.IsValid)
             {
-                Benutzer email = _dbContext.Benutzer.FirstOrDefault(u => u.Email.ToLower() == registerUser.Email.ToLower());
+                Benutzer benutzer = new Benutzer();
+                benutzer.Email = daten.Email;
+                benutzer.Passwort = daten.Passwort;
+                Benutzer email = db.Benutzer.FirstOrDefault(u => u.Email.ToLower() == daten.Email.ToLower());
+                
                 if(email == null)
                 {
-                    _dbContext.Benutzer.Add(registerUser);
-                    _dbContext.SaveChanges();
 
-                    UserRoleProvider roleProvider = new UserRoleProvider();
-                    roleProvider.AddUserToRole(registerUser.Email, "WartetAufBestaetigung");
+                    db.Benutzer.Add(benutzer);
+                    db.SaveChanges();
 
-                    return RedirectToAction("WaitForConfirmation");
+                    roleProvider.AddUserToRole(benutzer.Email, "WartetAufBestaetigung");
+
+                    var userId = (from b in db.Benutzer
+                                  where b.Email == benutzer.Email
+                                  select b.Id).SingleOrDefault();
+                    return RedirectToAction("VereinsDaten", new { userId = userId });
+                }
+                else if (roleProvider.IsUserInRole(benutzer.Email, "WartetAufBestaetigung"))
+                {
+                    var userId = (from b in db.Benutzer
+                                  where b.Email == benutzer.Email
+                                  select b.Id).SingleOrDefault();
+                    return RedirectToAction("VereinsDaten", new { userId = userId });
                 }
                 else
                 {
@@ -82,6 +105,38 @@ namespace Tournevent.Controllers
         {
             return View();
         }
+
+        public ActionResult VereinsDaten(int userId)
+        {
+            VereinsDaten vereinsDaten = new VereinsDaten();
+            vereinsDaten.userId = userId;
+            return View(vereinsDaten);
+        }
+        [HttpPost]
+        public ActionResult VereinsDaten(VereinsDaten vereinsDaten)
+        {
+            if (ModelState.IsValid)
+            {
+                Benutzer benutzer = new Benutzer();
+                benutzer.Id = vereinsDaten.userId;
+                benutzer.Telefon = vereinsDaten.Telefon;
+                benutzer.Nachname = vereinsDaten.Nachname;
+                benutzer.Vorname = vereinsDaten.Vorname;
+
+                db.Benutzer.Attach(benutzer);
+                ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(benutzer, System.Data.Entity.EntityState.Modified);
+
+                db.SaveChanges();
+                Verein verein = new Verein();
+                verein.Vereinsname = vereinsDaten.VereinsName;
+                db.Verein.Add(verein);
+                db.SaveChanges();
+
+                return RedirectToAction("WaitForConfirmation");
+            }
+            return View(vereinsDaten);
+        }
+
 
         public ActionResult Logout()
         {

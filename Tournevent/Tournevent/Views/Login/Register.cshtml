@@ -1,4 +1,4 @@
-﻿@model Tournevent.Models.Benutzer
+﻿@model Tournevent.Models.KontoDaten
 @{
     ViewBag.Title = "Register";
     Layout = null;
@@ -22,11 +22,11 @@
                 @Html.PasswordFor(m => m.Passwort, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Passwort, "", new { @class = "text-danger" })
             </div>
-            @*<div class="form-group">
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-            </div>*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPasswort)
+                @Html.PasswordFor(m => m.ConfirmPasswort, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ConfirmPasswort, "", new { @class = "text-danger" })
+            </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary rounded-0">Register</button>
                 @Html.ActionLink("Login here", "Login")

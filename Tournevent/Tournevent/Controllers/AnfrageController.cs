@@ -58,6 +58,21 @@ namespace Tournevent.Controllers
         }
         public ActionResult Reject(int id)
         {
+            Benutzer benutzer = (from b in db.Benutzer
+                                 where b.Id == id
+                                 select b).SingleOrDefault();
+            BenutzerRollen benutzerRollen = (from b in db.BenutzerRollen
+                                             where b.BenutzerId == benutzer.Id
+                                             select b).SingleOrDefault();
+            Verein verein = (from v in db.Verein
+                             where v.Index == benutzer.VereinId
+                             select v).SingleOrDefault();
+
+            db.Verein.Remove(verein);
+            db.BenutzerRollen.Remove(benutzerRollen);
+            db.Benutzer.Remove(benutzer);
+            db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

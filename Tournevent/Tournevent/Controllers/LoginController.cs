@@ -117,22 +117,40 @@ namespace Tournevent.Controllers
         {
             if (ModelState.IsValid)
             {
-                Benutzer benutzer = new Benutzer();
-                benutzer.Id = vereinsDaten.userId;
-                benutzer.Telefon = vereinsDaten.Telefon;
-                benutzer.Nachname = vereinsDaten.Nachname;
-                benutzer.Vorname = vereinsDaten.Vorname;
+                Verein vereinsName = db.Verein.FirstOrDefault(u => u.Vereinsname.ToLower() == vereinsDaten.VereinsName.ToLower());
 
-                db.Benutzer.Attach(benutzer);
-                ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(benutzer, System.Data.Entity.EntityState.Modified);
+                if (vereinsName == null)
+                {
+                    Verein verein = new Verein();
+                    verein.Vereinsname = vereinsDaten.VereinsName;
+                    db.Verein.Add(verein);
+                    db.SaveChanges();
+                    var vereinsId = (from v in db.Verein
+                                     where v.Vereinsname == vereinsDaten.VereinsName
+                                     select v.Index).Single();
+                    Benutzer benutzer = (from b in db.Benutzer
+                                         where b.Id == vereinsDaten.userId
+                                         select b).Single();
+                    //Benutzer benutzer = new Benutzer();
+                    //benutzer.Id = vereinsDaten.userId;
+                    benutzer.Telefon = vereinsDaten.Telefon;
+                    benutzer.Nachname = vereinsDaten.Nachname;
+                    benutzer.Vorname = vereinsDaten.Vorname;
+                    benutzer.VereinId = vereinsId;
 
-                db.SaveChanges();
-                Verein verein = new Verein();
-                verein.Vereinsname = vereinsDaten.VereinsName;
-                db.Verein.Add(verein);
-                db.SaveChanges();
+                    db.Benutzer.Attach(benutzer);
+                    ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(benutzer, System.Data.Entity.EntityState.Modified);
 
-                return RedirectToAction("WaitForConfirmation");
+                    db.SaveChanges();
+
+
+                    return RedirectToAction("WaitForConfirmation");
+                }
+                else
+                {
+                    ModelState.AddModelError("VereinsName", "Dieser Verein existiert bereits.");
+                }
+
             }
             return View(vereinsDaten);
         }

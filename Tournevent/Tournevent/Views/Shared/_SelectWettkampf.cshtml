@@ -1,4 +1,17 @@
 ﻿@model IEnumerable<SelectListItem>
 
-@Html.DropDownList("Wettkampf",
-                   Model, "Wettkampf", new { @class = "wettkampf" })
+@if (Model.Count() > 1)
+{
+    @Html.DropDownList("Wettkampf",
+                   Model, "Wettkampf", new { @onchange = "setWettkampf(this.value)" , @class = "wettkampf" })
+}
+@if (Model.Count() == 1)
+{
+<h2 class="wettkampf">@Model.First().Text</h2>
+}
+
+<script>
+    function setWettkampf(val){
+        window.location.href = "/Layout/SetWettkampf?value=" + val;
+    }
+</script>

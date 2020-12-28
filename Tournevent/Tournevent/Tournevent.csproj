@@ -129,9 +129,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnfrageController.cs" />
+    <Compile Include="Controllers\AthletenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\StartnummerController.cs" />
+    <Compile Include="Controllers\VereinController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -304,10 +307,15 @@
     <Content Include="Views\Login\WaitForConfirmation.cshtml" />
     <Content Include="Views\Login\VereinsDaten.cshtml" />
     <Content Include="Views\Anfrage\Index.cshtml" />
-    <Content Include="Views\Layout\Wettkaempfe.cshtml" />
     <Content Include="Views\Shared\_SelectWettkampf.cshtml" />
+    <Content Include="Views\Shared\_SideNavAdmin.cshtml" />
+    <Content Include="Views\Shared\_SideNavVereins.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Athleten\" />
+    <Folder Include="Views\Startnummer\" />
+    <Folder Include="Views\Verein\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

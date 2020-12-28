@@ -44,5 +44,24 @@ namespace Tournevent.Controllers
                 return PartialView("_SelectWettkampf", lst);
             }
         }
+
+        [HttpPost]
+        public ActionResult SetWettkampf(int value)
+        {
+            HttpContext.Application["WettkampfId"] = value;
+        }
+
+        [ChildActionOnly]
+        public ActionResult Navigation()
+        {
+            if (User.IsInRole("Administrator"))
+            {
+                return PartialView("_SideNavAdmin");
+            }
+            else
+            {
+                return PartialView("_SideNavVereins");
+            }
+        }
     }
 }

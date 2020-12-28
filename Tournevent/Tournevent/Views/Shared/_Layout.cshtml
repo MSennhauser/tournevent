@@ -15,19 +15,9 @@
         @{
             Html.RenderAction("Wettkaempfe", "Layout");
         }
-        <select name="wettkämpfe" id="wettkaempfe">
-            <option value="none" selected disabled hidden>
-                Wettkämpfe
-            </option>
-            <option value="1">Jugitag 1</option>
-            <option value="2">Jugitag 2</option>
-            <option value="3">Jugitag 3</option>
-            <option value="4">Jugitag 4</option>
-        </select>
-        @Html.ActionLink("Home", "About");
-        <a href="#kategorie">Kategorie</a>
-        <a href="#verein">Verein</a>
-        <a href="#startnummer">Startnummernsätze</a>
+        @{
+            Html.RenderAction("Navigation", "Layout");
+        }
     </div>
 
     <div class="main">

@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnfrageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -303,6 +304,8 @@
     <Content Include="Views\Login\WaitForConfirmation.cshtml" />
     <Content Include="Views\Login\VereinsDaten.cshtml" />
     <Content Include="Views\Anfrage\Index.cshtml" />
+    <Content Include="Views\Layout\Wettkaempfe.cshtml" />
+    <Content Include="Views\Shared\_SelectWettkampf.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -40,7 +40,16 @@ namespace Tournevent.Controllers
                     string rolle = roleProvider.GetRolesForUser(user.Email).ElementAt(0);
                     if(rolle == "WartetAufBestaetigung")
                     {
-                        return RedirectToAction("WaitForConfirmation", "Login");
+                        Benutzer benutzer = (from b in db.Benutzer where b.Email == user.Email select b).SingleOrDefault();
+                        if(benutzer.VereinId == null)
+                        {
+                            return RedirectToAction("VereinsDaten", new { userId = benutzer.Id });
+                        }
+                        else
+                        {
+                            return RedirectToAction("WaitForConfirmation", "Login");
+                        }
+                        
                     }
                     if (rolle == "Administrator")
                     {
@@ -86,13 +95,6 @@ namespace Tournevent.Controllers
                                   select b.Id).SingleOrDefault();
                     return RedirectToAction("VereinsDaten", new { userId = userId });
                 }
-                else if (roleProvider.IsUserInRole(benutzer.Email, "WartetAufBestaetigung"))
-                {
-                    var userId = (from b in db.Benutzer
-                                  where b.Email == benutzer.Email
-                                  select b.Id).SingleOrDefault();
-                    return RedirectToAction("VereinsDaten", new { userId = userId });
-                }
                 else
                 {
                     ModelState.AddModelError("Email", "Diese Email Adresse existiert bereits.");
@@ -113,6 +115,7 @@ namespace Tournevent.Controllers
             return View(vereinsDaten);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult VereinsDaten(VereinsDaten vereinsDaten)
         {
             if (ModelState.IsValid)
@@ -131,8 +134,6 @@ namespace Tournevent.Controllers
                     Benutzer benutzer = (from b in db.Benutzer
                                          where b.Id == vereinsDaten.userId
                                          select b).Single();
-                    //Benutzer benutzer = new Benutzer();
-                    //benutzer.Id = vereinsDaten.userId;
                     benutzer.Telefon = vereinsDaten.Telefon;
                     benutzer.Nachname = vereinsDaten.Nachname;
                     benutzer.Vorname = vereinsDaten.Vorname;
@@ -143,8 +144,8 @@ namespace Tournevent.Controllers
 
                     db.SaveChanges();
 
-
-                    return RedirectToAction("WaitForConfirmation");
+                    FormsAuthentication.SetAuthCookie(benutzer.Email, false);
+                    return RedirectToAction("WaitForConfirmation", "Login");
                 }
                 else
                 {

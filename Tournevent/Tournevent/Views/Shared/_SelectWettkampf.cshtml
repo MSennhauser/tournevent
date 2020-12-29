@@ -1,17 +1,15 @@
 ﻿@model IEnumerable<SelectListItem>
-
-@if (Model.Count() > 1)
+@using (Html.BeginForm())
 {
-    @Html.DropDownList("Wettkampf",
-                   Model, "Wettkampf", new { @onchange = "setWettkampf(this.value)" , @class = "wettkampf" })
-}
-@if (Model.Count() == 1)
-{
-<h2 class="wettkampf">@Model.First().Text</h2>
-}
+    if (Model.Count() > 1)
+    {
 
-<script>
-    function setWettkampf(val){
-        window.location.href = "/Layout/SetWettkampf?value=" + val;
+        @Html.DropDownList("Wettkampf",
+                Model, "Wettkampf", new { onchange = @"this.form.submit();", @class = "wettkampf" })
+
     }
-</script>
+    if (Model.Count() == 1)
+    {
+        <h2 class="wettkampf">@Model.First().Text</h2>
+    }
+}

@@ -310,11 +310,11 @@
     <Content Include="Views\Shared\_SelectWettkampf.cshtml" />
     <Content Include="Views\Shared\_SideNavAdmin.cshtml" />
     <Content Include="Views\Shared\_SideNavVereins.cshtml" />
+    <Content Include="Views\Verein\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Athleten\" />
     <Folder Include="Views\Startnummer\" />
-    <Folder Include="Views\Verein\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

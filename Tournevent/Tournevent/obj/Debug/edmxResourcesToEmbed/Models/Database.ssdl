@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Athleten">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Vorname" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Nachname" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Jahrgang" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Benutzer">
     <Key>
       <PropertyRef Name="Id" />
@@ -122,6 +131,15 @@ Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Rolle" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Startnummern">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WettkampfId" Type="int" Nullable="false" />
+    <Property Name="AthletId" Type="int" Nullable="false" />
+    <Property Name="Startnummer" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -313,6 +331,30 @@ Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="fk_startnummerAthlet">
+    <End Role="Athleten" Type="Self.Athleten" Multiplicity="1" />
+    <End Role="Startnummern" Type="Self.Startnummern" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Athleten">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Startnummern">
+        <PropertyRef Name="AthletId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_startnummerWettkampf">
+    <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+    <End Role="Startnummern" Type="Self.Startnummern" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wettkampf">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Startnummern">
+        <PropertyRef Name="WettkampfId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_user">
     <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
     <End Role="BenutzerRollen" Type="Self.BenutzerRollen" Multiplicity="*" />
@@ -416,6 +458,7 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enthält Spalten, die 
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="DatabaseModelStoreContainer">
+    <EntitySet Name="Athleten" EntityType="Self.Athleten" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Benutzer" EntityType="Self.Benutzer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BenutzerRollen" EntityType="Self.BenutzerRollen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Bewertungsart" EntityType="Self.Bewertungsart" Schema="dbo" store:Type="Tables" />
@@ -425,6 +468,7 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enthält Spalten, die 
     <EntitySet Name="Geschlechter" EntityType="Self.Geschlechter" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KategorienDisziplinen" EntityType="Self.KategorienDisziplinen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rollen" EntityType="Self.Rollen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Startnummern" EntityType="Self.Startnummern" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Teilnehmer" EntityType="Self.Teilnehmer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Teilnehmer_Leistung" EntityType="Self.Teilnehmer_Leistung" Schema="dbo" store:Type="Tables" />
@@ -478,6 +522,14 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enthält Spalten, die 
     <AssociationSet Name="fk_role" Association="Self.fk_role">
       <End Role="Rollen" EntitySet="Rollen" />
       <End Role="BenutzerRollen" EntitySet="BenutzerRollen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_startnummerAthlet" Association="Self.fk_startnummerAthlet">
+      <End Role="Athleten" EntitySet="Athleten" />
+      <End Role="Startnummern" EntitySet="Startnummern" />
+    </AssociationSet>
+    <AssociationSet Name="fk_startnummerWettkampf" Association="Self.fk_startnummerWettkampf">
+      <End Role="Wettkampf" EntitySet="Wettkampf" />
+      <End Role="Startnummern" EntitySet="Startnummern" />
     </AssociationSet>
     <AssociationSet Name="fk_user" Association="Self.fk_user">
       <End Role="Benutzer" EntitySet="Benutzer" />

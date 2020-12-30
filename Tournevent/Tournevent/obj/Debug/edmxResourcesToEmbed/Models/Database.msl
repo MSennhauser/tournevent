@@ -251,5 +251,25 @@
         <ScalarProperty Name="Index" ColumnName="Index_DisziplinenAuswahl_Beschreibung" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Athleten">
+      <EntityTypeMapping TypeName="DatabaseModel.Athleten">
+        <MappingFragment StoreEntitySet="Athleten">
+          <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Startnummern">
+      <EntityTypeMapping TypeName="DatabaseModel.Startnummern">
+        <MappingFragment StoreEntitySet="Startnummern">
+          <ScalarProperty Name="Startnummer" ColumnName="Startnummer" />
+          <ScalarProperty Name="AthletId" ColumnName="AthletId" />
+          <ScalarProperty Name="WettkampfId" ColumnName="WettkampfId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

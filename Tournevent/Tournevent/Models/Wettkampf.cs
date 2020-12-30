@@ -18,6 +18,7 @@ namespace Tournevent.Models
         public Wettkampf()
         {
             this.VereineWettkampf = new HashSet<VereineWettkampf>();
+            this.Startnummern = new HashSet<Startnummern>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,7 @@ namespace Tournevent.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VereineWettkampf> VereineWettkampf { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Startnummern> Startnummern { get; set; }
     }
 }

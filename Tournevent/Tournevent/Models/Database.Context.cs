@@ -41,5 +41,7 @@ namespace Tournevent.Models
         public virtual DbSet<Wettkampf> Wettkampf { get; set; }
         public virtual DbSet<Wettkampfart> Wettkampfart { get; set; }
         public virtual DbSet<Kategorien> Kategorien { get; set; }
+        public virtual DbSet<Athleten> Athleten { get; set; }
+        public virtual DbSet<Startnummern> Startnummern { get; set; }
     }
 }

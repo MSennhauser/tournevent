@@ -34,6 +34,10 @@
         <AssociationConnector Association="DatabaseModel.fk_vereinWettkampf" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.fk_wettkampf" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.DisziplinenAuswahl" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DatabaseModel.Athleten" Width="1.5" PointX="6.75" PointY="27.625" />
+        <EntityTypeShape EntityType="DatabaseModel.Startnummern" Width="1.5" PointX="9" PointY="21.5" />
+        <AssociationConnector Association="DatabaseModel.fk_startnummerAthlet" />
+        <AssociationConnector Association="DatabaseModel.fk_startnummerWettkampf" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

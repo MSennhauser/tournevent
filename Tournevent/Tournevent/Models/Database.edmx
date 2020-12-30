@@ -4,7 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Athleten">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Jahrgang" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Benutzer">
           <Key>
             <PropertyRef Name="Id" />
@@ -127,6 +136,15 @@ Warnung 6002: F체r Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Rolle" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Startnummern">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WettkampfId" Type="int" Nullable="false" />
+          <Property Name="AthletId" Type="int" Nullable="false" />
+          <Property Name="Startnummer" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -318,6 +336,30 @@ Warnung 6002: F체r Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_startnummerAthlet">
+          <End Role="Athleten" Type="Self.Athleten" Multiplicity="1" />
+          <End Role="Startnummern" Type="Self.Startnummern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Athleten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Startnummern">
+              <PropertyRef Name="AthletId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_startnummerWettkampf">
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+          <End Role="Startnummern" Type="Self.Startnummern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Startnummern">
+              <PropertyRef Name="WettkampfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_user">
           <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
           <End Role="BenutzerRollen" Type="Self.BenutzerRollen" Multiplicity="*" />
@@ -421,6 +463,7 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Athleten" EntityType="Self.Athleten" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Benutzer" EntityType="Self.Benutzer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BenutzerRollen" EntityType="Self.BenutzerRollen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bewertungsart" EntityType="Self.Bewertungsart" Schema="dbo" store:Type="Tables" />
@@ -430,6 +473,7 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
           <EntitySet Name="Geschlechter" EntityType="Self.Geschlechter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KategorienDisziplinen" EntityType="Self.KategorienDisziplinen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rollen" EntityType="Self.Rollen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Startnummern" EntityType="Self.Startnummern" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teilnehmer" EntityType="Self.Teilnehmer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teilnehmer_Leistung" EntityType="Self.Teilnehmer_Leistung" Schema="dbo" store:Type="Tables" />
@@ -484,6 +528,14 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
             <End Role="Rollen" EntitySet="Rollen" />
             <End Role="BenutzerRollen" EntitySet="BenutzerRollen" />
           </AssociationSet>
+          <AssociationSet Name="fk_startnummerAthlet" Association="Self.fk_startnummerAthlet">
+            <End Role="Athleten" EntitySet="Athleten" />
+            <End Role="Startnummern" EntitySet="Startnummern" />
+          </AssociationSet>
+          <AssociationSet Name="fk_startnummerWettkampf" Association="Self.fk_startnummerWettkampf">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Startnummern" EntitySet="Startnummern" />
+          </AssociationSet>
           <AssociationSet Name="fk_user" Association="Self.fk_user">
             <End Role="Benutzer" EntitySet="Benutzer" />
             <End Role="BenutzerRollen" EntitySet="BenutzerRollen" />
@@ -517,8 +569,7 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
             <End Role="Teilnehmer_Leistung" EntitySet="Teilnehmer_Leistung" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -728,6 +779,7 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WettkampfName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_wettkampf" FromRole="Wettkampf" ToRole="VereineWettkampf" />
+          <NavigationProperty Name="Startnummern" Relationship="DatabaseModel.fk_startnummerWettkampf" FromRole="Wettkampf" ToRole="Startnummern" />
         </EntityType>
         <EntityType Name="Wettkampfart">
           <Key>
@@ -996,7 +1048,62 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
             <End Role="Disziplinen" EntitySet="Disziplinen" />
             <End Role="DisziplinenAuswahl_Beschreibung" EntitySet="DisziplinenAuswahl_Beschreibung" />
           </AssociationSet>
+          <EntitySet Name="Athleten" EntityType="DatabaseModel.Athleten" />
+          <EntitySet Name="Startnummern" EntityType="DatabaseModel.Startnummern" />
+          <AssociationSet Name="fk_startnummerAthlet" Association="DatabaseModel.fk_startnummerAthlet">
+            <End Role="Athleten" EntitySet="Athleten" />
+            <End Role="Startnummern" EntitySet="Startnummern" />
+          </AssociationSet>
+          <AssociationSet Name="fk_startnummerWettkampf" Association="DatabaseModel.fk_startnummerWettkampf">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Startnummern" EntitySet="Startnummern" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Athleten">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vorname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Nachname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Jahrgang" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Startnummern" Relationship="DatabaseModel.fk_startnummerAthlet" FromRole="Athleten" ToRole="Startnummern" />
+        </EntityType>
+        <EntityType Name="Startnummern">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WettkampfId" Type="Int32" Nullable="false" />
+          <Property Name="AthletId" Type="Int32" Nullable="false" />
+          <Property Name="Startnummer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Athleten" Relationship="DatabaseModel.fk_startnummerAthlet" FromRole="Startnummern" ToRole="Athleten" />
+          <NavigationProperty Name="Wettkampf" Relationship="DatabaseModel.fk_startnummerWettkampf" FromRole="Startnummern" ToRole="Wettkampf" />
+        </EntityType>
+        <Association Name="fk_startnummerAthlet">
+          <End Type="DatabaseModel.Athleten" Role="Athleten" Multiplicity="1" />
+          <End Type="DatabaseModel.Startnummern" Role="Startnummern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Athleten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Startnummern">
+              <PropertyRef Name="AthletId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_startnummerWettkampf">
+          <End Type="DatabaseModel.Wettkampf" Role="Wettkampf" Multiplicity="1" />
+          <End Type="DatabaseModel.Startnummern" Role="Startnummern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Startnummern">
+              <PropertyRef Name="WettkampfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1253,6 +1360,26 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
               <ScalarProperty Name="Index" ColumnName="Index_DisziplinenAuswahl_Beschreibung" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Athleten">
+            <EntityTypeMapping TypeName="DatabaseModel.Athleten">
+              <MappingFragment StoreEntitySet="Athleten">
+                <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Startnummern">
+            <EntityTypeMapping TypeName="DatabaseModel.Startnummern">
+              <MappingFragment StoreEntitySet="Startnummern">
+                <ScalarProperty Name="Startnummer" ColumnName="Startnummer" />
+                <ScalarProperty Name="AthletId" ColumnName="AthletId" />
+                <ScalarProperty Name="WettkampfId" ColumnName="WettkampfId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -206,6 +206,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="WettkampfName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_wettkampf" FromRole="Wettkampf" ToRole="VereineWettkampf" />
+    <NavigationProperty Name="Startnummern" Relationship="DatabaseModel.fk_startnummerWettkampf" FromRole="Wettkampf" ToRole="Startnummern" />
   </EntityType>
   <EntityType Name="Wettkampfart">
     <Key>
@@ -474,5 +475,60 @@
       <End Role="Disziplinen" EntitySet="Disziplinen" />
       <End Role="DisziplinenAuswahl_Beschreibung" EntitySet="DisziplinenAuswahl_Beschreibung" />
     </AssociationSet>
+    <EntitySet Name="Athleten" EntityType="DatabaseModel.Athleten" />
+    <EntitySet Name="Startnummern" EntityType="DatabaseModel.Startnummern" />
+    <AssociationSet Name="fk_startnummerAthlet" Association="DatabaseModel.fk_startnummerAthlet">
+      <End Role="Athleten" EntitySet="Athleten" />
+      <End Role="Startnummern" EntitySet="Startnummern" />
+    </AssociationSet>
+    <AssociationSet Name="fk_startnummerWettkampf" Association="DatabaseModel.fk_startnummerWettkampf">
+      <End Role="Wettkampf" EntitySet="Wettkampf" />
+      <End Role="Startnummern" EntitySet="Startnummern" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Athleten">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vorname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Nachname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Jahrgang" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Startnummern" Relationship="DatabaseModel.fk_startnummerAthlet" FromRole="Athleten" ToRole="Startnummern" />
+  </EntityType>
+  <EntityType Name="Startnummern">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WettkampfId" Type="Int32" Nullable="false" />
+    <Property Name="AthletId" Type="Int32" Nullable="false" />
+    <Property Name="Startnummer" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Athleten" Relationship="DatabaseModel.fk_startnummerAthlet" FromRole="Startnummern" ToRole="Athleten" />
+    <NavigationProperty Name="Wettkampf" Relationship="DatabaseModel.fk_startnummerWettkampf" FromRole="Startnummern" ToRole="Wettkampf" />
+  </EntityType>
+  <Association Name="fk_startnummerAthlet">
+    <End Type="DatabaseModel.Athleten" Role="Athleten" Multiplicity="1" />
+    <End Type="DatabaseModel.Startnummern" Role="Startnummern" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Athleten">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Startnummern">
+        <PropertyRef Name="AthletId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_startnummerWettkampf">
+    <End Type="DatabaseModel.Wettkampf" Role="Wettkampf" Multiplicity="1" />
+    <End Type="DatabaseModel.Startnummern" Role="Startnummern" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wettkampf">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Startnummern">
+        <PropertyRef Name="WettkampfId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="694fbf361fd74676875ad2b75c10a987" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseModel.Benutzer" Width="1.5" PointX="6" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.BenutzerRollen" Width="1.5" PointX="8.25" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Bewertungsart" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Disziplinen" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.DisziplinenAuswahl_Beschreibung" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Geschlechter" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.KategorienDisziplinen" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Rollen" Width="1.5" PointX="6" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Teilnehmer" Width="1.5" PointX="6" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Teilnehmer_Leistung" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Verein" Width="1.5" PointX="3.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.VereineWettkampf" Width="1.5" PointX="9" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Wettkampf" Width="1.5" PointX="6.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Wettkampfart" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Kategorien" Width="1.5" PointX="10.75" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="DatabaseModel.fk_user" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.fk_verein" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.fk_role" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.Disziplinen_Liste_BewertungsartListe_Disziplinen" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.Disziplinen_Liste_WettkampfgruppenListe_Disziplinen" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.Teilnehmer_Leistung_Reference17" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.KategorienDisziplinen_Reference6" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.Teilnehmer_VereinTeilnehmer" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.Teilnehmer_Leistung_Reference16" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.fk_vereinWettkampf" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.fk_wettkampf" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.DisziplinenAuswahl" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DatabaseModel.Athleten" Width="1.5" PointX="6.75" PointY="27.625" />
+        <EntityTypeShape EntityType="DatabaseModel.Startnummern" Width="1.5" PointX="9" PointY="21.5" />
+        <AssociationConnector Association="DatabaseModel.fk_startnummerAthlet" />
+        <AssociationConnector Association="DatabaseModel.fk_startnummerWettkampf" />
+        <AssociationConnector Association="DatabaseModel.fk_vereinAthlet" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

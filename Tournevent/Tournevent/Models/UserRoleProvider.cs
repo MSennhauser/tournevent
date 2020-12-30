@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -12,23 +13,23 @@ namespace Tournevent.Models
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
-            using (UserContext _Context = new UserContext())
+            using (Entities db = new Entities())
             {
                 foreach(string username in usernames)
                 {
                     foreach(string roleName in roleNames)
                     {
-                        int userId = (from user in _Context.Users
+                        int userId = (from user in db.Benutzer
                                       where user.Email == username
                                       select user.Id).FirstOrDefault();
-                        int rolesId = (from role in _Context.Roles
-                                      where role.RoleName == roleName
+                        int rolesId = (from role in db.Rollen
+                                       where role.Rolle == roleName
                                       select role.Id).FirstOrDefault();
-                        UserRolesMapping userRolesMapping = new UserRolesMapping();
-                        userRolesMapping.UserId = userId;
-                        userRolesMapping.RoleId = rolesId;
-                        _Context.UserRolesMapping.Add(userRolesMapping);
-                        _Context.SaveChanges();
+                        BenutzerRollen userRolesMapping = new BenutzerRollen();
+                        userRolesMapping.BenutzerId = userId;
+                        userRolesMapping.RollenId = rolesId;
+                        db.BenutzerRollen.Add(userRolesMapping);
+                        db.SaveChanges();
                     }
                 }
                 
@@ -36,19 +37,19 @@ namespace Tournevent.Models
         }
         public  void AddUserToRole(string username, string roleName)
         {
-            using (UserContext _Context = new UserContext())
+            using (Entities db = new Entities())
             {
-                int userId = (from user in _Context.Users
-                                                where user.Email == username
+                int userId = (from user in db.Benutzer
+                              where user.Email == username
                                                 select user.Id).FirstOrDefault();
-                int rolesId = (from role in _Context.Roles
-                                                where role.RoleName == roleName
+                int rolesId = (from role in db.Rollen
+                               where role.Rolle == roleName
                                                 select role.Id).FirstOrDefault();
-                UserRolesMapping userRolesMapping = new UserRolesMapping();
-                userRolesMapping.UserId = userId;
-                userRolesMapping.RoleId = rolesId;
-                _Context.UserRolesMapping.Add(userRolesMapping);
-                _Context.SaveChanges();
+                BenutzerRollen userRolesMapping = new BenutzerRollen();
+                userRolesMapping.BenutzerId = userId;
+                userRolesMapping.RollenId = rolesId;
+                db.BenutzerRollen.Add(userRolesMapping);
+                db.SaveChanges();
             }
         }
 
@@ -74,15 +75,15 @@ namespace Tournevent.Models
 
         public override string[] GetRolesForUser(string username)
         {
-            using (UserContext _Context = new UserContext())
+            using (Entities db = new Entities())
             {
-                var userRoles = (from user in _Context.Users
-                                 join roleMapping in _Context.UserRolesMapping
-                                 on user.Id equals roleMapping.UserId
-                                 join role in _Context.Roles
-                                 on roleMapping.RoleId equals role.Id
+                var userRoles = (from user in db.Benutzer
+                                 join roleMapping in db.BenutzerRollen
+                                 on user.Id equals roleMapping.BenutzerId
+                                 join role in db.Rollen
+                                 on roleMapping.RollenId equals role.Id
                                  where user.Email == username
-                                 select role.RoleName).ToArray();
+                                 select role.Rolle).ToArray();
                 return userRoles;
             }
         }
@@ -94,7 +95,20 @@ namespace Tournevent.Models
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            throw new NotImplementedException();
+            using (Entities db = new Entities())
+            {
+                var userId = (from b in db.Benutzer
+                              where b.Email == username
+                              select b.Id).SingleOrDefault();
+                var roleId = (from b in db.Rollen
+                              where b.Rolle == roleName
+                              select b.Id).SingleOrDefault();
+                var userInRole = (from r in db.Rollen
+                                  join b in db.BenutzerRollen on r.Id equals b.RollenId
+                                  where b.BenutzerId == userId && b.RollenId == roleId
+                                  select b).SingleOrDefault();
+                return (userInRole != null);
+            }
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
@@ -105,6 +119,29 @@ namespace Tournevent.Models
         public override bool RoleExists(string roleName)
         {
             throw new NotImplementedException();
+        }
+
+        public void ChangeUserRole(string username, string roleName)
+        {
+            using (Entities db = new Entities())
+            {
+                var userId = (from b in db.Benutzer
+                              where b.Email == username
+                              select b.Id).SingleOrDefault();
+                var id = (from b in db.BenutzerRollen
+                          where b.BenutzerId == userId
+                          select b.Id).SingleOrDefault();
+                var roleId = (from b in db.Rollen
+                              where b.Rolle == roleName
+                              select b.Id).SingleOrDefault();
+                BenutzerRollen userRolesMapping = new BenutzerRollen();
+                userRolesMapping.Id = id;
+                userRolesMapping.BenutzerId = userId;
+                userRolesMapping.RollenId = roleId;
+                db.BenutzerRollen.Attach(userRolesMapping);
+                ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(userRolesMapping, System.Data.Entity.EntityState.Modified);
+                db.SaveChanges();
+            }
         }
     }
 }

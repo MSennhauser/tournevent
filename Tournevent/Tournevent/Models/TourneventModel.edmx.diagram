@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3d129968a7944a07bda1dd53710a0618" Name="Diagram1">
+        <EntityTypeShape EntityType="TourneventModel.Bewertungsart" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TourneventModel.Disziplinen" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TourneventModel.DisziplinenAuswahl_Beschreibung" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TourneventModel.Geschlechter" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TourneventModel.KategorienDisziplinen" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TourneventModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TourneventModel.Teilnehmer" Width="1.5" PointX="6" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TourneventModel.Teilnehmer_Leistung" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TourneventModel.Verein" Width="1.5" PointX="3.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TourneventModel.Wettkampfart" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TourneventModel.Kategorien" Width="1.5" PointX="9.75" PointY="8.875" IsExpanded="true" />
+        <AssociationConnector Association="TourneventModel.Disziplinen_Liste_BewertungsartListe_Disziplinen" ManuallyRouted="false" />
+        <AssociationConnector Association="TourneventModel.Disziplinen_Liste_WettkampfgruppenListe_Disziplinen" ManuallyRouted="false" />
+        <AssociationConnector Association="TourneventModel.Teilnehmer_Leistung_Reference17" ManuallyRouted="false" />
+        <AssociationConnector Association="TourneventModel.DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung" ManuallyRouted="false" />
+        <AssociationConnector Association="TourneventModel.KategorienDisziplinen_Reference6" ManuallyRouted="false" />
+        <AssociationConnector Association="TourneventModel.Teilnehmer_VereinTeilnehmer" ManuallyRouted="false" />
+        <AssociationConnector Association="TourneventModel.Teilnehmer_Leistung_Reference16" ManuallyRouted="false" />
+        <AssociationConnector Association="TourneventModel.DisziplinenAuswahl" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

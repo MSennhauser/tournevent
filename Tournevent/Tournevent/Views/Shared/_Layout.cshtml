@@ -9,27 +9,24 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    
     <div class="sidenav">
+        <div class="user">
+            @Html.ActionLink(User.Identity.Name, "Logout", "Login")
+        </div>
         <a id="vereinsName" href="">TV Widnau</a>
-        <select name="wettkämpfe" id="wettkaempfe">
-            <option value="none" selected disabled hidden>
-                Wettkämpfe
-            </option>
-            <option value="1">Jugitag 1</option>
-            <option value="2">Jugitag 2</option>
-            <option value="3">Jugitag 3</option>
-            <option value="4">Jugitag 4</option>
-        </select>
-        <a href="#disziplin">Disziplin</a>
-        <a href="#kategorie">Kategorie</a>
-        <a href="#verein">Verein</a>
-        <a href="#startnummer">Startnummernsätze</a>
+        @{
+            Html.RenderAction("Wettkaempfe", "Layout");
+        }
+        @{
+            Html.RenderAction("Navigation", "Layout");
+        }
     </div>
 
     <div class="main">
     </div>
 
-    <div id="myfooter"class="container body-content">
+    <div id="myfooter" class="container body-content">
         @RenderBody()
         <hr />
         <footer>

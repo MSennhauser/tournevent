@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,7 +11,8 @@ namespace Tournevent.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly UserContext _dbContext = new UserContext();
+        private readonly Entities db = new Entities();
+        private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Login
         public ActionResult Index()
         {
@@ -22,23 +24,44 @@ namespace Tournevent.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(Users user)
+        public ActionResult Login(Benutzer user)
         {
-            //if (ModelState.IsValid)
-            //{
-                bool IsValidUser = _dbContext.Users
-               .Any(u => u.Email.ToLower() == user
-               .Email.ToLower() && user
-               .Password == user.Password);
+            if (ModelState.IsValid)
+            {
+                bool IsValidUser = db.Benutzer
+               .Any(u => 
+               u.Email.ToLower() == user.Email.ToLower() && 
+               u.Passwort == user.Passwort);
 
                 if (IsValidUser)
                 {
                     FormsAuthentication.SetAuthCookie(user.Email, false);
-                    return RedirectToAction("Index", "Home");
+                    UserRoleProvider roleProvider = new UserRoleProvider();
+                    string rolle = roleProvider.GetRolesForUser(user.Email).ElementAt(0);
+                    if(rolle == "WartetAufBestaetigung")
+                    {
+                        Benutzer benutzer = (from b in db.Benutzer where b.Email == user.Email select b).SingleOrDefault();
+                        if(benutzer.VereinId == null)
+                        {
+                            return RedirectToAction("VereinsDaten", new { userId = benutzer.Id });
+                        }
+                        else
+                        {
+                            return RedirectToAction("WaitForConfirmation", "Login");
+                        }
+                        
+                    }
+                    if (rolle == "Administrator")
+                    {
+                        return RedirectToAction("Index", "Anfrage");
+                    }
+                    if (rolle == "Vereinsverantwortlicher")
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
-            //}
+            }
             ModelState.AddModelError("", "invalid Email or Password");
-
 
 
             return View();
@@ -50,27 +73,89 @@ namespace Tournevent.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(Users registerUser)
+        public ActionResult Register(KontoDaten daten)
         {
             if (ModelState.IsValid)
             {
+                Benutzer benutzer = new Benutzer();
+                benutzer.Email = daten.Email;
+                benutzer.Passwort = daten.Passwort;
+                Benutzer email = db.Benutzer.FirstOrDefault(u => u.Email.ToLower() == daten.Email.ToLower());
+                
+                if(email == null)
+                {
 
-                registerUser.Name = "test";
-                    _dbContext.Users.Add(registerUser);
-                    _dbContext.SaveChanges();
+                    db.Benutzer.Add(benutzer);
+                    db.SaveChanges();
 
-                    UserRoleProvider roleProvider = new UserRoleProvider();
-                    roleProvider.AddUserToRole(registerUser.Name, "Vereinsverantwortlicher");
+                    roleProvider.AddUserToRole(benutzer.Email, "WartetAufBestaetigung");
 
-                    return RedirectToAction("WaitForConfirmation");
-        }
+                    var userId = (from b in db.Benutzer
+                                  where b.Email == benutzer.Email
+                                  select b.Id).SingleOrDefault();
+                    return RedirectToAction("VereinsDaten", new { userId = userId });
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "Diese Email Adresse existiert bereits.");
+                }
+            }
             return View();
         }
-
+        [Authorize(Roles = "WartetAufBestaetigung")]
         public ActionResult WaitForConfirmation()
         {
             return View();
         }
+
+        public ActionResult VereinsDaten(int userId)
+        {
+            VereinsDaten vereinsDaten = new VereinsDaten();
+            vereinsDaten.userId = userId;
+            return View(vereinsDaten);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult VereinsDaten(VereinsDaten vereinsDaten)
+        {
+            if (ModelState.IsValid)
+            {
+                Verein vereinsName = db.Verein.FirstOrDefault(u => u.Vereinsname.ToLower() == vereinsDaten.VereinsName.ToLower());
+
+                if (vereinsName == null)
+                {
+                    Verein verein = new Verein();
+                    verein.Vereinsname = vereinsDaten.VereinsName;
+                    db.Verein.Add(verein);
+                    db.SaveChanges();
+                    var vereinsId = (from v in db.Verein
+                                     where v.Vereinsname == vereinsDaten.VereinsName
+                                     select v.Index).Single();
+                    Benutzer benutzer = (from b in db.Benutzer
+                                         where b.Id == vereinsDaten.userId
+                                         select b).Single();
+                    benutzer.Telefon = vereinsDaten.Telefon;
+                    benutzer.Nachname = vereinsDaten.Nachname;
+                    benutzer.Vorname = vereinsDaten.Vorname;
+                    benutzer.VereinId = vereinsId;
+
+                    db.Benutzer.Attach(benutzer);
+                    ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(benutzer, System.Data.Entity.EntityState.Modified);
+
+                    db.SaveChanges();
+
+                    FormsAuthentication.SetAuthCookie(benutzer.Email, false);
+                    return RedirectToAction("WaitForConfirmation", "Login");
+                }
+                else
+                {
+                    ModelState.AddModelError("VereinsName", "Dieser Verein existiert bereits.");
+                }
+
+            }
+            return View(vereinsDaten);
+        }
+
 
         public ActionResult Logout()
         {

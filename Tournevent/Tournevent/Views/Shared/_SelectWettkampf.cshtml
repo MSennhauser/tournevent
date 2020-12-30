@@ -1,0 +1,15 @@
+﻿@model IEnumerable<SelectListItem>
+@using (Html.BeginForm())
+{
+    if (Model.Count() > 1)
+    {
+
+        @Html.DropDownList("Wettkampf",
+                Model, "Wettkampf", new { onchange = @"this.form.submit();", @class = "wettkampf" })
+
+    }
+    if (Model.Count() == 1)
+    {
+        <h2 class="wettkampf">@Model.First().Text</h2>
+    }
+}

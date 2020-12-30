@@ -38,6 +38,7 @@
         <EntityTypeShape EntityType="DatabaseModel.Startnummern" Width="1.5" PointX="9" PointY="21.5" />
         <AssociationConnector Association="DatabaseModel.fk_startnummerAthlet" />
         <AssociationConnector Association="DatabaseModel.fk_startnummerWettkampf" />
+        <AssociationConnector Association="DatabaseModel.fk_vereinAthlet" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

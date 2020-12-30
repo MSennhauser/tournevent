@@ -13,6 +13,7 @@
           <Property Name="Vorname" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Nachname" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Jahrgang" Type="int" Nullable="false" />
+          <Property Name="VereinsId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Benutzer">
           <Key>
@@ -384,6 +385,18 @@ Warnung 6002: F체r Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_vereinAthlet">
+          <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+          <End Role="Athleten" Type="Self.Athleten" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Athleten">
+              <PropertyRef Name="VereinsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_vereinWettkampf">
           <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
           <End Role="VereineWettkampf" Type="Self.VereineWettkampf" Multiplicity="*" />
@@ -543,6 +556,10 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
           <AssociationSet Name="fk_verein" Association="Self.fk_verein">
             <End Role="Verein" EntitySet="Verein" />
             <End Role="Benutzer" EntitySet="Benutzer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vereinAthlet" Association="Self.fk_vereinAthlet">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Athleten" EntitySet="Athleten" />
           </AssociationSet>
           <AssociationSet Name="fk_vereinWettkampf" Association="Self.fk_vereinWettkampf">
             <End Role="Verein" EntitySet="Verein" />
@@ -761,6 +778,7 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
           <NavigationProperty Name="Benutzer" Relationship="Self.fk_verein" FromRole="Verein" ToRole="Benutzer" />
           <NavigationProperty Name="Teilnehmer" Relationship="Self.Teilnehmer_VereinTeilnehmer" FromRole="Verein" ToRole="Teilnehmer" />
           <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_vereinWettkampf" FromRole="Verein" ToRole="VereineWettkampf" />
+          <NavigationProperty Name="Athleten" Relationship="DatabaseModel.fk_vereinAthlet" FromRole="Verein" ToRole="Athleten" />
         </EntityType>
         <EntityType Name="VereineWettkampf">
           <Key>
@@ -1058,6 +1076,10 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
             <End Role="Wettkampf" EntitySet="Wettkampf" />
             <End Role="Startnummern" EntitySet="Startnummern" />
           </AssociationSet>
+          <AssociationSet Name="fk_vereinAthlet" Association="DatabaseModel.fk_vereinAthlet">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Athleten" EntitySet="Athleten" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Athleten">
           <Key>
@@ -1068,6 +1090,8 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
           <Property Name="Nachname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Jahrgang" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Startnummern" Relationship="DatabaseModel.fk_startnummerAthlet" FromRole="Athleten" ToRole="Startnummern" />
+          <Property Name="VereinsId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Verein" Relationship="DatabaseModel.fk_vereinAthlet" FromRole="Athleten" ToRole="Verein" />
         </EntityType>
         <EntityType Name="Startnummern">
           <Key>
@@ -1101,6 +1125,18 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
             </Principal>
             <Dependent Role="Startnummern">
               <PropertyRef Name="WettkampfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vereinAthlet">
+          <End Type="DatabaseModel.Verein" Role="Verein" Multiplicity="1" />
+          <End Type="DatabaseModel.Athleten" Role="Athleten" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Athleten">
+              <PropertyRef Name="VereinsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1363,6 +1399,7 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enth채lt Spalten, die 
           <EntitySetMapping Name="Athleten">
             <EntityTypeMapping TypeName="DatabaseModel.Athleten">
               <MappingFragment StoreEntitySet="Athleten">
+                <ScalarProperty Name="VereinsId" ColumnName="VereinsId" />
                 <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
                 <ScalarProperty Name="Nachname" ColumnName="Nachname" />
                 <ScalarProperty Name="Vorname" ColumnName="Vorname" />

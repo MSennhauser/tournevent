@@ -7,6 +7,7 @@ using Tournevent.Models;
 
 namespace Tournevent.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class VereinController : Controller
     {
         private readonly Entities db = new Entities();

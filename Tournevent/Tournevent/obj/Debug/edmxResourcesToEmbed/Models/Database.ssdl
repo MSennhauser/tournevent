@@ -8,6 +8,7 @@
     <Property Name="Vorname" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="Nachname" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="Jahrgang" Type="int" Nullable="false" />
+    <Property Name="VereinsId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Benutzer">
     <Key>
@@ -379,6 +380,18 @@ Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="fk_vereinAthlet">
+    <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+    <End Role="Athleten" Type="Self.Athleten" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verein">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Athleten">
+        <PropertyRef Name="VereinsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_vereinWettkampf">
     <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
     <End Role="VereineWettkampf" Type="Self.VereineWettkampf" Multiplicity="*" />
@@ -538,6 +551,10 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enthält Spalten, die 
     <AssociationSet Name="fk_verein" Association="Self.fk_verein">
       <End Role="Verein" EntitySet="Verein" />
       <End Role="Benutzer" EntitySet="Benutzer" />
+    </AssociationSet>
+    <AssociationSet Name="fk_vereinAthlet" Association="Self.fk_vereinAthlet">
+      <End Role="Verein" EntitySet="Verein" />
+      <End Role="Athleten" EntitySet="Athleten" />
     </AssociationSet>
     <AssociationSet Name="fk_vereinWettkampf" Association="Self.fk_vereinWettkampf">
       <End Role="Verein" EntitySet="Verein" />

@@ -254,6 +254,7 @@
     <EntitySetMapping Name="Athleten">
       <EntityTypeMapping TypeName="DatabaseModel.Athleten">
         <MappingFragment StoreEntitySet="Athleten">
+          <ScalarProperty Name="VereinsId" ColumnName="VereinsId" />
           <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
           <ScalarProperty Name="Nachname" ColumnName="Nachname" />
           <ScalarProperty Name="Vorname" ColumnName="Vorname" />

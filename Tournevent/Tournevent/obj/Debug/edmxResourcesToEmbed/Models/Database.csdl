@@ -188,6 +188,7 @@
     <NavigationProperty Name="Benutzer" Relationship="Self.fk_verein" FromRole="Verein" ToRole="Benutzer" />
     <NavigationProperty Name="Teilnehmer" Relationship="Self.Teilnehmer_VereinTeilnehmer" FromRole="Verein" ToRole="Teilnehmer" />
     <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_vereinWettkampf" FromRole="Verein" ToRole="VereineWettkampf" />
+    <NavigationProperty Name="Athleten" Relationship="DatabaseModel.fk_vereinAthlet" FromRole="Verein" ToRole="Athleten" />
   </EntityType>
   <EntityType Name="VereineWettkampf">
     <Key>
@@ -485,6 +486,10 @@
       <End Role="Wettkampf" EntitySet="Wettkampf" />
       <End Role="Startnummern" EntitySet="Startnummern" />
     </AssociationSet>
+    <AssociationSet Name="fk_vereinAthlet" Association="DatabaseModel.fk_vereinAthlet">
+      <End Role="Verein" EntitySet="Verein" />
+      <End Role="Athleten" EntitySet="Athleten" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Athleten">
     <Key>
@@ -495,6 +500,8 @@
     <Property Name="Nachname" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Jahrgang" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Startnummern" Relationship="DatabaseModel.fk_startnummerAthlet" FromRole="Athleten" ToRole="Startnummern" />
+    <Property Name="VereinsId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Verein" Relationship="DatabaseModel.fk_vereinAthlet" FromRole="Athleten" ToRole="Verein" />
   </EntityType>
   <EntityType Name="Startnummern">
     <Key>
@@ -528,6 +535,18 @@
       </Principal>
       <Dependent Role="Startnummern">
         <PropertyRef Name="WettkampfId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_vereinAthlet">
+    <End Type="DatabaseModel.Verein" Role="Verein" Multiplicity="1" />
+    <End Type="DatabaseModel.Athleten" Role="Athleten" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Verein">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Athleten">
+        <PropertyRef Name="VereinsId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -24,8 +24,10 @@ namespace Tournevent.Models
         public string Vorname { get; set; }
         public string Nachname { get; set; }
         public int Jahrgang { get; set; }
+        public int VereinsId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Startnummern> Startnummern { get; set; }
+        public virtual Verein Verein { get; set; }
     }
 }

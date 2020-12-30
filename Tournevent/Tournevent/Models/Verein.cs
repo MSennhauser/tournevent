@@ -20,6 +20,7 @@ namespace Tournevent.Models
             this.Benutzer = new HashSet<Benutzer>();
             this.Teilnehmer = new HashSet<Teilnehmer>();
             this.VereineWettkampf = new HashSet<VereineWettkampf>();
+            this.Athleten = new HashSet<Athleten>();
         }
     
         public int Index { get; set; }
@@ -51,5 +52,7 @@ namespace Tournevent.Models
         public virtual ICollection<Teilnehmer> Teilnehmer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VereineWettkampf> VereineWettkampf { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Athleten> Athleten { get; set; }
     }
 }

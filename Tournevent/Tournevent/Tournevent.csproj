@@ -138,6 +138,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AthletDaten.cs" />
     <Compile Include="Models\Athleten.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -318,11 +319,10 @@
     <Content Include="Views\Shared\_SideNavAdmin.cshtml" />
     <Content Include="Views\Shared\_SideNavVereins.cshtml" />
     <Content Include="Views\Verein\Index.cshtml" />
+    <Content Include="Views\Startnummer\Index.cshtml" />
+    <Content Include="Views\Athleten\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Athleten\" />
-    <Folder Include="Views\Startnummer\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -16,7 +16,7 @@ namespace Tournevent.Models
     public partial class Entities : DbContext
     {
         public Entities()
-            : base("name=Database")
+            : base("name=Entities")
         {
         }
     

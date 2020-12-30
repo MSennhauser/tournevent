@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Tournevent.Models;
 
 namespace Tournevent.Controllers
 {
+    [Authorize(Roles = "Administrator,Vereinsverantwortlicher")]
     public class AthletenController : Controller
     {
+        private readonly Entities db = new Entities();
+        private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Athleten
         public ActionResult Index()
         {
-            return View();
+            int wettkampfId = CurrentWettkampf.Id;
+            Startnummern startnummern = (from s in db.Startnummern where s.WettkampfId == wettkampfId select s).Single();
+
+            Athleten athlet = (from a in db.Athleten where a.Id == startnummern.AthletId select a).Single();
+            AthletDaten data = new AthletDaten(athlet, startnummern.Startnummer);
+            return View(data);
         }
 
         // GET: Athleten/Details/5

@@ -27,8 +27,8 @@ namespace Tournevent.Controllers
             if(id != "")
             {
                 CurrentWettkampf.Id = Convert.ToInt32(id);
-                return PartialView("_SelectWettkampf", getWettkaempfe());
             }
+
             return PartialView("_SelectWettkampf", getWettkaempfe());
         }
 

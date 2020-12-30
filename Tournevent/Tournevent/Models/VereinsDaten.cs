@@ -8,6 +8,18 @@ namespace Tournevent.Models
 {
     public class VereinsDaten
     {
+        public VereinsDaten()
+        {
+
+        }
+        public VereinsDaten(Benutzer benutzer, Verein verein)
+        {
+            userId = benutzer.Id;
+            VereinsName = verein.Vereinsname;
+            Vorname = benutzer.Vorname;
+            Nachname = benutzer.Nachname;
+            Telefon = benutzer.Telefon;
+        }
         public int userId { get; set; }
         [Required]
         public string VereinsName { get; set; }

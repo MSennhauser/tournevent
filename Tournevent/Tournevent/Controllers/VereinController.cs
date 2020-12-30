@@ -3,15 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Tournevent.Models;
 
 namespace Tournevent.Controllers
 {
     public class VereinController : Controller
     {
+        private readonly Entities db = new Entities();
+        private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Verein
         public ActionResult Index()
         {
-            return View();
+            int wettkampfId = CurrentWettkampf.Id;
+            List<VereinsDaten> lst = new List<VereinsDaten>();
+            List<Verein> vereinList = new List<Verein>();
+            vereinList = (from v in db.Verein
+                          join vw in db.VereineWettkampf on v.Index equals vw.VereinId
+                          where vw.WettkampfId == wettkampfId
+                          select v).ToList();
+            foreach(var verein in vereinList)
+            {
+                Benutzer benutzer = (from b in db.Benutzer 
+                                     where b.VereinId == verein.Index select b).Single();
+                lst.Add(new VereinsDaten(benutzer, verein));
+            }
+            return View(lst);
         }
 
         // GET: Verein/Details/5

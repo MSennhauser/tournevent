@@ -147,6 +147,7 @@
     <Compile Include="Models\Bewertungsart.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CurrentWettkampf.cs" />
     <Compile Include="Models\Database.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

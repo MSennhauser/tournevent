@@ -21,18 +21,18 @@ namespace Tournevent.Controllers
 
         [ChildActionOnly]
         [HttpPost]
-        public ActionResult Wettkaempfe(string id)
+        public ActionResult Wettkaempfe(FormCollection collection)
         {
-            Debug.WriteLine("test" + id);
-            return PartialView("_SelectWettkampf", getWettkaempfe(Convert.ToInt32(id)));
+            string id = collection.Get("Wettkampf");
+            if(id != "")
+            {
+                CurrentWettkampf.Id = Convert.ToInt32(id);
+                return PartialView("_SelectWettkampf", getWettkaempfe());
+            }
+            return PartialView("_SelectWettkampf", getWettkaempfe());
         }
-            //[HttpPost]
-            //public ActionResult SetWettkampf(int value)
-            //{
-            //    HttpContext.Application["WettkampfId"] = value;
-            //}
 
-            [ChildActionOnly]
+        [ChildActionOnly]
         public ActionResult Navigation()
         {
             if (User.IsInRole("Administrator"))
@@ -45,7 +45,7 @@ namespace Tournevent.Controllers
             }
         }
 
-        private List<SelectListItem> getWettkaempfe(int id= 0)
+        private List<SelectListItem> getWettkaempfe()
         {
             List<SelectListItem> lst = new List<SelectListItem>();
             List<Wettkampf> wettkampf = new List<Wettkampf>();
@@ -67,14 +67,20 @@ namespace Tournevent.Controllers
                                              where vw.VereinId == verein.Index
                                              select w).ToList();
             }
-
+            if(wettkampf.Count() == 1)
+            {
+                CurrentWettkampf.Id = wettkampf.ElementAt(0).Id;
+            }
             foreach (var tmp in wettkampf)
             {
-                if (tmp.Id == id)
+                if (tmp.Id == CurrentWettkampf.Id)
                 {
                     lst.Add(new SelectListItem() { Text = tmp.WettkampfName, Value = tmp.Id.ToString(), Selected = true });
                 }
-                lst.Add(new SelectListItem() { Text = tmp.WettkampfName, Value = tmp.Id.ToString(), Selected = false });
+                else
+                {
+                    lst.Add(new SelectListItem() { Text = tmp.WettkampfName, Value = tmp.Id.ToString(), Selected = false });
+                }
 
             }
             return lst;

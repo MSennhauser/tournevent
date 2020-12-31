@@ -151,7 +151,7 @@
     <Compile Include="Models\Bewertungsart.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CurrentWettkampf.cs" />
+    <Compile Include="Models\GlobalVariables.cs" />
     <Compile Include="Models\Database.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -306,8 +306,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
@@ -321,6 +319,8 @@
     <Content Include="Views\Verein\Index.cshtml" />
     <Content Include="Views\Startnummer\Index.cshtml" />
     <Content Include="Views\Athleten\Index.cshtml" />
+    <Content Include="Views\Athleten\Edit.cshtml" />
+    <Content Include="Views\Athleten\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

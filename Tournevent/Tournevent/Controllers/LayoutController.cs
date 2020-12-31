@@ -16,6 +16,11 @@ namespace Tournevent.Controllers
         [ChildActionOnly]
         public ActionResult Wettkaempfe()
         {
+            var vId = (from b in db.Benutzer where b.Email == User.Identity.Name select b.VereinId).Single();
+            if (vId != null)
+            {
+                GlobalVariables.VereinsId = (int)vId;
+            }
             return PartialView("_SelectWettkampf", getWettkaempfe());
         }
 
@@ -26,9 +31,10 @@ namespace Tournevent.Controllers
             string id = collection.Get("Wettkampf");
             if(id != "")
             {
-                CurrentWettkampf.Id = Convert.ToInt32(id);
+                GlobalVariables.WettkampfId = Convert.ToInt32(id);
             }
-
+            
+            
             return PartialView("_SelectWettkampf", getWettkaempfe());
         }
 
@@ -54,7 +60,7 @@ namespace Tournevent.Controllers
                 wettkampf = (from w in db.Wettkampf select w).ToList();
 
             }
-            else
+            else if (User.IsInRole("Vereinsverantwortlicher"))
             {
                 var email = User.Identity.Name;
                 Verein verein = (from b in db.Benutzer
@@ -69,11 +75,11 @@ namespace Tournevent.Controllers
             }
             if(wettkampf.Count() == 1)
             {
-                CurrentWettkampf.Id = wettkampf.ElementAt(0).Id;
+                GlobalVariables.WettkampfId = wettkampf.ElementAt(0).Id;
             }
             foreach (var tmp in wettkampf)
             {
-                if (tmp.Id == CurrentWettkampf.Id)
+                if (tmp.Id == GlobalVariables.WettkampfId)
                 {
                     lst.Add(new SelectListItem() { Text = tmp.WettkampfName, Value = tmp.Id.ToString(), Selected = true });
                 }

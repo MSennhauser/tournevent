@@ -28,6 +28,7 @@ namespace Tournevent.Models
         [Required]
         public string Nachname { get; set; }
         [Required]
+        [RegularExpression(@"(\b(0041|0)|\B\+41)(\s?\(0\))?(\s)?[1-9]{2}(\s)?[0-9]{3}(\s)?[0-9]{2}(\s)?[0-9]{2}\b", ErrorMessage = "Not a valid phone number")]
         public string Telefon { get; set; }
 
     }

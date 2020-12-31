@@ -15,7 +15,7 @@ namespace Tournevent.Controllers
         // GET: Verein
         public ActionResult Index()
         {
-            int wettkampfId = CurrentWettkampf.Id;
+            int wettkampfId = GlobalVariables.WettkampfId;
             List<VereinsDaten> lst = new List<VereinsDaten>();
             List<Verein> vereinList = new List<Verein>();
             vereinList = (from v in db.Verein

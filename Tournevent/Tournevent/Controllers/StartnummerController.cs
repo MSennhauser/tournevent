@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Tournevent.Models;
 
 namespace Tournevent.Controllers
@@ -16,7 +17,7 @@ namespace Tournevent.Controllers
         // GET: Startnummer
         public ActionResult Index()
         {
-            int wettkampfId = CurrentWettkampf.Id;
+            int wettkampfId = GlobalVariables.WettkampfId;
             List<Startnummern> allNummbers = (from s in db.Startnummern where s.WettkampfId == wettkampfId select s).ToList();
             List<List<int>> nums = new List<List<int>>();
             List<int> tmpLst = new List<int>();
@@ -36,73 +37,9 @@ namespace Tournevent.Controllers
         // GET: Startnummer/Details/5
         public ActionResult Details(int id)
         {
-            return View();
-        }
-
-        // GET: Startnummer/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Startnummer/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Startnummer/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Startnummer/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Startnummer/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Startnummer/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            int athletenId = (from s in db.Startnummern where s.Startnummer == id select s.AthletId).Single();
+            return RedirectToAction("Edit", new RouteValueDictionary(
+                    new { controller = "Athleten", action = "Edit", Id = athletenId }));
         }
     }
 }

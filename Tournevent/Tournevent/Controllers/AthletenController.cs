@@ -15,84 +15,84 @@ namespace Tournevent.Controllers
         // GET: Athleten
         public ActionResult Index()
         {
-            int wettkampfId = CurrentWettkampf.Id;
-            Startnummern startnummern = (from s in db.Startnummern where s.WettkampfId == wettkampfId select s).Single();
-
-            Athleten athlet = (from a in db.Athleten where a.Id == startnummern.AthletId select a).Single();
-            AthletDaten data = new AthletDaten(athlet, startnummern.Startnummer);
-            return View(data);
-        }
-
-        // GET: Athleten/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+            int wettkampfId = GlobalVariables.WettkampfId;
+            Benutzer benutzer = (from b in db.Benutzer where b.Email == User.Identity.Name select b).Single();
+            List<Startnummern> startnummern = (from s in db.Startnummern
+                                               join a in db.Athleten on s.AthletId equals a.Id
+                                               where s.WettkampfId == wettkampfId && a.VereinsId == benutzer.VereinId select s).ToList();
+            List<AthletDaten> lst = new List<AthletDaten>();
+            foreach (var nr in startnummern)
+            {
+                Athleten athlet = (from a in db.Athleten where a.Id == nr.AthletId select a).Single();
+                AthletDaten data = new AthletDaten(athlet, nr.Startnummer);
+                lst.Add(data);
+            }
+            
+            return View(lst);
         }
 
         // GET: Athleten/Create
         public ActionResult Create()
         {
-            return View();
+            AthletDaten data = new AthletDaten();
+
+            data.Startnummer = (from s in db.Startnummern select s.Startnummer).Max() + 1;
+            return View(data);
         }
 
         // POST: Athleten/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(AthletDaten athletDaten)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            // TODO: Add insert logic here
+            var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer select s).SingleOrDefault();
 
+            if(startnummer == null)
+            {
+                athletDaten.New();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ModelState.AddModelError("Startnummer", "Diese Startnummer ist bereits vergeben.");
+            return View();
+
         }
 
         // GET: Athleten/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            int wettkampfId = GlobalVariables.WettkampfId;
+            Athleten athlet = (from a in db.Athleten where a.Id == id select a).Single();
+            Startnummern nr = (from s in db.Startnummern where s.AthletId == id && s.WettkampfId == wettkampfId select s).Single();
+            return View(new AthletDaten(athlet, nr.Startnummer));
         }
 
         // POST: Athleten/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(AthletDaten athletDaten)
         {
-            try
+            var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.AthletId != athletDaten.Id select s).SingleOrDefault();
+
+            if (startnummer == null)
             {
                 // TODO: Add update logic here
-
+                athletDaten.Update();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ModelState.AddModelError("Startnummer", "Diese Startnummer ist bereits vergeben.");
+            return View();
         }
 
         // GET: Athleten/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Athleten/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Athleten athlet = (from a in db.Athleten where a.Id == id select a).Single();
+            Startnummern nr = (from s in db.Startnummern
+                               where s.AthletId == id
+                               select s).Single();
+            db.Startnummern.Remove(nr);
+            db.Athleten.Remove(athlet);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

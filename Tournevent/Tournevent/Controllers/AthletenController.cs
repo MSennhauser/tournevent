@@ -47,7 +47,7 @@ namespace Tournevent.Controllers
             // TODO: Add insert logic here
             var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer select s).SingleOrDefault();
 
-            if(startnummer == null)
+            if(startnummer == null && GlobalVariables.WettkampfId != 0)
             {
                 athletDaten.New();
                 return RedirectToAction("Index");
@@ -72,7 +72,7 @@ namespace Tournevent.Controllers
         {
             var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.AthletId != athletDaten.Id select s).SingleOrDefault();
 
-            if (startnummer == null)
+            if (startnummer == null && GlobalVariables.WettkampfId != 0)
             {
                 // TODO: Add update logic here
                 athletDaten.Update();

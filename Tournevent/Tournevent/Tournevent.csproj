@@ -231,6 +231,7 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VereinsDaten.cs" />
+    <Compile Include="Models\VereinWettkampf.cs" />
     <Compile Include="Models\Wettkampf.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -321,6 +322,7 @@
     <Content Include="Views\Athleten\Index.cshtml" />
     <Content Include="Views\Athleten\Edit.cshtml" />
     <Content Include="Views\Athleten\Create.cshtml" />
+    <Content Include="Views\Verein\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

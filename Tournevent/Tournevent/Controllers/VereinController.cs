@@ -40,7 +40,14 @@ namespace Tournevent.Controllers
         // GET: Verein/Create
         public ActionResult Create()
         {
-            return View();
+            List<Verein> vereinList = (from v in db.Verein select v).ToList();
+            List<VereinWettkampf> vwList = new List<VereinWettkampf>();
+            foreach(var v in vereinList)
+            {
+                List<int> id = (from vw in db.VereineWettkampf where vw.VereinId == v.Index select vw.WettkampfId).ToList();
+                vwList.Add(new VereinWettkampf(v, id));
+            }
+            return View(vwList);
         }
 
         // POST: Verein/Create

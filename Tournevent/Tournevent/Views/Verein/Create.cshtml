@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Tournevent.Models.VereinWettkampf>
+@using Tournevent.Models
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.vereinId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VereinsName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.vereinId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VereinsName)
+        </td>
+        <td>
+            @{
+                bool contains = false;
+                foreach (var id in item.WettkampfIds)
+                {
+
+                    if (id == GlobalVariables.WettkampfId)
+                    {
+                        contains = true;
+                    }
+                }
+                if (!contains)
+                {
+                    @Html.ActionLink("Hinzufügen", "Add", new { id = item.vereinId })
+                }
+                else
+                {
+                    @Html.ActionLink("Entfernen", "Remove", new { id = item.vereinId })
+                }
+            }
+        </td>
+    </tr>
+}
+
+</table>

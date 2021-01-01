@@ -153,21 +153,6 @@
     <Compile Include="Models\Bewertungsart.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DatabaseModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DatabaseModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DatabaseModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\DBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -186,6 +171,7 @@
     <Compile Include="Models\Disziplinen.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DisziplinenDaten.cs" />
     <Compile Include="Models\Geschlechter.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -194,6 +180,7 @@
     <Compile Include="Models\Kategorien.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\KategorienDaten.cs" />
     <Compile Include="Models\KategorienDisziplinen.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -257,16 +244,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\DatabaseModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DatabaseModel.edmx</DependentUpon>
-      <LastGenOutput>DatabaseModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\DatabaseModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DatabaseModel.edmx</DependentUpon>
-      <LastGenOutput>DatabaseModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Models\DBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DBModel.edmx</DependentUpon>
@@ -295,13 +272,6 @@
     </EntityDeploy>
     <Content Include="Models\UserModel.edmx.diagram">
       <DependentUpon>UserModel.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\DatabaseModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DatabaseModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DatabaseModel.edmx.diagram">
-      <DependentUpon>DatabaseModel.edmx</DependentUpon>
     </Content>
     <EntityDeploy Include="Models\DBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -348,11 +318,11 @@
     <Content Include="Views\Athleten\Edit.cshtml" />
     <Content Include="Views\Athleten\Create.cshtml" />
     <Content Include="Views\Verein\Create.cshtml" />
+    <Content Include="Views\Kategorien\Index.cshtml" />
+    <Content Include="Views\Disziplinen\Index.cshtml" />
+    <Content Include="Views\Shared\Wettkampf.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Disziplinen\" />
-    <Folder Include="Views\Kategorien\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

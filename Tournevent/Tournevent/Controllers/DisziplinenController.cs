@@ -7,6 +7,7 @@ using Tournevent.Models;
 
 namespace Tournevent.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class DisziplinenController : Controller
     {
         private readonly DBContext db = new DBContext();
@@ -14,7 +15,17 @@ namespace Tournevent.Controllers
         // GET: Disziplinen
         public ActionResult Index()
         {
-            return View();
+            int wettkampfID = GlobalVariables.WettkampfId;
+            List<Disziplinen> disziplinen = (from d in db.Disziplinen
+                                           join w in db.Wettkampf on d.WettkampfartId equals w.WettkampfartId
+                                           where w.Id == wettkampfID
+                                           select d).ToList();
+            List<DisziplinenDaten> lst = new List<DisziplinenDaten>();
+            foreach (var d in disziplinen)
+            {
+                lst.Add(new DisziplinenDaten(d));
+            }
+            return View(lst);
         }
 
         // GET: Disziplinen/Details/5

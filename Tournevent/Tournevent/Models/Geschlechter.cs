@@ -14,9 +14,21 @@ namespace Tournevent.Models
     
     public partial class Geschlechter
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Geschlechter()
+        {
+            this.Athleten = new HashSet<Athleten>();
+            this.Kategorien = new HashSet<Kategorien>();
+        }
+    
         public int Index { get; set; }
         public string Definition { get; set; }
         public string Abkürzung_Geschlecht { get; set; }
         public string Bezeichnung { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Athleten> Athleten { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Kategorien> Kategorien { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace Tournevent.Models
 {
     public class AthletDaten
     {
-        private readonly Entities db = new Entities();
+        private readonly DBContext db = new DBContext();
         public AthletDaten()
         {
 

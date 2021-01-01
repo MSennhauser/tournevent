@@ -10,7 +10,7 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator")]
     public class VereinController : Controller
     {
-        private readonly Entities db = new Entities();
+        private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Verein
         public ActionResult Index()
@@ -67,47 +67,25 @@ namespace Tournevent.Controllers
         }
 
         // GET: Verein/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Add(int id)
         {
-            return View();
-        }
-
-        // POST: Verein/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            int wettkampfId = GlobalVariables.WettkampfId;
+            VereineWettkampf vw = new VereineWettkampf();
+            vw.VereinId = id;
+            vw.WettkampfId = wettkampfId;
+            db.VereineWettkampf.Add(vw);
+            db.SaveChanges();
+            return RedirectToAction("Create");
         }
 
         // GET: Verein/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Remove(int id)
         {
-            return View();
-        }
-
-        // POST: Verein/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            int wettkampfId = GlobalVariables.WettkampfId;
+            VereineWettkampf vw = (from v in db.VereineWettkampf where v.VereinId == id && v.WettkampfId == wettkampfId select v).Single();
+            db.VereineWettkampf.Remove(vw);
+            db.SaveChanges();
+            return RedirectToAction("Create");
         }
     }
 }

@@ -17,16 +17,18 @@ namespace Tournevent.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Wettkampf()
         {
-            this.VereineWettkampf = new HashSet<VereineWettkampf>();
             this.Startnummern = new HashSet<Startnummern>();
+            this.VereineWettkampf = new HashSet<VereineWettkampf>();
         }
     
         public int Id { get; set; }
         public string WettkampfName { get; set; }
+        public int WettkampfartId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VereineWettkampf> VereineWettkampf { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Startnummern> Startnummern { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VereineWettkampf> VereineWettkampf { get; set; }
+        public virtual Wettkampfart Wettkampfart { get; set; }
     }
 }

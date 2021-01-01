@@ -14,24 +14,22 @@ namespace Tournevent.Models
     
     public partial class Kategorien
     {
-        public int Index { get; set; }
-        public string Abkürzung_Kategorie { get; set; }
-        public string Jahrgang_von { get; set; }
-        public string Jahrgang_bis { get; set; }
-        public Nullable<int> Index_Zuweisung_Disziplinengruppe { get; set; }
-        public Nullable<int> Auszeichnung_Art { get; set; }
-        public Nullable<double> Auszeichnung_in_Prozent { get; set; }
-        public Nullable<int> Auszeichnung_bis_mind_Rang { get; set; }
-        public Nullable<short> Auszeichnung_bis_Rang { get; set; }
-        public Nullable<int> AuszeichnungAbPunktzahl { get; set; }
-        public Nullable<int> Abkürzung_Art { get; set; }
-        public string Abkürzung_Vorgabe { get; set; }
-        public string Abkürzung_Benutzer { get; set; }
-        public Nullable<System.DateTime> RanglistenBerechnung { get; set; }
-        public Nullable<System.DateTime> Erstellt_am { get; set; }
-        public string Erstellt_von { get; set; }
-        public Nullable<System.DateTime> Letzte_Änderung { get; set; }
-        public string Zuletzt_gespeichert { get; set; }
-        public byte[] SSMA_TimeStamp { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Kategorien()
+        {
+            this.KategorienDisziplinen = new HashSet<KategorienDisziplinen>();
+        }
+    
+        public int Id { get; set; }
+        public string Kategorie { get; set; }
+        public string Abkuerzung { get; set; }
+        public int WettkampfartId { get; set; }
+        public int GeschlechtId { get; set; }
+        public Nullable<int> Jahrgang { get; set; }
+    
+        public virtual Geschlechter Geschlechter { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KategorienDisziplinen> KategorienDisziplinen { get; set; }
+        public virtual Wettkampfart Wettkampfart { get; set; }
     }
 }

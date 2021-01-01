@@ -10,7 +10,7 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator,Vereinsverantwortlicher")]
     public class AthletenController : Controller
     {
-        private readonly Entities db = new Entities();
+        private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Athleten
         public ActionResult Index()
@@ -35,8 +35,24 @@ namespace Tournevent.Controllers
         public ActionResult Create()
         {
             AthletDaten data = new AthletDaten();
-
-            data.Startnummer = (from s in db.Startnummern select s.Startnummer).Max() + 1;
+            int wettkampfId = GlobalVariables.WettkampfId;
+            if (wettkampfId != 0)
+            {
+                var nr = (from s in db.Startnummern where s.WettkampfId == wettkampfId select s).FirstOrDefault();
+                if (nr != null)
+                {
+                    data.Startnummer = (from s in db.Startnummern where s.WettkampfId == wettkampfId select s.Startnummer).Max() + 1;
+                }
+                else
+                {
+                    data.Startnummer = 1;
+                }
+               
+            }
+            else
+            {
+                data.Startnummer = (from s in db.Startnummern select s.Startnummer).Max() + 1;
+            }
             return View(data);
         }
 
@@ -45,7 +61,8 @@ namespace Tournevent.Controllers
         public ActionResult Create(AthletDaten athletDaten)
         {
             // TODO: Add insert logic here
-            var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer select s).SingleOrDefault();
+            int wettkampfId = GlobalVariables.WettkampfId;
+            var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.WettkampfId == wettkampfId select s).SingleOrDefault();
 
             if(startnummer == null && GlobalVariables.WettkampfId != 0)
             {
@@ -70,7 +87,9 @@ namespace Tournevent.Controllers
         [HttpPost]
         public ActionResult Edit(AthletDaten athletDaten)
         {
-            var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.AthletId != athletDaten.Id select s).SingleOrDefault();
+            int wettkampfId = GlobalVariables.WettkampfId;
+            var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.AthletId != athletDaten.Id && s.WettkampfId == wettkampfId
+                               select s).SingleOrDefault();
 
             if (startnummer == null && GlobalVariables.WettkampfId != 0)
             {

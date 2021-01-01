@@ -10,7 +10,7 @@ namespace Tournevent.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly Entities db = new Entities();
+        private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
 
         public ActionResult Index()

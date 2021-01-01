@@ -11,7 +11,7 @@ namespace Tournevent.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly Entities db = new Entities();
+        private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Login
         public ActionResult Index()

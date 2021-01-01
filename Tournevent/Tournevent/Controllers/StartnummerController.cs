@@ -12,7 +12,7 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator")]
     public class StartnummerController : Controller
     {
-        private readonly Entities db = new Entities();
+        private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Startnummer
         public ActionResult Index()
@@ -37,7 +37,7 @@ namespace Tournevent.Controllers
         // GET: Startnummer/Details/5
         public ActionResult Details(int id)
         {
-            int athletenId = (from s in db.Startnummern where s.Startnummer == id select s.AthletId).Single();
+            int athletenId = (from s in db.Startnummern where s.Startnummer == id && s.WettkampfId == GlobalVariables.WettkampfId select s.AthletId).Single();
             return RedirectToAction("Edit", new RouteValueDictionary(
                     new { controller = "Athleten", action = "Edit", Id = athletenId }));
         }

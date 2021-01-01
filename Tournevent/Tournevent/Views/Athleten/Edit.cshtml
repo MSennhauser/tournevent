@@ -58,5 +58,13 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @if (User.IsInRole("Vereinsverantwortlicher"))
+    {
+        @Html.ActionLink("Back to List", "Index")
+    }
+    else
+    {
+        @Html.ActionLink("Back to List", "Index", "Startnummer")
+    }
+
 </div>

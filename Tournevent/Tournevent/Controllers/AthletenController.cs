@@ -47,29 +47,34 @@ namespace Tournevent.Controllers
                 {
                     data.Startnummer = 1;
                 }
-               
+
             }
             else
             {
                 data.Startnummer = (from s in db.Startnummern select s.Startnummer).Max() + 1;
             }
             return View(data);
+
         }
 
         // POST: Athleten/Create
         [HttpPost]
         public ActionResult Create(AthletDaten athletDaten)
         {
-            // TODO: Add insert logic here
-            int wettkampfId = GlobalVariables.WettkampfId;
-            var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.WettkampfId == wettkampfId select s).SingleOrDefault();
-
-            if(startnummer == null && GlobalVariables.WettkampfId != 0)
+            if (ModelState.IsValid)
             {
-                athletDaten.New();
-                return RedirectToAction("Index");
+                // TODO: Add insert logic here
+                int wettkampfId = GlobalVariables.WettkampfId;
+                var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.WettkampfId == wettkampfId select s).SingleOrDefault();
+
+                if (startnummer == null && GlobalVariables.WettkampfId != 0)
+                {
+                    athletDaten.New();
+                    return RedirectToAction("Index");
+                }
+                ModelState.AddModelError("Startnummer", "Diese Startnummer ist bereits vergeben.");
+                return View();
             }
-            ModelState.AddModelError("Startnummer", "Diese Startnummer ist bereits vergeben.");
             return View();
 
         }

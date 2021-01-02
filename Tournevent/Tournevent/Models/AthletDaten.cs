@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
@@ -25,12 +26,17 @@ namespace Tournevent.Models
             Startnummer = startnummer;
         }
         public int Id { get; set; }
+        [Required]
         public string Vorname { get; set; }
+        [Required]
         public string Nachname { get; set; }
+        [Required]
         public int Jahrgang { get; set; }
         [DisplayName("Geschlecht")]
+        [Required]
         public int GeschlechtId { get; set; }
         public string Geschlecht { get; set; }
+        [Required]
         public int Startnummer { get; set; }
 
         public void New()

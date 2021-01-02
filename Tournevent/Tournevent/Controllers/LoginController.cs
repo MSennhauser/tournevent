@@ -38,9 +38,11 @@ namespace Tournevent.Controllers
                     FormsAuthentication.SetAuthCookie(user.Email, true);
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    ModelState.AddModelError("", "Email oder Passwort ist falsch.");
+                }
             }
-            ModelState.AddModelError("", "invalid Email or Password");
-
 
             return View();
         }

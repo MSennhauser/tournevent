@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -24,8 +25,11 @@ namespace Tournevent.Models
         [Required]
         public string Kategorie { get; set; }
         [Required]
+        [DisplayName("Abkürzung")]
         public string Abkuerzung { get; set; }
+        [Required]
         public int Jahrgang { get; set; }
+        [Required]
         public string Geschlecht { get; set; }
 
     }

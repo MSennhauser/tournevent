@@ -88,6 +88,11 @@ namespace Tournevent.Controllers
                     lst.Add(new SelectListItem() { Text = tmp.WettkampfName, Value = tmp.Id.ToString(), Selected = false });
                 }
 
+                if(GlobalVariables.WettkampfId == 0)
+                {
+                    GlobalVariables.WettkampfId = Convert.ToInt32(lst.ElementAt(0).Value);
+                }
+
             }
             return lst;
         }

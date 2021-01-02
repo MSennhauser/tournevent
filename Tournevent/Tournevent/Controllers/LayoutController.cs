@@ -8,6 +8,7 @@ using Tournevent.Models;
 
 namespace Tournevent.Controllers
 {
+    [Authorize(Roles = "Administrator,Vereinsverantwortlicher")]
     public class LayoutController : Controller
     {
         private readonly DBContext db = new DBContext();

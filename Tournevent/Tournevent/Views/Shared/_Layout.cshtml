@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    
+
     <div class="sidenav">
         <div class="user">
             @Html.ActionLink("Logout", "Logout", "Login")
@@ -18,10 +18,12 @@
         @{
             Html.RenderAction("Wettkaempfe", "Layout");
         }
+
         @{
             Html.RenderAction("Navigation", "Layout");
         }
     </div>
+    
 
     <div class="main">
     </div>

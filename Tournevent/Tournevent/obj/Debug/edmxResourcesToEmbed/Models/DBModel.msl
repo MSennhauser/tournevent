@@ -155,6 +155,7 @@
     <EntitySetMapping Name="Wettkampf">
       <EntityTypeMapping TypeName="DBModel.Wettkampf">
         <MappingFragment StoreEntitySet="Wettkampf">
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="WettkampfName" ColumnName="WettkampfName" />
           <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />

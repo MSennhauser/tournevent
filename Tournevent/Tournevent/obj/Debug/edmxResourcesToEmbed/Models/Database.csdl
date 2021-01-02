@@ -31,10 +31,12 @@
     <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Disziplinen" Relationship="Self.Disziplinen_Liste_BewertungsartListe_Disziplinen" FromRole="Bewertungsart" ToRole="Disziplinen" />
+    <NavigationProperty Name="DisziplinenAlt" Relationship="DatabaseModel.Disziplinen_Liste_BewertungsartListe_Disziplinen1" FromRole="Bewertungsart" ToRole="DisziplinenAlt" />
   </EntityType>
   <EntityType Name="Disziplinen">
     <Key>
       <PropertyRef Name="Index" />
+      <PropertyRef Name="Id" />
     </Key>
     <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Wettkampfgruppe_Index" Type="Int32" />
@@ -54,6 +56,14 @@
     <NavigationProperty Name="Wettkampfart" Relationship="Self.Disziplinen_Liste_WettkampfgruppenListe_Disziplinen" FromRole="Disziplinen" ToRole="Wettkampfart" />
     <NavigationProperty Name="Teilnehmer_Leistung" Relationship="Self.Teilnehmer_Leistung_Reference17" FromRole="Disziplinen" ToRole="Teilnehmer_Leistung" />
     <NavigationProperty Name="DisziplinenAuswahl_Beschreibung" Relationship="Self.DisziplinenAuswahl" FromRole="Disziplinen" ToRole="DisziplinenAuswahl_Beschreibung" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Disziplin" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Abkuerzung" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="anzTeilnehmer" Type="Int32" />
+    <Property Name="Versuche" Type="Int32" />
+    <Property Name="WettkampfartId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="KategorienDisziplinen" Relationship="DatabaseModel.fk_DiKD" FromRole="Disziplinen" ToRole="KategorienDisziplinen" />
+    <NavigationProperty Name="Wettkampfart1" Relationship="DatabaseModel.fk_DiWe" FromRole="Disziplinen" ToRole="Wettkampfart" />
   </EntityType>
   <EntityType Name="DisziplinenAuswahl_Beschreibung">
     <Key>
@@ -72,6 +82,8 @@
     <NavigationProperty Name="Wettkampfart" Relationship="Self.DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung" FromRole="DisziplinenAuswahl_Beschreibung" ToRole="Wettkampfart" />
     <NavigationProperty Name="KategorienDisziplinen" Relationship="Self.KategorienDisziplinen_Reference6" FromRole="DisziplinenAuswahl_Beschreibung" ToRole="KategorienDisziplinen" />
     <NavigationProperty Name="Disziplinen" Relationship="Self.DisziplinenAuswahl" FromRole="DisziplinenAuswahl_Beschreibung" ToRole="Disziplinen" />
+    <NavigationProperty Name="WettkampfartAlt" Relationship="DatabaseModel.DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung1" FromRole="DisziplinenAuswahl_Beschreibung" ToRole="WettkampfartAlt" />
+    <NavigationProperty Name="DisziplinenAlt" Relationship="DatabaseModel.DisziplinenAuswahl1" FromRole="DisziplinenAuswahl_Beschreibung" ToRole="DisziplinenAlt" />
   </EntityType>
   <EntityType Name="Geschlechter">
     <Key>
@@ -81,15 +93,23 @@
     <Property Name="Definition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Abkürzung_Geschlecht" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
     <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Athleten" Relationship="DatabaseModel.fk_geschlecht" FromRole="Geschlechter" ToRole="Athleten" />
+    <NavigationProperty Name="Kategorien" Relationship="DatabaseModel.fk_KaGe" FromRole="Geschlechter" ToRole="Kategorien" />
   </EntityType>
   <EntityType Name="KategorienDisziplinen">
     <Key>
       <PropertyRef Name="Index_Kategorien" />
       <PropertyRef Name="Index_DisziplinenAuswahl_Beschreibung" />
+      <PropertyRef Name="Id" />
     </Key>
     <Property Name="Index_Kategorien" Type="Int32" Nullable="false" />
     <Property Name="Index_DisziplinenAuswahl_Beschreibung" Type="Int32" Nullable="false" />
     <NavigationProperty Name="DisziplinenAuswahl_Beschreibung" Relationship="Self.KategorienDisziplinen_Reference6" FromRole="KategorienDisziplinen" ToRole="DisziplinenAuswahl_Beschreibung" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KategorieId" Type="Int32" Nullable="false" />
+    <Property Name="DisziplinId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Disziplinen" Relationship="DatabaseModel.fk_DiKD" FromRole="KategorienDisziplinen" ToRole="Disziplinen" />
+    <NavigationProperty Name="Kategorien" Relationship="DatabaseModel.fk_KaKD" FromRole="KategorienDisziplinen" ToRole="Kategorien" />
   </EntityType>
   <EntityType Name="Rollen">
     <Key>
@@ -208,13 +228,16 @@
     <Property Name="WettkampfName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_wettkampf" FromRole="Wettkampf" ToRole="VereineWettkampf" />
     <NavigationProperty Name="Startnummern" Relationship="DatabaseModel.fk_startnummerWettkampf" FromRole="Wettkampf" ToRole="Startnummern" />
+    <Property Name="WettkampfartId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Wettkampfart" Relationship="DatabaseModel.fk_WeWeA" FromRole="Wettkampf" ToRole="Wettkampfart" />
   </EntityType>
   <EntityType Name="Wettkampfart">
     <Key>
       <PropertyRef Name="Index" />
+      <PropertyRef Name="Id" />
     </Key>
     <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Wettkampfart1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Wettkampfart1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Abkürzung" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="Einzelwettkampf" Type="Boolean" />
     <Property Name="JedenTeilnehmer_erfassen" Type="Boolean" />
@@ -230,6 +253,11 @@
     <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
     <NavigationProperty Name="Disziplinen" Relationship="Self.Disziplinen_Liste_WettkampfgruppenListe_Disziplinen" FromRole="Wettkampfart" ToRole="Disziplinen" />
     <NavigationProperty Name="DisziplinenAuswahl_Beschreibung" Relationship="Self.DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung" FromRole="Wettkampfart" ToRole="DisziplinenAuswahl_Beschreibung" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Abkuerzung" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Disziplinen1" Relationship="DatabaseModel.fk_DiWe" FromRole="Wettkampfart" ToRole="Disziplinen" />
+    <NavigationProperty Name="Kategorien" Relationship="DatabaseModel.fk_KaWe" FromRole="Wettkampfart" ToRole="Kategorien" />
+    <NavigationProperty Name="Wettkampf" Relationship="DatabaseModel.fk_WeWeA" FromRole="Wettkampfart" ToRole="Wettkampf" />
   </EntityType>
   <EntityType Name="Kategorien">
     <Key>
@@ -238,6 +266,7 @@
       <PropertyRef Name="Jahrgang_von" />
       <PropertyRef Name="Jahrgang_bis" />
       <PropertyRef Name="SSMA_TimeStamp" />
+      <PropertyRef Name="Id" />
     </Key>
     <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Abkürzung_Kategorie" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
@@ -258,6 +287,15 @@
     <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
     <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Kategorie" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Abkuerzung" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="WettkampfartId" Type="Int32" Nullable="false" />
+    <Property Name="GeschlechtId" Type="Int32" Nullable="false" />
+    <Property Name="Jahrgang" Type="Int32" />
+    <NavigationProperty Name="Geschlechter" Relationship="DatabaseModel.fk_KaGe" FromRole="Kategorien" ToRole="Geschlechter" />
+    <NavigationProperty Name="KategorienDisziplinen" Relationship="DatabaseModel.fk_KaKD" FromRole="Kategorien" ToRole="KategorienDisziplinen" />
+    <NavigationProperty Name="Wettkampfart" Relationship="DatabaseModel.fk_KaWe" FromRole="Kategorien" ToRole="Wettkampfart" />
   </EntityType>
   <Association Name="fk_user">
     <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
@@ -490,6 +528,53 @@
       <End Role="Verein" EntitySet="Verein" />
       <End Role="Athleten" EntitySet="Athleten" />
     </AssociationSet>
+    <EntitySet Name="DisziplinenAlt" EntityType="DatabaseModel.DisziplinenAlt" />
+    <EntitySet Name="WettkampfartAlt" EntityType="DatabaseModel.WettkampfartAlt" />
+    <EntitySet Name="KategorienAlt" EntityType="DatabaseModel.KategorienAlt" />
+    <AssociationSet Name="fk_geschlecht" Association="DatabaseModel.fk_geschlecht">
+      <End Role="Geschlechter" EntitySet="Geschlechter" />
+      <End Role="Athleten" EntitySet="Athleten" />
+    </AssociationSet>
+    <AssociationSet Name="Disziplinen_Liste_BewertungsartListe_Disziplinen1" Association="DatabaseModel.Disziplinen_Liste_BewertungsartListe_Disziplinen1">
+      <End Role="Bewertungsart" EntitySet="Bewertungsart" />
+      <End Role="DisziplinenAlt" EntitySet="DisziplinenAlt" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DiKD" Association="DatabaseModel.fk_DiKD">
+      <End Role="Disziplinen" EntitySet="Disziplinen" />
+      <End Role="KategorienDisziplinen" EntitySet="KategorienDisziplinen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DiWe" Association="DatabaseModel.fk_DiWe">
+      <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+      <End Role="Disziplinen" EntitySet="Disziplinen" />
+    </AssociationSet>
+    <AssociationSet Name="Disziplinen_Liste_WettkampfgruppenListe_Disziplinen1" Association="DatabaseModel.Disziplinen_Liste_WettkampfgruppenListe_Disziplinen1">
+      <End Role="WettkampfartAlt" EntitySet="WettkampfartAlt" />
+      <End Role="DisziplinenAlt" EntitySet="DisziplinenAlt" />
+    </AssociationSet>
+    <AssociationSet Name="DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung1" Association="DatabaseModel.DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung1">
+      <End Role="WettkampfartAlt" EntitySet="WettkampfartAlt" />
+      <End Role="DisziplinenAuswahl_Beschreibung" EntitySet="DisziplinenAuswahl_Beschreibung" />
+    </AssociationSet>
+    <AssociationSet Name="fk_KaGe" Association="DatabaseModel.fk_KaGe">
+      <End Role="Geschlechter" EntitySet="Geschlechter" />
+      <End Role="Kategorien" EntitySet="Kategorien" />
+    </AssociationSet>
+    <AssociationSet Name="fk_KaKD" Association="DatabaseModel.fk_KaKD">
+      <End Role="Kategorien" EntitySet="Kategorien" />
+      <End Role="KategorienDisziplinen" EntitySet="KategorienDisziplinen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_KaWe" Association="DatabaseModel.fk_KaWe">
+      <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+      <End Role="Kategorien" EntitySet="Kategorien" />
+    </AssociationSet>
+    <AssociationSet Name="fk_WeWeA" Association="DatabaseModel.fk_WeWeA">
+      <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+      <End Role="Wettkampf" EntitySet="Wettkampf" />
+    </AssociationSet>
+    <AssociationSet Name="DisziplinenAuswahl1" Association="DatabaseModel.DisziplinenAuswahl1">
+      <End Role="DisziplinenAlt" EntitySet="DisziplinenAlt" />
+      <End Role="DisziplinenAuswahl_Beschreibung" EntitySet="DisziplinenAuswahl_Beschreibung" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Athleten">
     <Key>
@@ -502,6 +587,8 @@
     <NavigationProperty Name="Startnummern" Relationship="DatabaseModel.fk_startnummerAthlet" FromRole="Athleten" ToRole="Startnummern" />
     <Property Name="VereinsId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Verein" Relationship="DatabaseModel.fk_vereinAthlet" FromRole="Athleten" ToRole="Verein" />
+    <Property Name="GeschlechtId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Geschlechter" Relationship="DatabaseModel.fk_geschlecht" FromRole="Athleten" ToRole="Geschlechter" />
   </EntityType>
   <EntityType Name="Startnummern">
     <Key>
@@ -549,5 +636,201 @@
         <PropertyRef Name="VereinsId" />
       </Dependent>
     </ReferentialConstraint>
+  </Association>
+  <EntityType Name="DisziplinenAlt">
+    <Key>
+      <PropertyRef Name="Index" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Wettkampfgruppe_Index" Type="Int32" />
+    <Property Name="Bezeichnung" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Abkürzung" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
+    <Property Name="Bewertungsart" Type="Int32" />
+    <Property Name="Zeit_pro_Resultat" Type="Int32" />
+    <Property Name="ResultatArt" Type="Int32" />
+    <Property Name="MinAnzGrpResultate" Type="Int32" />
+    <Property Name="MaxAnzGrpResultate" Type="Int32" />
+    <Property Name="AnzResultateBestenLeistung" Type="Int32" />
+    <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+    <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bewertungsart1" Relationship="DatabaseModel.Disziplinen_Liste_BewertungsartListe_Disziplinen1" FromRole="DisziplinenAlt" ToRole="Bewertungsart" />
+    <NavigationProperty Name="WettkampfartAlt" Relationship="DatabaseModel.Disziplinen_Liste_WettkampfgruppenListe_Disziplinen1" FromRole="DisziplinenAlt" ToRole="WettkampfartAlt" />
+    <NavigationProperty Name="DisziplinenAuswahl_Beschreibung" Relationship="DatabaseModel.DisziplinenAuswahl1" FromRole="DisziplinenAlt" ToRole="DisziplinenAuswahl_Beschreibung" />
+  </EntityType>
+  <EntityType Name="WettkampfartAlt">
+    <Key>
+      <PropertyRef Name="Index" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Wettkampfart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Abkürzung" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Einzelwettkampf" Type="Boolean" />
+    <Property Name="JedenTeilnehmer_erfassen" Type="Boolean" />
+    <Property Name="AnzahlTeilnehmerMind" Type="Int16" />
+    <Property Name="AnzahlTeilnehmerMax" Type="Int16" />
+    <Property Name="RangierungAbgeschlossen" Type="Boolean" />
+    <Property Name="RanglisteAusgabeformat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mit_Jahrgang" Type="Boolean" />
+    <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+    <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="SSMA_TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="DisziplinenAlt" Relationship="DatabaseModel.Disziplinen_Liste_WettkampfgruppenListe_Disziplinen1" FromRole="WettkampfartAlt" ToRole="DisziplinenAlt" />
+    <NavigationProperty Name="DisziplinenAuswahl_Beschreibung" Relationship="DatabaseModel.DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung1" FromRole="WettkampfartAlt" ToRole="DisziplinenAuswahl_Beschreibung" />
+  </EntityType>
+  <EntityType Name="KategorienAlt">
+    <Key>
+      <PropertyRef Name="Index" />
+      <PropertyRef Name="Abkürzung_Kategorie" />
+      <PropertyRef Name="Jahrgang_von" />
+      <PropertyRef Name="Jahrgang_bis" />
+      <PropertyRef Name="SSMA_TimeStamp" />
+    </Key>
+    <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Abkürzung_Kategorie" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Jahrgang_von" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="Jahrgang_bis" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="Index_Zuweisung_Disziplinengruppe" Type="Int32" />
+    <Property Name="Auszeichnung_Art" Type="Int32" />
+    <Property Name="Auszeichnung_in_Prozent" Type="Double" />
+    <Property Name="Auszeichnung_bis_mind_Rang" Type="Int32" />
+    <Property Name="Auszeichnung_bis_Rang" Type="Int16" />
+    <Property Name="AuszeichnungAbPunktzahl" Type="Int32" />
+    <Property Name="Abkürzung_Art" Type="Int32" />
+    <Property Name="Abkürzung_Vorgabe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Abkürzung_Benutzer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RanglistenBerechnung" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+    <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+    <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SSMA_TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <Association Name="fk_geschlecht">
+    <End Type="DatabaseModel.Geschlechter" Role="Geschlechter" Multiplicity="1" />
+    <End Type="DatabaseModel.Athleten" Role="Athleten" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geschlechter">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Athleten">
+        <PropertyRef Name="GeschlechtId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Disziplinen_Liste_BewertungsartListe_Disziplinen1">
+    <End Type="DatabaseModel.Bewertungsart" Role="Bewertungsart" Multiplicity="0..1" />
+    <End Type="DatabaseModel.DisziplinenAlt" Role="DisziplinenAlt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bewertungsart">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="DisziplinenAlt">
+        <PropertyRef Name="Bewertungsart" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DiKD">
+    <End Type="DatabaseModel.Disziplinen" Role="Disziplinen" Multiplicity="1" />
+    <End Type="DatabaseModel.KategorienDisziplinen" Role="KategorienDisziplinen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Disziplinen">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="KategorienDisziplinen">
+        <PropertyRef Name="DisziplinId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DiWe">
+    <End Type="DatabaseModel.Wettkampfart" Role="Wettkampfart" Multiplicity="1" />
+    <End Type="DatabaseModel.Disziplinen" Role="Disziplinen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wettkampfart">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Disziplinen">
+        <PropertyRef Name="WettkampfartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Disziplinen_Liste_WettkampfgruppenListe_Disziplinen1">
+    <End Type="DatabaseModel.WettkampfartAlt" Role="WettkampfartAlt" Multiplicity="0..1" />
+    <End Type="DatabaseModel.DisziplinenAlt" Role="DisziplinenAlt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WettkampfartAlt">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="DisziplinenAlt">
+        <PropertyRef Name="Wettkampfgruppe_Index" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DisziplinenAuswahl_Beschreibung_Liste_WettkampfgruppenDisziplinenAuswahl_Beschreibung1">
+    <End Type="DatabaseModel.WettkampfartAlt" Role="WettkampfartAlt" Multiplicity="0..1" />
+    <End Type="DatabaseModel.DisziplinenAuswahl_Beschreibung" Role="DisziplinenAuswahl_Beschreibung" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WettkampfartAlt">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="DisziplinenAuswahl_Beschreibung">
+        <PropertyRef Name="Wettkampfart_Index" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_KaGe">
+    <End Type="DatabaseModel.Geschlechter" Role="Geschlechter" Multiplicity="1" />
+    <End Type="DatabaseModel.Kategorien" Role="Kategorien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geschlechter">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Kategorien">
+        <PropertyRef Name="GeschlechtId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_KaKD">
+    <End Type="DatabaseModel.Kategorien" Role="Kategorien" Multiplicity="1" />
+    <End Type="DatabaseModel.KategorienDisziplinen" Role="KategorienDisziplinen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategorien">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="KategorienDisziplinen">
+        <PropertyRef Name="KategorieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_KaWe">
+    <End Type="DatabaseModel.Wettkampfart" Role="Wettkampfart" Multiplicity="1" />
+    <End Type="DatabaseModel.Kategorien" Role="Kategorien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wettkampfart">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Kategorien">
+        <PropertyRef Name="WettkampfartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_WeWeA">
+    <End Type="DatabaseModel.Wettkampfart" Role="Wettkampfart" Multiplicity="1" />
+    <End Type="DatabaseModel.Wettkampf" Role="Wettkampf" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wettkampfart">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Wettkampf">
+        <PropertyRef Name="WettkampfartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DisziplinenAuswahl1">
+    <End Type="DatabaseModel.DisziplinenAlt" Role="DisziplinenAlt" Multiplicity="*" />
+    <End Type="DatabaseModel.DisziplinenAuswahl_Beschreibung" Role="DisziplinenAuswahl_Beschreibung" Multiplicity="*" />
   </Association>
 </Schema>

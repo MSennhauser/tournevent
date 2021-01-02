@@ -14,9 +14,11 @@ namespace Tournevent.Models
     
     public partial class KategorienDisziplinen
     {
-        public int Index_Kategorien { get; set; }
-        public int Index_DisziplinenAuswahl_Beschreibung { get; set; }
+        public int Id { get; set; }
+        public int KategorieId { get; set; }
+        public int DisziplinId { get; set; }
     
-        public virtual DisziplinenAuswahl_Beschreibung DisziplinenAuswahl_Beschreibung { get; set; }
+        public virtual Disziplinen Disziplinen { get; set; }
+        public virtual Kategorien Kategorien { get; set; }
     }
 }

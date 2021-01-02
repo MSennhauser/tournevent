@@ -17,30 +17,18 @@ namespace Tournevent.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Disziplinen()
         {
-            this.Teilnehmer_Leistung = new HashSet<Teilnehmer_Leistung>();
-            this.DisziplinenAuswahl_Beschreibung = new HashSet<DisziplinenAuswahl_Beschreibung>();
+            this.KategorienDisziplinen = new HashSet<KategorienDisziplinen>();
         }
     
-        public int Index { get; set; }
-        public Nullable<int> Wettkampfgruppe_Index { get; set; }
-        public string Bezeichnung { get; set; }
-        public string Abkürzung { get; set; }
-        public Nullable<int> Bewertungsart { get; set; }
-        public Nullable<int> Zeit_pro_Resultat { get; set; }
-        public Nullable<int> ResultatArt { get; set; }
-        public Nullable<int> MinAnzGrpResultate { get; set; }
-        public Nullable<int> MaxAnzGrpResultate { get; set; }
-        public Nullable<int> AnzResultateBestenLeistung { get; set; }
-        public Nullable<System.DateTime> Erstellt_am { get; set; }
-        public string Erstellt_von { get; set; }
-        public Nullable<System.DateTime> Letzte_Änderung { get; set; }
-        public string Zuletzt_gespeichert { get; set; }
+        public int Id { get; set; }
+        public string Disziplin { get; set; }
+        public string Abkuerzung { get; set; }
+        public int WettkampfartId { get; set; }
+        public Nullable<int> anzTeilnehmer { get; set; }
+        public Nullable<int> Versuche { get; set; }
     
-        public virtual Bewertungsart Bewertungsart1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KategorienDisziplinen> KategorienDisziplinen { get; set; }
         public virtual Wettkampfart Wettkampfart { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Teilnehmer_Leistung> Teilnehmer_Leistung { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DisziplinenAuswahl_Beschreibung> DisziplinenAuswahl_Beschreibung { get; set; }
     }
 }

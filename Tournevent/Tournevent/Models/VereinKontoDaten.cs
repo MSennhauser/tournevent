@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -33,15 +34,18 @@ namespace Tournevent.Models
         public string Passwort { get; set; }
         [Required]
         [Compare("Passwort")]
+        [DisplayName("Passwort bestätigen")]
         public string ConfirmPasswort { get; set; }
         [Required]
+        [DisplayName("Vereins Name")]
         public string VereinsName { get; set; }
         [Required]
         public string Vorname { get; set; }
         [Required]
         public string Nachname { get; set; }
         [Required]
-        [RegularExpression(@"(\b(0041|0)|\B\+41)(\s?\(0\))?(\s)?[1-9]{2}(\s)?[0-9]{3}(\s)?[0-9]{2}(\s)?[0-9]{2}\b", ErrorMessage = "Not a valid phone number")]
+        [RegularExpression(@"(\b(0041|0)|\B\+41)(\s?\(0\))?(\s)?[1-9]{2}(\s)?[0-9]{3}(\s)?[0-9]{2}(\s)?[0-9]{2}\b", ErrorMessage = "Keine gültige Telefon Nr.")]
+        [DisplayName("Telefon Nr.")]
         public string Telefon { get; set; }
 
         public void Update()

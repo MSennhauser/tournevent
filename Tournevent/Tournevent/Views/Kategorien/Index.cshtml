@@ -5,16 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Kategorien</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*<p>
+    @Html.ActionLink("Hinzufügen", "Create")
+</p>*@
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.kategorieID)
-        </th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Kategorie)
         </th>
@@ -33,7 +31,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.kategorieID)
+            @Html.HiddenFor(modelItem => item.kategorieID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Kategorie)
@@ -47,11 +45,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Geschlecht)
         </td>
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
+        </td>*@
     </tr>
 }
 

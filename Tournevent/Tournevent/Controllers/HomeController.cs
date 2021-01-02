@@ -21,7 +21,7 @@ namespace Tournevent.Controllers
                 Benutzer benutzer = (from b in db.Benutzer where b.Email == User.Identity.Name select b).SingleOrDefault();
                 if (benutzer.VereinId == null)
                 {
-                    return RedirectToAction("VereinsDaten", new { userId = benutzer.Id });
+                    return RedirectToAction("VereinsDaten", "Login", new { userId = benutzer.Id });
                 }
                 else
                 {

@@ -5,16 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Disziplinen</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*<p>
+    @Html.ActionLink("Hinzufügen", "Create")
+</p>*@
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.disziplinenId)
-        </th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Disziplin)
         </th>
@@ -34,31 +32,31 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.disziplinenId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Disziplin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Abkuerzung)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Wettkampfart)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.anzTeilnehmer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Versuche)
-        </td>
-        <td>
+<tr>
+    <td>
+        @Html.HiddenFor(modelItem => item.disziplinenId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Disziplin)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Abkuerzung)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Wettkampfart)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.anzTeilnehmer)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Versuche)
+    </td>
+    @*<td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
+        </td>*@
+</tr>
 }
 
 </table>

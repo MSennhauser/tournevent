@@ -241,6 +241,7 @@
     <Content Include="App_Data\tournavent_database_log.ldf">
       <DependentUpon>tournavent_database.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Anfrage.css" />
     <Content Include="Content\Login.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

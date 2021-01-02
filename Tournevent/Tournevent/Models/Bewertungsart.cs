@@ -14,16 +14,7 @@ namespace Tournevent.Models
     
     public partial class Bewertungsart
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Bewertungsart()
-        {
-            this.Disziplinen = new HashSet<Disziplinen>();
-        }
-    
         public int Index { get; set; }
         public string Bezeichnung { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Disziplinen> Disziplinen { get; set; }
     }
 }

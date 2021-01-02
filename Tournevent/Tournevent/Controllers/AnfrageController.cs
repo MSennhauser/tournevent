@@ -11,7 +11,7 @@ namespace Tournevent.Controllers
     [Authorize(Roles ="Administrator")]
     public class AnfrageController : Controller
     {
-        private readonly Entities db = new Entities();
+        private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Anfrage
         public ActionResult Index()

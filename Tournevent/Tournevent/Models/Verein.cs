@@ -17,10 +17,9 @@ namespace Tournevent.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Verein()
         {
-            this.Benutzer = new HashSet<Benutzer>();
-            this.Teilnehmer = new HashSet<Teilnehmer>();
-            this.VereineWettkampf = new HashSet<VereineWettkampf>();
             this.Athleten = new HashSet<Athleten>();
+            this.Benutzer = new HashSet<Benutzer>();
+            this.VereineWettkampf = new HashSet<VereineWettkampf>();
         }
     
         public int Index { get; set; }
@@ -47,12 +46,10 @@ namespace Tournevent.Models
         public Nullable<int> IndexVereinVorrunde { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Athleten> Athleten { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Benutzer> Benutzer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Teilnehmer> Teilnehmer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VereineWettkampf> VereineWettkampf { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Athleten> Athleten { get; set; }
     }
 }

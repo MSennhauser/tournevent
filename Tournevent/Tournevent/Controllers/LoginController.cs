@@ -11,7 +11,7 @@ namespace Tournevent.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly Entities db = new Entities();
+        private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Login
         public ActionResult Index()
@@ -35,30 +35,8 @@ namespace Tournevent.Controllers
 
                 if (IsValidUser)
                 {
-                    FormsAuthentication.SetAuthCookie(user.Email, false);
-                    UserRoleProvider roleProvider = new UserRoleProvider();
-                    string rolle = roleProvider.GetRolesForUser(user.Email).ElementAt(0);
-                    if(rolle == "WartetAufBestaetigung")
-                    {
-                        Benutzer benutzer = (from b in db.Benutzer where b.Email == user.Email select b).SingleOrDefault();
-                        if(benutzer.VereinId == null)
-                        {
-                            return RedirectToAction("VereinsDaten", new { userId = benutzer.Id });
-                        }
-                        else
-                        {
-                            return RedirectToAction("WaitForConfirmation", "Login");
-                        }
-                        
-                    }
-                    if (rolle == "Administrator")
-                    {
-                        return RedirectToAction("Index", "Anfrage");
-                    }
-                    if (rolle == "Vereinsverantwortlicher")
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    FormsAuthentication.SetAuthCookie(user.Email, true);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             ModelState.AddModelError("", "invalid Email or Password");
@@ -144,7 +122,7 @@ namespace Tournevent.Controllers
 
                     db.SaveChanges();
 
-                    FormsAuthentication.SetAuthCookie(benutzer.Email, false);
+                    FormsAuthentication.SetAuthCookie(benutzer.Email, true);
                     return RedirectToAction("WaitForConfirmation", "Login");
                 }
                 else

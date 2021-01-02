@@ -10,12 +10,12 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator")]
     public class VereinController : Controller
     {
-        private readonly Entities db = new Entities();
+        private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Verein
         public ActionResult Index()
         {
-            int wettkampfId = CurrentWettkampf.Id;
+            int wettkampfId = GlobalVariables.WettkampfId;
             List<VereinsDaten> lst = new List<VereinsDaten>();
             List<Verein> vereinList = new List<Verein>();
             vereinList = (from v in db.Verein
@@ -31,16 +31,17 @@ namespace Tournevent.Controllers
             return View(lst);
         }
 
-        // GET: Verein/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Verein/Create
         public ActionResult Create()
         {
-            return View();
+            List<Verein> vereinList = (from v in db.Verein select v).ToList();
+            List<VereinWettkampf> vwList = new List<VereinWettkampf>();
+            foreach(var v in vereinList)
+            {
+                List<int> id = (from vw in db.VereineWettkampf where vw.VereinId == v.Index select vw.WettkampfId).ToList();
+                vwList.Add(new VereinWettkampf(v, id));
+            }
+            return View(vwList);
         }
 
         // POST: Verein/Create
@@ -58,49 +59,61 @@ namespace Tournevent.Controllers
                 return View();
             }
         }
-
-        // GET: Verein/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Benutzer benutzer = (from b in db.Benutzer where b.Id == id select b).Single();
+            VereinKontoDaten vkDaten = new VereinKontoDaten(benutzer, benutzer.Verein);
+            return View(vkDaten);
+        }
+        [HttpPost]
+        public ActionResult Edit(VereinKontoDaten vkDaten)
+        {
+            vkDaten.Update();
+            return RedirectToAction("Index");
         }
 
-        // POST: Verein/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
+            Benutzer benutzer = (from b in db.Benutzer where b.Id == id select b).Single();
+            List<Athleten> lstAthleten = (from a in db.Athleten where a.VereinsId == benutzer.VereinId select a).ToList();
+            foreach(var athlet in lstAthleten)
             {
-                // TODO: Add update logic here
+                db.Athleten.Remove(athlet);
+            }
+            BenutzerRollen benutzerRollen = (from b in db.BenutzerRollen
+                                             where b.BenutzerId == benutzer.Id
+                                             select b).SingleOrDefault();
+            VereineWettkampf vereineWettkampf = (from vw in db.VereineWettkampf
+                                             where vw.VereinId == benutzer.VereinId
+                                             select vw).SingleOrDefault();
+            db.VereineWettkampf.Remove(vereineWettkampf);
+            db.Verein.Remove(benutzer.Verein);
+            db.BenutzerRollen.Remove(benutzerRollen);
+            db.Benutzer.Remove(benutzer);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+        // GET: Verein/Edit/5
+        public ActionResult Add(int id)
+        {
+            int wettkampfId = GlobalVariables.WettkampfId;
+            VereineWettkampf vw = new VereineWettkampf();
+            vw.VereinId = id;
+            vw.WettkampfId = wettkampfId;
+            db.VereineWettkampf.Add(vw);
+            db.SaveChanges();
+            return RedirectToAction("Create");
         }
 
         // GET: Verein/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Remove(int id)
         {
-            return View();
-        }
-
-        // POST: Verein/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            int wettkampfId = GlobalVariables.WettkampfId;
+            VereineWettkampf vw = (from v in db.VereineWettkampf where v.VereinId == id && v.WettkampfId == wettkampfId select v).Single();
+            db.VereineWettkampf.Remove(vw);
+            db.SaveChanges();
+            return RedirectToAction("Create");
         }
     }
 }

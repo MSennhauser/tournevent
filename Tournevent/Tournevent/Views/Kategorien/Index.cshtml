@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Tournevent.Models.KategorienDaten>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.kategorieID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kategorie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Abkuerzung)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jahrgang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Geschlecht)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.kategorieID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kategorie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Abkuerzung)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Jahrgang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Geschlecht)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

@@ -9,6 +9,7 @@
     <Property Name="Nachname" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="Jahrgang" Type="int" Nullable="false" />
     <Property Name="VereinsId" Type="int" Nullable="false" />
+    <Property Name="GeschlechtId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Benutzer">
     <Key>
@@ -38,6 +39,17 @@
     <Property Name="Bezeichnung" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Disziplinen">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Disziplin" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Abkuerzung" Type="varchar" MaxLength="20" />
+    <Property Name="anzTeilnehmer" Type="int" />
+    <Property Name="Versuche" Type="int" />
+    <Property Name="WettkampfartId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DisziplinenAlt">
     <Key>
       <PropertyRef Name="Index" />
     </Key>
@@ -88,9 +100,20 @@
     <Property Name="Abkürzung Geschlecht" Type="nvarchar" MaxLength="5" />
     <Property Name="Bezeichnung" Type="nvarchar" MaxLength="50" />
   </EntityType>
-  <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
   <EntityType Name="Kategorien">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Kategorie" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Abkuerzung" Type="varchar" MaxLength="20" />
+    <Property Name="WettkampfartId" Type="int" Nullable="false" />
+    <Property Name="GeschlechtId" Type="int" Nullable="false" />
+    <Property Name="Jahrgang" Type="int" />
+  </EntityType>
+  <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.KategorienAlt' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+  <EntityType Name="KategorienAlt">
     <Key>
       <PropertyRef Name="Index" />
       <PropertyRef Name="Abkürzung Kategorie" />
@@ -120,11 +143,11 @@ Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
   </EntityType>
   <EntityType Name="KategorienDisziplinen">
     <Key>
-      <PropertyRef Name="Index_Kategorien" />
-      <PropertyRef Name="Index_DisziplinenAuswahl_Beschreibung" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Index_Kategorien" Type="int" Nullable="false" />
-    <Property Name="Index_DisziplinenAuswahl_Beschreibung" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KategorieId" Type="int" Nullable="false" />
+    <Property Name="DisziplinId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Rollen">
     <Key>
@@ -151,52 +174,6 @@ Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
     <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <EntityType Name="Teilnehmer">
-    <Key>
-      <PropertyRef Name="Index" />
-    </Key>
-    <Property Name="Index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Vorname" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Jahrgang" Type="nvarchar" MaxLength="4" />
-    <Property Name="Kategorie" Type="int" Nullable="false" />
-    <Property Name="Verein" Type="int" Nullable="false" />
-    <Property Name="Auszeichnung" Type="nvarchar" MaxLength="3" />
-    <Property Name="Rang" Type="float" />
-    <Property Name="Bemerkung" Type="nvarchar" MaxLength="200" />
-    <Property Name="DisziplinenListe" Type="nvarchar" MaxLength="255" />
-    <Property Name="GesamtPunktZahl" Type="nvarchar" MaxLength="50" />
-    <Property Name="Gast" Type="bit" />
-    <Property Name="Mutation" Type="bit" />
-    <Property Name="Mutationsgrund" Type="int" />
-    <Property Name="MutationsDatum" Type="datetime2" Precision="0" />
-    <Property Name="SonstigerMutationsgrund" Type="nvarchar" MaxLength="50" />
-    <Property Name="Erstellt am" Type="datetime2" Precision="0" />
-    <Property Name="Erstellt von" Type="nvarchar" MaxLength="25" />
-    <Property Name="Letzte Änderung" Type="datetime2" Precision="0" />
-    <Property Name="Zuletzt gespeichert" Type="nvarchar" MaxLength="25" />
-    <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-    <Property Name="Email" Type="nchar" MaxLength="255" />
-  </EntityType>
-  <EntityType Name="Teilnehmer_Leistung">
-    <Key>
-      <PropertyRef Name="Index" />
-    </Key>
-    <Property Name="Index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Index_Teilnehmer" Type="int" Nullable="false" />
-    <Property Name="Index_Disziplin" Type="int" Nullable="false" />
-    <Property Name="Leistung" Type="nvarchar" MaxLength="50" />
-    <Property Name="Punkte" Type="nvarchar" MaxLength="50" />
-    <Property Name="Unfall" Type="bit" />
-    <Property Name="Nicht Gestartet" Type="bit" />
-    <Property Name="Eintrag" Type="nvarchar" MaxLength="50" />
-    <Property Name="IndexDisziplinenAuswahl" Type="int" />
-    <Property Name="Erstellt am" Type="datetime2" Precision="0" />
-    <Property Name="Erstellt von" Type="nvarchar" MaxLength="25" />
-    <Property Name="Letzte Änderung" Type="datetime2" Precision="0" />
-    <Property Name="Zuletzt gespeichert" Type="nvarchar" MaxLength="25" />
-    <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
   </EntityType>
   <EntityType Name="Verein">
     <Key>
@@ -239,8 +216,17 @@ Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="WettkampfName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="WettkampfartId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Wettkampfart">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Wettkampfart" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Abkuerzung" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="WettkampfartAlt">
     <Key>
       <PropertyRef Name="Index" />
     </Key>
@@ -262,33 +248,33 @@ Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
   </EntityType>
   <Association Name="Disziplinen$Liste BewertungsartListe Disziplinen">
     <End Role="Bewertungsart" Type="Self.Bewertungsart" Multiplicity="0..1" />
-    <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="*" />
+    <End Role="DisziplinenAlt" Type="Self.DisziplinenAlt" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Bewertungsart">
         <PropertyRef Name="Index" />
       </Principal>
-      <Dependent Role="Disziplinen">
+      <Dependent Role="DisziplinenAlt">
         <PropertyRef Name="Bewertungsart" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="Disziplinen$Liste WettkampfgruppenListe Disziplinen">
-    <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="0..1" />
-    <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="*" />
+    <End Role="WettkampfartAlt" Type="Self.WettkampfartAlt" Multiplicity="0..1" />
+    <End Role="DisziplinenAlt" Type="Self.DisziplinenAlt" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Wettkampfart">
+      <Principal Role="WettkampfartAlt">
         <PropertyRef Name="Index" />
       </Principal>
-      <Dependent Role="Disziplinen">
+      <Dependent Role="DisziplinenAlt">
         <PropertyRef Name="Wettkampfgruppe_Index" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="DisziplinenAuswahl Beschreibung$Liste WettkampfgruppenDisziplinenAuswahl Beschreibung">
-    <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="0..1" />
+    <End Role="WettkampfartAlt" Type="Self.WettkampfartAlt" Multiplicity="0..1" />
     <End Role="DisziplinenAuswahl Beschreibung" Type="Self.DisziplinenAuswahl Beschreibung" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Wettkampfart">
+      <Principal Role="WettkampfartAlt">
         <PropertyRef Name="Index" />
       </Principal>
       <Dependent Role="DisziplinenAuswahl Beschreibung">
@@ -297,10 +283,10 @@ Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
     </ReferentialConstraint>
   </Association>
   <Association Name="DisziplinenAuswahl$Reference3">
-    <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="1" />
+    <End Role="DisziplinenAlt" Type="Self.DisziplinenAlt" Multiplicity="1" />
     <End Role="DisziplinenAuswahl" Type="Self.DisziplinenAuswahl" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Disziplinen">
+      <Principal Role="DisziplinenAlt">
         <PropertyRef Name="Index" />
       </Principal>
       <Dependent Role="DisziplinenAuswahl">
@@ -317,6 +303,78 @@ Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
       </Principal>
       <Dependent Role="DisziplinenAuswahl">
         <PropertyRef Name="Index_DisziplinenAuswahl_Beschreibung" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DiKD">
+    <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="1" />
+    <End Role="KategorienDisziplinen" Type="Self.KategorienDisziplinen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Disziplinen">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="KategorienDisziplinen">
+        <PropertyRef Name="DisziplinId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DiWe">
+    <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="1" />
+    <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wettkampfart">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Disziplinen">
+        <PropertyRef Name="WettkampfartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_geschlecht">
+    <End Role="Geschlechter" Type="Self.Geschlechter" Multiplicity="1" />
+    <End Role="Athleten" Type="Self.Athleten" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geschlechter">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Athleten">
+        <PropertyRef Name="GeschlechtId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_KaGe">
+    <End Role="Geschlechter" Type="Self.Geschlechter" Multiplicity="1" />
+    <End Role="Kategorien" Type="Self.Kategorien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geschlechter">
+        <PropertyRef Name="Index" />
+      </Principal>
+      <Dependent Role="Kategorien">
+        <PropertyRef Name="GeschlechtId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_KaKD">
+    <End Role="Kategorien" Type="Self.Kategorien" Multiplicity="1" />
+    <End Role="KategorienDisziplinen" Type="Self.KategorienDisziplinen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategorien">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="KategorienDisziplinen">
+        <PropertyRef Name="KategorieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_KaWe">
+    <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="1" />
+    <End Role="Kategorien" Type="Self.Kategorien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wettkampfart">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Kategorien">
+        <PropertyRef Name="WettkampfartId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -416,57 +474,15 @@ Warnung 6002: Für Tabelle/Sicht 'RLP2000_Gruppe5.dbo.Kategorien' ist kein Prim�
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6035: Beziehung 'KategorienDisziplinen$KategorienKategorienDisziplinen' enthält Spalten, die nicht zum Schlüssel der Tabelle auf der Primärseite der Beziehung gehören. Die Beziehung wurde ausgeschlossen.
-        <Association Name="KategorienDisziplinen$KategorienKategorienDisziplinen" />-->
-  <Association Name="KategorienDisziplinen$Reference6">
-    <End Role="DisziplinenAuswahl Beschreibung" Type="Self.DisziplinenAuswahl Beschreibung" Multiplicity="1" />
-    <End Role="KategorienDisziplinen" Type="Self.KategorienDisziplinen" Multiplicity="*" />
+  <Association Name="fk_WeWeA">
+    <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="1" />
+    <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="DisziplinenAuswahl Beschreibung">
-        <PropertyRef Name="Index" />
+      <Principal Role="Wettkampfart">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="KategorienDisziplinen">
-        <PropertyRef Name="Index_DisziplinenAuswahl_Beschreibung" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enthält Spalten, die nicht zum Schlüssel der Tabelle auf der Primärseite der Beziehung gehören. Die Beziehung wurde ausgeschlossen.
-        <Association Name="Teilnehmer$KategorienTeilnehmer" />-->
-  <Association Name="Teilnehmer$VereinTeilnehmer">
-    <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
-    <End Role="Teilnehmer" Type="Self.Teilnehmer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Verein">
-        <PropertyRef Name="Index" />
-      </Principal>
-      <Dependent Role="Teilnehmer">
-        <PropertyRef Name="Verein" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="Teilnehmer_Leistung$Reference16">
-    <End Role="Teilnehmer" Type="Self.Teilnehmer" Multiplicity="1" />
-    <End Role="Teilnehmer_Leistung" Type="Self.Teilnehmer_Leistung" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Teilnehmer">
-        <PropertyRef Name="Index" />
-      </Principal>
-      <Dependent Role="Teilnehmer_Leistung">
-        <PropertyRef Name="Index_Teilnehmer" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="Teilnehmer_Leistung$Reference17">
-    <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="1" />
-    <End Role="Teilnehmer_Leistung" Type="Self.Teilnehmer_Leistung" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Disziplinen">
-        <PropertyRef Name="Index" />
-      </Principal>
-      <Dependent Role="Teilnehmer_Leistung">
-        <PropertyRef Name="Index_Disziplin" />
+      <Dependent Role="Wettkampf">
+        <PropertyRef Name="WettkampfartId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -476,61 +492,86 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enthält Spalten, die 
     <EntitySet Name="BenutzerRollen" EntityType="Self.BenutzerRollen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Bewertungsart" EntityType="Self.Bewertungsart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Disziplinen" EntityType="Self.Disziplinen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DisziplinenAlt" EntityType="Self.DisziplinenAlt" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DisziplinenAuswahl" EntityType="Self.DisziplinenAuswahl" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DisziplinenAuswahl Beschreibung" EntityType="Self.DisziplinenAuswahl Beschreibung" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Geschlechter" EntityType="Self.Geschlechter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kategorien" EntityType="Self.Kategorien" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KategorienDisziplinen" EntityType="Self.KategorienDisziplinen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rollen" EntityType="Self.Rollen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Startnummern" EntityType="Self.Startnummern" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Teilnehmer" EntityType="Self.Teilnehmer" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Teilnehmer_Leistung" EntityType="Self.Teilnehmer_Leistung" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Verein" EntityType="Self.Verein" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VereineWettkampf" EntityType="Self.VereineWettkampf" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Wettkampf" EntityType="Self.Wettkampf" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Wettkampfart" EntityType="Self.Wettkampfart" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Kategorien" EntityType="Self.Kategorien" store:Type="Tables" store:Schema="dbo">
+    <EntitySet Name="WettkampfartAlt" EntityType="Self.WettkampfartAlt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KategorienAlt" EntityType="Self.KategorienAlt" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
-    [Kategorien].[Index] AS [Index], 
-    [Kategorien].[Abkürzung Kategorie] AS [Abkürzung Kategorie], 
-    [Kategorien].[Jahrgang von] AS [Jahrgang von], 
-    [Kategorien].[Jahrgang bis] AS [Jahrgang bis], 
-    [Kategorien].[Index Zuweisung Disziplinengruppe] AS [Index Zuweisung Disziplinengruppe], 
-    [Kategorien].[Auszeichnung Art] AS [Auszeichnung Art], 
-    [Kategorien].[Auszeichnung in Prozent] AS [Auszeichnung in Prozent], 
-    [Kategorien].[Auszeichnung bis mind Rang] AS [Auszeichnung bis mind Rang], 
-    [Kategorien].[Auszeichnung bis Rang] AS [Auszeichnung bis Rang], 
-    [Kategorien].[AuszeichnungAbPunktzahl] AS [AuszeichnungAbPunktzahl], 
-    [Kategorien].[Abkürzung Art] AS [Abkürzung Art], 
-    [Kategorien].[Abkürzung Vorgabe] AS [Abkürzung Vorgabe], 
-    [Kategorien].[Abkürzung Benutzer] AS [Abkürzung Benutzer], 
-    [Kategorien].[RanglistenBerechnung] AS [RanglistenBerechnung], 
-    [Kategorien].[Erstellt am] AS [Erstellt am], 
-    [Kategorien].[Erstellt von] AS [Erstellt von], 
-    [Kategorien].[Letzte Änderung] AS [Letzte Änderung], 
-    [Kategorien].[Zuletzt gespeichert] AS [Zuletzt gespeichert], 
-    [Kategorien].[SSMA_TimeStamp] AS [SSMA_TimeStamp]
-    FROM [dbo].[Kategorien] AS [Kategorien]</DefiningQuery>
+    [KategorienAlt].[Index] AS [Index], 
+    [KategorienAlt].[Abkürzung Kategorie] AS [Abkürzung Kategorie], 
+    [KategorienAlt].[Jahrgang von] AS [Jahrgang von], 
+    [KategorienAlt].[Jahrgang bis] AS [Jahrgang bis], 
+    [KategorienAlt].[Index Zuweisung Disziplinengruppe] AS [Index Zuweisung Disziplinengruppe], 
+    [KategorienAlt].[Auszeichnung Art] AS [Auszeichnung Art], 
+    [KategorienAlt].[Auszeichnung in Prozent] AS [Auszeichnung in Prozent], 
+    [KategorienAlt].[Auszeichnung bis mind Rang] AS [Auszeichnung bis mind Rang], 
+    [KategorienAlt].[Auszeichnung bis Rang] AS [Auszeichnung bis Rang], 
+    [KategorienAlt].[AuszeichnungAbPunktzahl] AS [AuszeichnungAbPunktzahl], 
+    [KategorienAlt].[Abkürzung Art] AS [Abkürzung Art], 
+    [KategorienAlt].[Abkürzung Vorgabe] AS [Abkürzung Vorgabe], 
+    [KategorienAlt].[Abkürzung Benutzer] AS [Abkürzung Benutzer], 
+    [KategorienAlt].[RanglistenBerechnung] AS [RanglistenBerechnung], 
+    [KategorienAlt].[Erstellt am] AS [Erstellt am], 
+    [KategorienAlt].[Erstellt von] AS [Erstellt von], 
+    [KategorienAlt].[Letzte Änderung] AS [Letzte Änderung], 
+    [KategorienAlt].[Zuletzt gespeichert] AS [Zuletzt gespeichert], 
+    [KategorienAlt].[SSMA_TimeStamp] AS [SSMA_TimeStamp]
+    FROM [dbo].[KategorienAlt] AS [KategorienAlt]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="Disziplinen$Liste BewertungsartListe Disziplinen" Association="Self.Disziplinen$Liste BewertungsartListe Disziplinen">
       <End Role="Bewertungsart" EntitySet="Bewertungsart" />
-      <End Role="Disziplinen" EntitySet="Disziplinen" />
+      <End Role="DisziplinenAlt" EntitySet="DisziplinenAlt" />
     </AssociationSet>
     <AssociationSet Name="Disziplinen$Liste WettkampfgruppenListe Disziplinen" Association="Self.Disziplinen$Liste WettkampfgruppenListe Disziplinen">
-      <End Role="Wettkampfart" EntitySet="Wettkampfart" />
-      <End Role="Disziplinen" EntitySet="Disziplinen" />
+      <End Role="WettkampfartAlt" EntitySet="WettkampfartAlt" />
+      <End Role="DisziplinenAlt" EntitySet="DisziplinenAlt" />
     </AssociationSet>
     <AssociationSet Name="DisziplinenAuswahl Beschreibung$Liste WettkampfgruppenDisziplinenAuswahl Beschreibung" Association="Self.DisziplinenAuswahl Beschreibung$Liste WettkampfgruppenDisziplinenAuswahl Beschreibung">
-      <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+      <End Role="WettkampfartAlt" EntitySet="WettkampfartAlt" />
       <End Role="DisziplinenAuswahl Beschreibung" EntitySet="DisziplinenAuswahl Beschreibung" />
     </AssociationSet>
     <AssociationSet Name="DisziplinenAuswahl$Reference3" Association="Self.DisziplinenAuswahl$Reference3">
-      <End Role="Disziplinen" EntitySet="Disziplinen" />
+      <End Role="DisziplinenAlt" EntitySet="DisziplinenAlt" />
       <End Role="DisziplinenAuswahl" EntitySet="DisziplinenAuswahl" />
     </AssociationSet>
     <AssociationSet Name="DisziplinenAuswahl$Reference5" Association="Self.DisziplinenAuswahl$Reference5">
       <End Role="DisziplinenAuswahl Beschreibung" EntitySet="DisziplinenAuswahl Beschreibung" />
       <End Role="DisziplinenAuswahl" EntitySet="DisziplinenAuswahl" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DiKD" Association="Self.fk_DiKD">
+      <End Role="Disziplinen" EntitySet="Disziplinen" />
+      <End Role="KategorienDisziplinen" EntitySet="KategorienDisziplinen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DiWe" Association="Self.fk_DiWe">
+      <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+      <End Role="Disziplinen" EntitySet="Disziplinen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_geschlecht" Association="Self.fk_geschlecht">
+      <End Role="Geschlechter" EntitySet="Geschlechter" />
+      <End Role="Athleten" EntitySet="Athleten" />
+    </AssociationSet>
+    <AssociationSet Name="fk_KaGe" Association="Self.fk_KaGe">
+      <End Role="Geschlechter" EntitySet="Geschlechter" />
+      <End Role="Kategorien" EntitySet="Kategorien" />
+    </AssociationSet>
+    <AssociationSet Name="fk_KaKD" Association="Self.fk_KaKD">
+      <End Role="Kategorien" EntitySet="Kategorien" />
+      <End Role="KategorienDisziplinen" EntitySet="KategorienDisziplinen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_KaWe" Association="Self.fk_KaWe">
+      <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+      <End Role="Kategorien" EntitySet="Kategorien" />
     </AssociationSet>
     <AssociationSet Name="fk_role" Association="Self.fk_role">
       <End Role="Rollen" EntitySet="Rollen" />
@@ -564,21 +605,9 @@ Warnung 6035: Beziehung 'Teilnehmer$KategorienTeilnehmer' enthält Spalten, die 
       <End Role="Wettkampf" EntitySet="Wettkampf" />
       <End Role="VereineWettkampf" EntitySet="VereineWettkampf" />
     </AssociationSet>
-    <AssociationSet Name="KategorienDisziplinen$Reference6" Association="Self.KategorienDisziplinen$Reference6">
-      <End Role="DisziplinenAuswahl Beschreibung" EntitySet="DisziplinenAuswahl Beschreibung" />
-      <End Role="KategorienDisziplinen" EntitySet="KategorienDisziplinen" />
-    </AssociationSet>
-    <AssociationSet Name="Teilnehmer$VereinTeilnehmer" Association="Self.Teilnehmer$VereinTeilnehmer">
-      <End Role="Verein" EntitySet="Verein" />
-      <End Role="Teilnehmer" EntitySet="Teilnehmer" />
-    </AssociationSet>
-    <AssociationSet Name="Teilnehmer_Leistung$Reference16" Association="Self.Teilnehmer_Leistung$Reference16">
-      <End Role="Teilnehmer" EntitySet="Teilnehmer" />
-      <End Role="Teilnehmer_Leistung" EntitySet="Teilnehmer_Leistung" />
-    </AssociationSet>
-    <AssociationSet Name="Teilnehmer_Leistung$Reference17" Association="Self.Teilnehmer_Leistung$Reference17">
-      <End Role="Disziplinen" EntitySet="Disziplinen" />
-      <End Role="Teilnehmer_Leistung" EntitySet="Teilnehmer_Leistung" />
+    <AssociationSet Name="fk_WeWeA" Association="Self.fk_WeWeA">
+      <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+      <End Role="Wettkampf" EntitySet="Wettkampf" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

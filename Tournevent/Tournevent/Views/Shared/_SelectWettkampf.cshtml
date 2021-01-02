@@ -5,7 +5,7 @@
     {
 
         @Html.DropDownList("Wettkampf",
-                Model, "Wettkampf", new { onchange = @"this.form.submit();", @class = "wettkampf" })
+                Model, new { onchange = @"this.form.submit();", @class = "wettkampf" })
 
     }
     if (Model.Count() == 1)

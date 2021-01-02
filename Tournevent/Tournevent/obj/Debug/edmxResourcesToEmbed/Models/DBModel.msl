@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBContext">
+    <EntitySetMapping Name="Athleten">
+      <EntityTypeMapping TypeName="DBModel.Athleten">
+        <MappingFragment StoreEntitySet="Athleten">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+          <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
+          <ScalarProperty Name="VereinsId" ColumnName="VereinsId" />
+          <ScalarProperty Name="GeschlechtId" ColumnName="GeschlechtId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Benutzer">
+      <EntityTypeMapping TypeName="DBModel.Benutzer">
+        <MappingFragment StoreEntitySet="Benutzer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="VereinId" ColumnName="VereinId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BenutzerRollen">
+      <EntityTypeMapping TypeName="DBModel.BenutzerRollen">
+        <MappingFragment StoreEntitySet="BenutzerRollen">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BenutzerId" ColumnName="BenutzerId" />
+          <ScalarProperty Name="RollenId" ColumnName="RollenId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bewertungsart">
+      <EntityTypeMapping TypeName="DBModel.Bewertungsart">
+        <MappingFragment StoreEntitySet="Bewertungsart">
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Disziplinen">
+      <EntityTypeMapping TypeName="DBModel.Disziplinen">
+        <MappingFragment StoreEntitySet="Disziplinen">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Disziplin" ColumnName="Disziplin" />
+          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+          <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />
+          <ScalarProperty Name="anzTeilnehmer" ColumnName="anzTeilnehmer" />
+          <ScalarProperty Name="Versuche" ColumnName="Versuche" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Geschlechter">
+      <EntityTypeMapping TypeName="DBModel.Geschlechter">
+        <MappingFragment StoreEntitySet="Geschlechter">
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="Definition" ColumnName="Definition" />
+          <ScalarProperty Name="Abkürzung_Geschlecht" ColumnName="Abkürzung Geschlecht" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategorien">
+      <EntityTypeMapping TypeName="DBModel.Kategorien">
+        <MappingFragment StoreEntitySet="Kategorien">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Kategorie" ColumnName="Kategorie" />
+          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+          <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />
+          <ScalarProperty Name="GeschlechtId" ColumnName="GeschlechtId" />
+          <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KategorienDisziplinen">
+      <EntityTypeMapping TypeName="DBModel.KategorienDisziplinen">
+        <MappingFragment StoreEntitySet="KategorienDisziplinen">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="KategorieId" ColumnName="KategorieId" />
+          <ScalarProperty Name="DisziplinId" ColumnName="DisziplinId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rollen">
+      <EntityTypeMapping TypeName="DBModel.Rollen">
+        <MappingFragment StoreEntitySet="Rollen">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Rolle" ColumnName="Rolle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Startnummern">
+      <EntityTypeMapping TypeName="DBModel.Startnummern">
+        <MappingFragment StoreEntitySet="Startnummern">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="WettkampfId" ColumnName="WettkampfId" />
+          <ScalarProperty Name="AthletId" ColumnName="AthletId" />
+          <ScalarProperty Name="Startnummer" ColumnName="Startnummer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="DBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Verein">
+      <EntityTypeMapping TypeName="DBModel.Verein">
+        <MappingFragment StoreEntitySet="Verein">
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="Vereinsname" ColumnName="Vereinsname" />
+          <ScalarProperty Name="PC_Konto" ColumnName="PC_Konto" />
+          <ScalarProperty Name="Bank_Konto" ColumnName="Bank_Konto" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+          <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+          <ScalarProperty Name="Ort" ColumnName="Ort" />
+          <ScalarProperty Name="Telefon_privat" ColumnName="Telefon privat" />
+          <ScalarProperty Name="Telefon_geschäft" ColumnName="Telefon geschäft" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="Natel" ColumnName="Natel" />
+          <ScalarProperty Name="E_Mail" ColumnName="E-Mail" />
+          <ScalarProperty Name="Erstellt_am" ColumnName="Erstellt am" />
+          <ScalarProperty Name="Erstellt_von" ColumnName="Erstellt von" />
+          <ScalarProperty Name="Letzte_Änderung" ColumnName="Letzte Änderung" />
+          <ScalarProperty Name="Zuletzt_gespeichert" ColumnName="Zuletzt gespeichert" />
+          <ScalarProperty Name="ImportDatei" ColumnName="ImportDatei" />
+          <ScalarProperty Name="ExportDatei" ColumnName="ExportDatei" />
+          <ScalarProperty Name="Vorrunde" ColumnName="Vorrunde" />
+          <ScalarProperty Name="IndexVereinVorrunde" ColumnName="IndexVereinVorrunde" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VereineWettkampf">
+      <EntityTypeMapping TypeName="DBModel.VereineWettkampf">
+        <MappingFragment StoreEntitySet="VereineWettkampf">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VereinId" ColumnName="VereinId" />
+          <ScalarProperty Name="WettkampfId" ColumnName="WettkampfId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wettkampf">
+      <EntityTypeMapping TypeName="DBModel.Wettkampf">
+        <MappingFragment StoreEntitySet="Wettkampf">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="WettkampfName" ColumnName="WettkampfName" />
+          <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wettkampfart">
+      <EntityTypeMapping TypeName="DBModel.Wettkampfart">
+        <MappingFragment StoreEntitySet="Wettkampfart">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Wettkampfart1" ColumnName="Wettkampfart" />
+          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

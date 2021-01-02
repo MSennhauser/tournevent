@@ -1,0 +1,1062 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Athleten">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Jahrgang" Type="int" Nullable="false" />
+          <Property Name="VereinsId" Type="int" Nullable="false" />
+          <Property Name="GeschlechtId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Benutzer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="255" />
+          <Property Name="Nachname" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Passwort" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Telefon" Type="varchar" MaxLength="255" />
+          <Property Name="VereinId" Type="int" />
+        </EntityType>
+        <EntityType Name="BenutzerRollen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BenutzerId" Type="int" />
+          <Property Name="RollenId" Type="int" />
+        </EntityType>
+        <EntityType Name="Bewertungsart">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Disziplinen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Disziplin" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Abkuerzung" Type="varchar" MaxLength="20" />
+          <Property Name="WettkampfartId" Type="int" Nullable="false" />
+          <Property Name="anzTeilnehmer" Type="int" />
+          <Property Name="Versuche" Type="int" />
+        </EntityType>
+        <EntityType Name="Geschlechter">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Definition" Type="nvarchar" MaxLength="50" />
+          <Property Name="Abkürzung Geschlecht" Type="nvarchar" MaxLength="5" />
+          <Property Name="Bezeichnung" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kategorien">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategorie" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Abkuerzung" Type="varchar" MaxLength="20" />
+          <Property Name="WettkampfartId" Type="int" Nullable="false" />
+          <Property Name="GeschlechtId" Type="int" Nullable="false" />
+          <Property Name="Jahrgang" Type="int" />
+        </EntityType>
+        <EntityType Name="KategorienDisziplinen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategorieId" Type="int" Nullable="false" />
+          <Property Name="DisziplinId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rollen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rolle" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Startnummern">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WettkampfId" Type="int" Nullable="false" />
+          <Property Name="AthletId" Type="int" Nullable="false" />
+          <Property Name="Startnummer" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Verein">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vereinsname" Type="nvarchar" MaxLength="50" />
+          <Property Name="PC_Konto" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bank_Konto" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vorname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Strasse" Type="nvarchar" MaxLength="50" />
+          <Property Name="PLZ" Type="nvarchar" MaxLength="4" />
+          <Property Name="Ort" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon privat" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon geschäft" Type="nvarchar" MaxLength="50" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="50" />
+          <Property Name="Natel" Type="nvarchar" MaxLength="50" />
+          <Property Name="E-Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Erstellt am" Type="datetime2" Precision="0" />
+          <Property Name="Erstellt von" Type="nvarchar" MaxLength="25" />
+          <Property Name="Letzte Änderung" Type="datetime2" Precision="0" />
+          <Property Name="Zuletzt gespeichert" Type="nvarchar" MaxLength="25" />
+          <Property Name="ImportDatei" Type="nvarchar" MaxLength="200" />
+          <Property Name="ExportDatei" Type="nvarchar" MaxLength="200" />
+          <Property Name="Vorrunde" Type="nvarchar" MaxLength="50" />
+          <Property Name="IndexVereinVorrunde" Type="int" />
+        </EntityType>
+        <EntityType Name="VereineWettkampf">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VereinId" Type="int" Nullable="false" />
+          <Property Name="WettkampfId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wettkampf">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WettkampfName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="WettkampfartId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wettkampfart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Wettkampfart" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Abkuerzung" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_DiKD">
+          <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="1" />
+          <End Role="KategorienDisziplinen" Type="Self.KategorienDisziplinen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disziplinen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KategorienDisziplinen">
+              <PropertyRef Name="DisziplinId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DiWe">
+          <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="1" />
+          <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampfart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Disziplinen">
+              <PropertyRef Name="WettkampfartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_geschlecht">
+          <End Role="Geschlechter" Type="Self.Geschlechter" Multiplicity="1" />
+          <End Role="Athleten" Type="Self.Athleten" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geschlechter">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Athleten">
+              <PropertyRef Name="GeschlechtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_KaGe">
+          <End Role="Geschlechter" Type="Self.Geschlechter" Multiplicity="1" />
+          <End Role="Kategorien" Type="Self.Kategorien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geschlechter">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Kategorien">
+              <PropertyRef Name="GeschlechtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_KaKD">
+          <End Role="Kategorien" Type="Self.Kategorien" Multiplicity="1" />
+          <End Role="KategorienDisziplinen" Type="Self.KategorienDisziplinen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorien">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KategorienDisziplinen">
+              <PropertyRef Name="KategorieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_KaWe">
+          <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="1" />
+          <End Role="Kategorien" Type="Self.Kategorien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampfart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kategorien">
+              <PropertyRef Name="WettkampfartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_role">
+          <End Role="Rollen" Type="Self.Rollen" Multiplicity="0..1" />
+          <End Role="BenutzerRollen" Type="Self.BenutzerRollen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rollen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenutzerRollen">
+              <PropertyRef Name="RollenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_startnummerAthlet">
+          <End Role="Athleten" Type="Self.Athleten" Multiplicity="1" />
+          <End Role="Startnummern" Type="Self.Startnummern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Athleten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Startnummern">
+              <PropertyRef Name="AthletId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_startnummerWettkampf">
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+          <End Role="Startnummern" Type="Self.Startnummern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Startnummern">
+              <PropertyRef Name="WettkampfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user">
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
+          <End Role="BenutzerRollen" Type="Self.BenutzerRollen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benutzer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenutzerRollen">
+              <PropertyRef Name="BenutzerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_verein">
+          <End Role="Verein" Type="Self.Verein" Multiplicity="0..1" />
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Benutzer">
+              <PropertyRef Name="VereinId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vereinAthlet">
+          <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+          <End Role="Athleten" Type="Self.Athleten" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Athleten">
+              <PropertyRef Name="VereinsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vereinWettkampf">
+          <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+          <End Role="VereineWettkampf" Type="Self.VereineWettkampf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="VereineWettkampf">
+              <PropertyRef Name="VereinId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_wettkampf">
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+          <End Role="VereineWettkampf" Type="Self.VereineWettkampf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VereineWettkampf">
+              <PropertyRef Name="WettkampfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WeWeA">
+          <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="1" />
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampfart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wettkampf">
+              <PropertyRef Name="WettkampfartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="Athleten" EntityType="Self.Athleten" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Benutzer" EntityType="Self.Benutzer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BenutzerRollen" EntityType="Self.BenutzerRollen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bewertungsart" EntityType="Self.Bewertungsart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Disziplinen" EntityType="Self.Disziplinen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Geschlechter" EntityType="Self.Geschlechter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategorien" EntityType="Self.Kategorien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KategorienDisziplinen" EntityType="Self.KategorienDisziplinen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rollen" EntityType="Self.Rollen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Startnummern" EntityType="Self.Startnummern" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Verein" EntityType="Self.Verein" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VereineWettkampf" EntityType="Self.VereineWettkampf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wettkampf" EntityType="Self.Wettkampf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wettkampfart" EntityType="Self.Wettkampfart" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_DiKD" Association="Self.fk_DiKD">
+            <End Role="Disziplinen" EntitySet="Disziplinen" />
+            <End Role="KategorienDisziplinen" EntitySet="KategorienDisziplinen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DiWe" Association="Self.fk_DiWe">
+            <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+            <End Role="Disziplinen" EntitySet="Disziplinen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_geschlecht" Association="Self.fk_geschlecht">
+            <End Role="Geschlechter" EntitySet="Geschlechter" />
+            <End Role="Athleten" EntitySet="Athleten" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KaGe" Association="Self.fk_KaGe">
+            <End Role="Geschlechter" EntitySet="Geschlechter" />
+            <End Role="Kategorien" EntitySet="Kategorien" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KaKD" Association="Self.fk_KaKD">
+            <End Role="Kategorien" EntitySet="Kategorien" />
+            <End Role="KategorienDisziplinen" EntitySet="KategorienDisziplinen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KaWe" Association="Self.fk_KaWe">
+            <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+            <End Role="Kategorien" EntitySet="Kategorien" />
+          </AssociationSet>
+          <AssociationSet Name="fk_role" Association="Self.fk_role">
+            <End Role="Rollen" EntitySet="Rollen" />
+            <End Role="BenutzerRollen" EntitySet="BenutzerRollen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_startnummerAthlet" Association="Self.fk_startnummerAthlet">
+            <End Role="Athleten" EntitySet="Athleten" />
+            <End Role="Startnummern" EntitySet="Startnummern" />
+          </AssociationSet>
+          <AssociationSet Name="fk_startnummerWettkampf" Association="Self.fk_startnummerWettkampf">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Startnummern" EntitySet="Startnummern" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user" Association="Self.fk_user">
+            <End Role="Benutzer" EntitySet="Benutzer" />
+            <End Role="BenutzerRollen" EntitySet="BenutzerRollen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_verein" Association="Self.fk_verein">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Benutzer" EntitySet="Benutzer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vereinAthlet" Association="Self.fk_vereinAthlet">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Athleten" EntitySet="Athleten" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vereinWettkampf" Association="Self.fk_vereinWettkampf">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="VereineWettkampf" EntitySet="VereineWettkampf" />
+          </AssociationSet>
+          <AssociationSet Name="fk_wettkampf" Association="Self.fk_wettkampf">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="VereineWettkampf" EntitySet="VereineWettkampf" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WeWeA" Association="Self.fk_WeWeA">
+            <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Athleten">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vorname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nachname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Jahrgang" Type="Int32" Nullable="false" />
+          <Property Name="VereinsId" Type="Int32" Nullable="false" />
+          <Property Name="GeschlechtId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Geschlechter" Relationship="Self.fk_geschlecht" FromRole="Athleten" ToRole="Geschlechter" />
+          <NavigationProperty Name="Startnummern" Relationship="Self.fk_startnummerAthlet" FromRole="Athleten" ToRole="Startnummern" />
+          <NavigationProperty Name="Verein" Relationship="Self.fk_vereinAthlet" FromRole="Athleten" ToRole="Verein" />
+        </EntityType>
+        <EntityType Name="Benutzer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vorname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Nachname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Passwort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="VereinId" Type="Int32" />
+          <NavigationProperty Name="BenutzerRollen" Relationship="Self.fk_user" FromRole="Benutzer" ToRole="BenutzerRollen" />
+          <NavigationProperty Name="Verein" Relationship="Self.fk_verein" FromRole="Benutzer" ToRole="Verein" />
+        </EntityType>
+        <EntityType Name="BenutzerRollen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BenutzerId" Type="Int32" />
+          <Property Name="RollenId" Type="Int32" />
+          <NavigationProperty Name="Benutzer" Relationship="Self.fk_user" FromRole="BenutzerRollen" ToRole="Benutzer" />
+          <NavigationProperty Name="Rollen" Relationship="Self.fk_role" FromRole="BenutzerRollen" ToRole="Rollen" />
+        </EntityType>
+        <EntityType Name="Bewertungsart">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Disziplinen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Disziplin" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Abkuerzung" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="WettkampfartId" Type="Int32" Nullable="false" />
+          <Property Name="anzTeilnehmer" Type="Int32" />
+          <Property Name="Versuche" Type="Int32" />
+          <NavigationProperty Name="KategorienDisziplinen" Relationship="Self.fk_DiKD" FromRole="Disziplinen" ToRole="KategorienDisziplinen" />
+          <NavigationProperty Name="Wettkampfart" Relationship="Self.fk_DiWe" FromRole="Disziplinen" ToRole="Wettkampfart" />
+        </EntityType>
+        <EntityType Name="Geschlechter">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Definition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Abkürzung_Geschlecht" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Athleten" Relationship="Self.fk_geschlecht" FromRole="Geschlechter" ToRole="Athleten" />
+          <NavigationProperty Name="Kategorien" Relationship="Self.fk_KaGe" FromRole="Geschlechter" ToRole="Kategorien" />
+        </EntityType>
+        <EntityType Name="Kategorien">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategorie" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Abkuerzung" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="WettkampfartId" Type="Int32" Nullable="false" />
+          <Property Name="GeschlechtId" Type="Int32" Nullable="false" />
+          <Property Name="Jahrgang" Type="Int32" />
+          <NavigationProperty Name="Geschlechter" Relationship="Self.fk_KaGe" FromRole="Kategorien" ToRole="Geschlechter" />
+          <NavigationProperty Name="KategorienDisziplinen" Relationship="Self.fk_KaKD" FromRole="Kategorien" ToRole="KategorienDisziplinen" />
+          <NavigationProperty Name="Wettkampfart" Relationship="Self.fk_KaWe" FromRole="Kategorien" ToRole="Wettkampfart" />
+        </EntityType>
+        <EntityType Name="KategorienDisziplinen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategorieId" Type="Int32" Nullable="false" />
+          <Property Name="DisziplinId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Disziplinen" Relationship="Self.fk_DiKD" FromRole="KategorienDisziplinen" ToRole="Disziplinen" />
+          <NavigationProperty Name="Kategorien" Relationship="Self.fk_KaKD" FromRole="KategorienDisziplinen" ToRole="Kategorien" />
+        </EntityType>
+        <EntityType Name="Rollen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rolle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BenutzerRollen" Relationship="Self.fk_role" FromRole="Rollen" ToRole="BenutzerRollen" />
+        </EntityType>
+        <EntityType Name="Startnummern">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WettkampfId" Type="Int32" Nullable="false" />
+          <Property Name="AthletId" Type="Int32" Nullable="false" />
+          <Property Name="Startnummer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Athleten" Relationship="Self.fk_startnummerAthlet" FromRole="Startnummern" ToRole="Athleten" />
+          <NavigationProperty Name="Wettkampf" Relationship="Self.fk_startnummerWettkampf" FromRole="Startnummern" ToRole="Wettkampf" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Verein">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vereinsname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PC_Konto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bank_Konto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Strasse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PLZ" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Ort" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon_privat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon_geschäft" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Natel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="E_Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Erstellt_am" Type="DateTime" Precision="0" />
+          <Property Name="Erstellt_von" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Letzte_Änderung" Type="DateTime" Precision="0" />
+          <Property Name="Zuletzt_gespeichert" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ImportDatei" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ExportDatei" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Vorrunde" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IndexVereinVorrunde" Type="Int32" />
+          <NavigationProperty Name="Athleten" Relationship="Self.fk_vereinAthlet" FromRole="Verein" ToRole="Athleten" />
+          <NavigationProperty Name="Benutzer" Relationship="Self.fk_verein" FromRole="Verein" ToRole="Benutzer" />
+          <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_vereinWettkampf" FromRole="Verein" ToRole="VereineWettkampf" />
+        </EntityType>
+        <EntityType Name="VereineWettkampf">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VereinId" Type="Int32" Nullable="false" />
+          <Property Name="WettkampfId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Verein" Relationship="Self.fk_vereinWettkampf" FromRole="VereineWettkampf" ToRole="Verein" />
+          <NavigationProperty Name="Wettkampf" Relationship="Self.fk_wettkampf" FromRole="VereineWettkampf" ToRole="Wettkampf" />
+        </EntityType>
+        <EntityType Name="Wettkampf">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WettkampfName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WettkampfartId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Startnummern" Relationship="Self.fk_startnummerWettkampf" FromRole="Wettkampf" ToRole="Startnummern" />
+          <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_wettkampf" FromRole="Wettkampf" ToRole="VereineWettkampf" />
+          <NavigationProperty Name="Wettkampfart" Relationship="Self.fk_WeWeA" FromRole="Wettkampf" ToRole="Wettkampfart" />
+        </EntityType>
+        <EntityType Name="Wettkampfart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Wettkampfart1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Abkuerzung" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Disziplinen" Relationship="Self.fk_DiWe" FromRole="Wettkampfart" ToRole="Disziplinen" />
+          <NavigationProperty Name="Kategorien" Relationship="Self.fk_KaWe" FromRole="Wettkampfart" ToRole="Kategorien" />
+          <NavigationProperty Name="Wettkampf" Relationship="Self.fk_WeWeA" FromRole="Wettkampfart" ToRole="Wettkampf" />
+        </EntityType>
+        <Association Name="fk_geschlecht">
+          <End Role="Geschlechter" Type="Self.Geschlechter" Multiplicity="1" />
+          <End Role="Athleten" Type="Self.Athleten" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geschlechter">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Athleten">
+              <PropertyRef Name="GeschlechtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_startnummerAthlet">
+          <End Role="Athleten" Type="Self.Athleten" Multiplicity="1" />
+          <End Role="Startnummern" Type="Self.Startnummern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Athleten">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Startnummern">
+              <PropertyRef Name="AthletId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vereinAthlet">
+          <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+          <End Role="Athleten" Type="Self.Athleten" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Athleten">
+              <PropertyRef Name="VereinsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user">
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
+          <End Role="BenutzerRollen" Type="Self.BenutzerRollen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benutzer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenutzerRollen">
+              <PropertyRef Name="BenutzerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_verein">
+          <End Role="Verein" Type="Self.Verein" Multiplicity="0..1" />
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Benutzer">
+              <PropertyRef Name="VereinId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_role">
+          <End Role="Rollen" Type="Self.Rollen" Multiplicity="0..1" />
+          <End Role="BenutzerRollen" Type="Self.BenutzerRollen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rollen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BenutzerRollen">
+              <PropertyRef Name="RollenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DiKD">
+          <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="1" />
+          <End Role="KategorienDisziplinen" Type="Self.KategorienDisziplinen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disziplinen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KategorienDisziplinen">
+              <PropertyRef Name="DisziplinId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DiWe">
+          <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="1" />
+          <End Role="Disziplinen" Type="Self.Disziplinen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampfart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Disziplinen">
+              <PropertyRef Name="WettkampfartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_KaGe">
+          <End Role="Geschlechter" Type="Self.Geschlechter" Multiplicity="1" />
+          <End Role="Kategorien" Type="Self.Kategorien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geschlechter">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Kategorien">
+              <PropertyRef Name="GeschlechtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_KaKD">
+          <End Role="Kategorien" Type="Self.Kategorien" Multiplicity="1" />
+          <End Role="KategorienDisziplinen" Type="Self.KategorienDisziplinen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorien">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="KategorienDisziplinen">
+              <PropertyRef Name="KategorieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_KaWe">
+          <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="1" />
+          <End Role="Kategorien" Type="Self.Kategorien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampfart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kategorien">
+              <PropertyRef Name="WettkampfartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_startnummerWettkampf">
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+          <End Role="Startnummern" Type="Self.Startnummern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Startnummern">
+              <PropertyRef Name="WettkampfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vereinWettkampf">
+          <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+          <End Role="VereineWettkampf" Type="Self.VereineWettkampf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="VereineWettkampf">
+              <PropertyRef Name="VereinId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_wettkampf">
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+          <End Role="VereineWettkampf" Type="Self.VereineWettkampf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VereineWettkampf">
+              <PropertyRef Name="WettkampfId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WeWeA">
+          <End Role="Wettkampfart" Type="Self.Wettkampfart" Multiplicity="1" />
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampfart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wettkampf">
+              <PropertyRef Name="WettkampfartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Athleten" EntityType="Self.Athleten" />
+          <EntitySet Name="Benutzer" EntityType="Self.Benutzer" />
+          <EntitySet Name="BenutzerRollen" EntityType="Self.BenutzerRollen" />
+          <EntitySet Name="Bewertungsart" EntityType="Self.Bewertungsart" />
+          <EntitySet Name="Disziplinen" EntityType="Self.Disziplinen" />
+          <EntitySet Name="Geschlechter" EntityType="Self.Geschlechter" />
+          <EntitySet Name="Kategorien" EntityType="Self.Kategorien" />
+          <EntitySet Name="KategorienDisziplinen" EntityType="Self.KategorienDisziplinen" />
+          <EntitySet Name="Rollen" EntityType="Self.Rollen" />
+          <EntitySet Name="Startnummern" EntityType="Self.Startnummern" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Verein" EntityType="Self.Verein" />
+          <EntitySet Name="VereineWettkampf" EntityType="Self.VereineWettkampf" />
+          <EntitySet Name="Wettkampf" EntityType="Self.Wettkampf" />
+          <EntitySet Name="Wettkampfart" EntityType="Self.Wettkampfart" />
+          <AssociationSet Name="fk_geschlecht" Association="Self.fk_geschlecht">
+            <End Role="Geschlechter" EntitySet="Geschlechter" />
+            <End Role="Athleten" EntitySet="Athleten" />
+          </AssociationSet>
+          <AssociationSet Name="fk_startnummerAthlet" Association="Self.fk_startnummerAthlet">
+            <End Role="Athleten" EntitySet="Athleten" />
+            <End Role="Startnummern" EntitySet="Startnummern" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vereinAthlet" Association="Self.fk_vereinAthlet">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Athleten" EntitySet="Athleten" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user" Association="Self.fk_user">
+            <End Role="Benutzer" EntitySet="Benutzer" />
+            <End Role="BenutzerRollen" EntitySet="BenutzerRollen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_verein" Association="Self.fk_verein">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Benutzer" EntitySet="Benutzer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_role" Association="Self.fk_role">
+            <End Role="Rollen" EntitySet="Rollen" />
+            <End Role="BenutzerRollen" EntitySet="BenutzerRollen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DiKD" Association="Self.fk_DiKD">
+            <End Role="Disziplinen" EntitySet="Disziplinen" />
+            <End Role="KategorienDisziplinen" EntitySet="KategorienDisziplinen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DiWe" Association="Self.fk_DiWe">
+            <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+            <End Role="Disziplinen" EntitySet="Disziplinen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KaGe" Association="Self.fk_KaGe">
+            <End Role="Geschlechter" EntitySet="Geschlechter" />
+            <End Role="Kategorien" EntitySet="Kategorien" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KaKD" Association="Self.fk_KaKD">
+            <End Role="Kategorien" EntitySet="Kategorien" />
+            <End Role="KategorienDisziplinen" EntitySet="KategorienDisziplinen" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KaWe" Association="Self.fk_KaWe">
+            <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+            <End Role="Kategorien" EntitySet="Kategorien" />
+          </AssociationSet>
+          <AssociationSet Name="fk_startnummerWettkampf" Association="Self.fk_startnummerWettkampf">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Startnummern" EntitySet="Startnummern" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vereinWettkampf" Association="Self.fk_vereinWettkampf">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="VereineWettkampf" EntitySet="VereineWettkampf" />
+          </AssociationSet>
+          <AssociationSet Name="fk_wettkampf" Association="Self.fk_wettkampf">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="VereineWettkampf" EntitySet="VereineWettkampf" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WeWeA" Association="Self.fk_WeWeA">
+            <End Role="Wettkampfart" EntitySet="Wettkampfart" />
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBContext">
+          <EntitySetMapping Name="Athleten">
+            <EntityTypeMapping TypeName="DBModel.Athleten">
+              <MappingFragment StoreEntitySet="Athleten">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
+                <ScalarProperty Name="VereinsId" ColumnName="VereinsId" />
+                <ScalarProperty Name="GeschlechtId" ColumnName="GeschlechtId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Benutzer">
+            <EntityTypeMapping TypeName="DBModel.Benutzer">
+              <MappingFragment StoreEntitySet="Benutzer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="VereinId" ColumnName="VereinId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BenutzerRollen">
+            <EntityTypeMapping TypeName="DBModel.BenutzerRollen">
+              <MappingFragment StoreEntitySet="BenutzerRollen">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BenutzerId" ColumnName="BenutzerId" />
+                <ScalarProperty Name="RollenId" ColumnName="RollenId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bewertungsart">
+            <EntityTypeMapping TypeName="DBModel.Bewertungsart">
+              <MappingFragment StoreEntitySet="Bewertungsart">
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Disziplinen">
+            <EntityTypeMapping TypeName="DBModel.Disziplinen">
+              <MappingFragment StoreEntitySet="Disziplinen">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Disziplin" ColumnName="Disziplin" />
+                <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+                <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />
+                <ScalarProperty Name="anzTeilnehmer" ColumnName="anzTeilnehmer" />
+                <ScalarProperty Name="Versuche" ColumnName="Versuche" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Geschlechter">
+            <EntityTypeMapping TypeName="DBModel.Geschlechter">
+              <MappingFragment StoreEntitySet="Geschlechter">
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="Definition" ColumnName="Definition" />
+                <ScalarProperty Name="Abkürzung_Geschlecht" ColumnName="Abkürzung Geschlecht" />
+                <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategorien">
+            <EntityTypeMapping TypeName="DBModel.Kategorien">
+              <MappingFragment StoreEntitySet="Kategorien">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Kategorie" ColumnName="Kategorie" />
+                <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+                <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />
+                <ScalarProperty Name="GeschlechtId" ColumnName="GeschlechtId" />
+                <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KategorienDisziplinen">
+            <EntityTypeMapping TypeName="DBModel.KategorienDisziplinen">
+              <MappingFragment StoreEntitySet="KategorienDisziplinen">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="KategorieId" ColumnName="KategorieId" />
+                <ScalarProperty Name="DisziplinId" ColumnName="DisziplinId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rollen">
+            <EntityTypeMapping TypeName="DBModel.Rollen">
+              <MappingFragment StoreEntitySet="Rollen">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Rolle" ColumnName="Rolle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Startnummern">
+            <EntityTypeMapping TypeName="DBModel.Startnummern">
+              <MappingFragment StoreEntitySet="Startnummern">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="WettkampfId" ColumnName="WettkampfId" />
+                <ScalarProperty Name="AthletId" ColumnName="AthletId" />
+                <ScalarProperty Name="Startnummer" ColumnName="Startnummer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Verein">
+            <EntityTypeMapping TypeName="DBModel.Verein">
+              <MappingFragment StoreEntitySet="Verein">
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="Vereinsname" ColumnName="Vereinsname" />
+                <ScalarProperty Name="PC_Konto" ColumnName="PC_Konto" />
+                <ScalarProperty Name="Bank_Konto" ColumnName="Bank_Konto" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="Telefon_privat" ColumnName="Telefon privat" />
+                <ScalarProperty Name="Telefon_geschäft" ColumnName="Telefon geschäft" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="Natel" ColumnName="Natel" />
+                <ScalarProperty Name="E_Mail" ColumnName="E-Mail" />
+                <ScalarProperty Name="Erstellt_am" ColumnName="Erstellt am" />
+                <ScalarProperty Name="Erstellt_von" ColumnName="Erstellt von" />
+                <ScalarProperty Name="Letzte_Änderung" ColumnName="Letzte Änderung" />
+                <ScalarProperty Name="Zuletzt_gespeichert" ColumnName="Zuletzt gespeichert" />
+                <ScalarProperty Name="ImportDatei" ColumnName="ImportDatei" />
+                <ScalarProperty Name="ExportDatei" ColumnName="ExportDatei" />
+                <ScalarProperty Name="Vorrunde" ColumnName="Vorrunde" />
+                <ScalarProperty Name="IndexVereinVorrunde" ColumnName="IndexVereinVorrunde" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VereineWettkampf">
+            <EntityTypeMapping TypeName="DBModel.VereineWettkampf">
+              <MappingFragment StoreEntitySet="VereineWettkampf">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VereinId" ColumnName="VereinId" />
+                <ScalarProperty Name="WettkampfId" ColumnName="WettkampfId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wettkampf">
+            <EntityTypeMapping TypeName="DBModel.Wettkampf">
+              <MappingFragment StoreEntitySet="Wettkampf">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="WettkampfName" ColumnName="WettkampfName" />
+                <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wettkampfart">
+            <EntityTypeMapping TypeName="DBModel.Wettkampfart">
+              <MappingFragment StoreEntitySet="Wettkampfart">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Wettkampfart1" ColumnName="Wettkampfart" />
+                <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

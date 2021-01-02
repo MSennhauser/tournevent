@@ -13,10 +13,10 @@ namespace Tournevent.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class DBContext : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public DBContext()
+            : base("name=DBContext")
         {
         }
     
@@ -25,23 +25,20 @@ namespace Tournevent.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Athleten> Athleten { get; set; }
         public virtual DbSet<Benutzer> Benutzer { get; set; }
         public virtual DbSet<BenutzerRollen> BenutzerRollen { get; set; }
         public virtual DbSet<Bewertungsart> Bewertungsart { get; set; }
         public virtual DbSet<Disziplinen> Disziplinen { get; set; }
-        public virtual DbSet<DisziplinenAuswahl_Beschreibung> DisziplinenAuswahl_Beschreibung { get; set; }
         public virtual DbSet<Geschlechter> Geschlechter { get; set; }
+        public virtual DbSet<Kategorien> Kategorien { get; set; }
         public virtual DbSet<KategorienDisziplinen> KategorienDisziplinen { get; set; }
         public virtual DbSet<Rollen> Rollen { get; set; }
+        public virtual DbSet<Startnummern> Startnummern { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<Teilnehmer> Teilnehmer { get; set; }
-        public virtual DbSet<Teilnehmer_Leistung> Teilnehmer_Leistung { get; set; }
         public virtual DbSet<Verein> Verein { get; set; }
         public virtual DbSet<VereineWettkampf> VereineWettkampf { get; set; }
         public virtual DbSet<Wettkampf> Wettkampf { get; set; }
         public virtual DbSet<Wettkampfart> Wettkampfart { get; set; }
-        public virtual DbSet<Kategorien> Kategorien { get; set; }
-        public virtual DbSet<Athleten> Athleten { get; set; }
-        public virtual DbSet<Startnummern> Startnummern { get; set; }
     }
 }

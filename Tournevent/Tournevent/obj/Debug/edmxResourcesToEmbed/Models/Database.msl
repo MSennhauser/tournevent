@@ -34,20 +34,12 @@
     <EntitySetMapping Name="Disziplinen">
       <EntityTypeMapping TypeName="DatabaseModel.Disziplinen">
         <MappingFragment StoreEntitySet="Disziplinen">
-          <ScalarProperty Name="Index" ColumnName="Index" />
-          <ScalarProperty Name="Wettkampfgruppe_Index" ColumnName="Wettkampfgruppe_Index" />
-          <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
-          <ScalarProperty Name="Abkürzung" ColumnName="Abkürzung" />
-          <ScalarProperty Name="Bewertungsart" ColumnName="Bewertungsart" />
-          <ScalarProperty Name="Zeit_pro_Resultat" ColumnName="Zeit pro Resultat" />
-          <ScalarProperty Name="ResultatArt" ColumnName="ResultatArt" />
-          <ScalarProperty Name="MinAnzGrpResultate" ColumnName="MinAnzGrpResultate" />
-          <ScalarProperty Name="MaxAnzGrpResultate" ColumnName="MaxAnzGrpResultate" />
-          <ScalarProperty Name="AnzResultateBestenLeistung" ColumnName="AnzResultateBestenLeistung" />
-          <ScalarProperty Name="Erstellt_am" ColumnName="Erstellt am" />
-          <ScalarProperty Name="Erstellt_von" ColumnName="Erstellt von" />
-          <ScalarProperty Name="Letzte_Änderung" ColumnName="Letzte Änderung" />
-          <ScalarProperty Name="Zuletzt_gespeichert" ColumnName="Zuletzt gespeichert" />
+          <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />
+          <ScalarProperty Name="Versuche" ColumnName="Versuche" />
+          <ScalarProperty Name="anzTeilnehmer" ColumnName="anzTeilnehmer" />
+          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+          <ScalarProperty Name="Disziplin" ColumnName="Disziplin" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -80,8 +72,9 @@
     <EntitySetMapping Name="KategorienDisziplinen">
       <EntityTypeMapping TypeName="DatabaseModel.KategorienDisziplinen">
         <MappingFragment StoreEntitySet="KategorienDisziplinen">
-          <ScalarProperty Name="Index_Kategorien" ColumnName="Index_Kategorien" />
-          <ScalarProperty Name="Index_DisziplinenAuswahl_Beschreibung" ColumnName="Index_DisziplinenAuswahl_Beschreibung" />
+          <ScalarProperty Name="DisziplinId" ColumnName="DisziplinId" />
+          <ScalarProperty Name="KategorieId" ColumnName="KategorieId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -101,54 +94,6 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Teilnehmer">
-      <EntityTypeMapping TypeName="DatabaseModel.Teilnehmer">
-        <MappingFragment StoreEntitySet="Teilnehmer">
-          <ScalarProperty Name="Index" ColumnName="Index" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
-          <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
-          <ScalarProperty Name="Kategorie" ColumnName="Kategorie" />
-          <ScalarProperty Name="Verein" ColumnName="Verein" />
-          <ScalarProperty Name="Auszeichnung" ColumnName="Auszeichnung" />
-          <ScalarProperty Name="Rang" ColumnName="Rang" />
-          <ScalarProperty Name="Bemerkung" ColumnName="Bemerkung" />
-          <ScalarProperty Name="DisziplinenListe" ColumnName="DisziplinenListe" />
-          <ScalarProperty Name="GesamtPunktZahl" ColumnName="GesamtPunktZahl" />
-          <ScalarProperty Name="Gast" ColumnName="Gast" />
-          <ScalarProperty Name="Mutation" ColumnName="Mutation" />
-          <ScalarProperty Name="Mutationsgrund" ColumnName="Mutationsgrund" />
-          <ScalarProperty Name="MutationsDatum" ColumnName="MutationsDatum" />
-          <ScalarProperty Name="SonstigerMutationsgrund" ColumnName="SonstigerMutationsgrund" />
-          <ScalarProperty Name="Erstellt_am" ColumnName="Erstellt am" />
-          <ScalarProperty Name="Erstellt_von" ColumnName="Erstellt von" />
-          <ScalarProperty Name="Letzte_Änderung" ColumnName="Letzte Änderung" />
-          <ScalarProperty Name="Zuletzt_gespeichert" ColumnName="Zuletzt gespeichert" />
-          <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Teilnehmer_Leistung">
-      <EntityTypeMapping TypeName="DatabaseModel.Teilnehmer_Leistung">
-        <MappingFragment StoreEntitySet="Teilnehmer_Leistung">
-          <ScalarProperty Name="Index" ColumnName="Index" />
-          <ScalarProperty Name="Index_Teilnehmer" ColumnName="Index_Teilnehmer" />
-          <ScalarProperty Name="Index_Disziplin" ColumnName="Index_Disziplin" />
-          <ScalarProperty Name="Leistung" ColumnName="Leistung" />
-          <ScalarProperty Name="Punkte" ColumnName="Punkte" />
-          <ScalarProperty Name="Unfall" ColumnName="Unfall" />
-          <ScalarProperty Name="Nicht_Gestartet" ColumnName="Nicht Gestartet" />
-          <ScalarProperty Name="Eintrag" ColumnName="Eintrag" />
-          <ScalarProperty Name="IndexDisziplinenAuswahl" ColumnName="IndexDisziplinenAuswahl" />
-          <ScalarProperty Name="Erstellt_am" ColumnName="Erstellt am" />
-          <ScalarProperty Name="Erstellt_von" ColumnName="Erstellt von" />
-          <ScalarProperty Name="Letzte_Änderung" ColumnName="Letzte Änderung" />
-          <ScalarProperty Name="Zuletzt_gespeichert" ColumnName="Zuletzt gespeichert" />
-          <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -192,6 +137,7 @@
     <EntitySetMapping Name="Wettkampf">
       <EntityTypeMapping TypeName="DatabaseModel.Wettkampf">
         <MappingFragment StoreEntitySet="Wettkampf">
+          <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="WettkampfName" ColumnName="WettkampfName" />
         </MappingFragment>
@@ -200,46 +146,21 @@
     <EntitySetMapping Name="Wettkampfart">
       <EntityTypeMapping TypeName="DatabaseModel.Wettkampfart">
         <MappingFragment StoreEntitySet="Wettkampfart">
-          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Wettkampfart1" ColumnName="Wettkampfart" />
-          <ScalarProperty Name="Abkürzung" ColumnName="Abkürzung" />
-          <ScalarProperty Name="Einzelwettkampf" ColumnName="Einzelwettkampf" />
-          <ScalarProperty Name="JedenTeilnehmer_erfassen" ColumnName="JedenTeilnehmer erfassen" />
-          <ScalarProperty Name="AnzahlTeilnehmerMind" ColumnName="AnzahlTeilnehmerMind" />
-          <ScalarProperty Name="AnzahlTeilnehmerMax" ColumnName="AnzahlTeilnehmerMax" />
-          <ScalarProperty Name="RangierungAbgeschlossen" ColumnName="RangierungAbgeschlossen" />
-          <ScalarProperty Name="RanglisteAusgabeformat" ColumnName="RanglisteAusgabeformat" />
-          <ScalarProperty Name="Mit_Jahrgang" ColumnName="Mit Jahrgang" />
-          <ScalarProperty Name="Erstellt_am" ColumnName="Erstellt am" />
-          <ScalarProperty Name="Erstellt_von" ColumnName="Erstellt von" />
-          <ScalarProperty Name="Letzte_Änderung" ColumnName="Letzte Änderung" />
-          <ScalarProperty Name="Zuletzt_gespeichert" ColumnName="Zuletzt gespeichert" />
-          <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Kategorien">
       <EntityTypeMapping TypeName="DatabaseModel.Kategorien">
         <MappingFragment StoreEntitySet="Kategorien">
-          <ScalarProperty Name="Index" ColumnName="Index" />
-          <ScalarProperty Name="Abkürzung_Kategorie" ColumnName="Abkürzung Kategorie" />
-          <ScalarProperty Name="Jahrgang_von" ColumnName="Jahrgang von" />
-          <ScalarProperty Name="Jahrgang_bis" ColumnName="Jahrgang bis" />
-          <ScalarProperty Name="Index_Zuweisung_Disziplinengruppe" ColumnName="Index Zuweisung Disziplinengruppe" />
-          <ScalarProperty Name="Auszeichnung_Art" ColumnName="Auszeichnung Art" />
-          <ScalarProperty Name="Auszeichnung_in_Prozent" ColumnName="Auszeichnung in Prozent" />
-          <ScalarProperty Name="Auszeichnung_bis_mind_Rang" ColumnName="Auszeichnung bis mind Rang" />
-          <ScalarProperty Name="Auszeichnung_bis_Rang" ColumnName="Auszeichnung bis Rang" />
-          <ScalarProperty Name="AuszeichnungAbPunktzahl" ColumnName="AuszeichnungAbPunktzahl" />
-          <ScalarProperty Name="Abkürzung_Art" ColumnName="Abkürzung Art" />
-          <ScalarProperty Name="Abkürzung_Vorgabe" ColumnName="Abkürzung Vorgabe" />
-          <ScalarProperty Name="Abkürzung_Benutzer" ColumnName="Abkürzung Benutzer" />
-          <ScalarProperty Name="RanglistenBerechnung" ColumnName="RanglistenBerechnung" />
-          <ScalarProperty Name="Erstellt_am" ColumnName="Erstellt am" />
-          <ScalarProperty Name="Erstellt_von" ColumnName="Erstellt von" />
-          <ScalarProperty Name="Letzte_Änderung" ColumnName="Letzte Änderung" />
-          <ScalarProperty Name="Zuletzt_gespeichert" ColumnName="Zuletzt gespeichert" />
-          <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+          <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
+          <ScalarProperty Name="GeschlechtId" ColumnName="GeschlechtId" />
+          <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />
+          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+          <ScalarProperty Name="Kategorie" ColumnName="Kategorie" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -254,6 +175,7 @@
     <EntitySetMapping Name="Athleten">
       <EntityTypeMapping TypeName="DatabaseModel.Athleten">
         <MappingFragment StoreEntitySet="Athleten">
+          <ScalarProperty Name="GeschlechtId" ColumnName="GeschlechtId" />
           <ScalarProperty Name="VereinsId" ColumnName="VereinsId" />
           <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
           <ScalarProperty Name="Nachname" ColumnName="Nachname" />
@@ -272,5 +194,79 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DisziplinenAlt">
+      <EntityTypeMapping TypeName="DatabaseModel.DisziplinenAlt">
+        <MappingFragment StoreEntitySet="DisziplinenAlt">
+          <ScalarProperty Name="Zuletzt_gespeichert" ColumnName="Zuletzt gespeichert" />
+          <ScalarProperty Name="Letzte_Änderung" ColumnName="Letzte Änderung" />
+          <ScalarProperty Name="Erstellt_von" ColumnName="Erstellt von" />
+          <ScalarProperty Name="Erstellt_am" ColumnName="Erstellt am" />
+          <ScalarProperty Name="AnzResultateBestenLeistung" ColumnName="AnzResultateBestenLeistung" />
+          <ScalarProperty Name="MaxAnzGrpResultate" ColumnName="MaxAnzGrpResultate" />
+          <ScalarProperty Name="MinAnzGrpResultate" ColumnName="MinAnzGrpResultate" />
+          <ScalarProperty Name="ResultatArt" ColumnName="ResultatArt" />
+          <ScalarProperty Name="Zeit_pro_Resultat" ColumnName="Zeit pro Resultat" />
+          <ScalarProperty Name="Bewertungsart" ColumnName="Bewertungsart" />
+          <ScalarProperty Name="Abkürzung" ColumnName="Abkürzung" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Bezeichnung" />
+          <ScalarProperty Name="Wettkampfgruppe_Index" ColumnName="Wettkampfgruppe_Index" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WettkampfartAlt">
+      <EntityTypeMapping TypeName="DatabaseModel.WettkampfartAlt">
+        <MappingFragment StoreEntitySet="WettkampfartAlt">
+          <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+          <ScalarProperty Name="Zuletzt_gespeichert" ColumnName="Zuletzt gespeichert" />
+          <ScalarProperty Name="Letzte_Änderung" ColumnName="Letzte Änderung" />
+          <ScalarProperty Name="Erstellt_von" ColumnName="Erstellt von" />
+          <ScalarProperty Name="Erstellt_am" ColumnName="Erstellt am" />
+          <ScalarProperty Name="Mit_Jahrgang" ColumnName="Mit Jahrgang" />
+          <ScalarProperty Name="RanglisteAusgabeformat" ColumnName="RanglisteAusgabeformat" />
+          <ScalarProperty Name="RangierungAbgeschlossen" ColumnName="RangierungAbgeschlossen" />
+          <ScalarProperty Name="AnzahlTeilnehmerMax" ColumnName="AnzahlTeilnehmerMax" />
+          <ScalarProperty Name="AnzahlTeilnehmerMind" ColumnName="AnzahlTeilnehmerMind" />
+          <ScalarProperty Name="JedenTeilnehmer_erfassen" ColumnName="JedenTeilnehmer erfassen" />
+          <ScalarProperty Name="Einzelwettkampf" ColumnName="Einzelwettkampf" />
+          <ScalarProperty Name="Abkürzung" ColumnName="Abkürzung" />
+          <ScalarProperty Name="Wettkampfart" ColumnName="Wettkampfart" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KategorienAlt">
+      <EntityTypeMapping TypeName="DatabaseModel.KategorienAlt">
+        <MappingFragment StoreEntitySet="KategorienAlt">
+          <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+          <ScalarProperty Name="Zuletzt_gespeichert" ColumnName="Zuletzt gespeichert" />
+          <ScalarProperty Name="Letzte_Änderung" ColumnName="Letzte Änderung" />
+          <ScalarProperty Name="Erstellt_von" ColumnName="Erstellt von" />
+          <ScalarProperty Name="Erstellt_am" ColumnName="Erstellt am" />
+          <ScalarProperty Name="RanglistenBerechnung" ColumnName="RanglistenBerechnung" />
+          <ScalarProperty Name="Abkürzung_Benutzer" ColumnName="Abkürzung Benutzer" />
+          <ScalarProperty Name="Abkürzung_Vorgabe" ColumnName="Abkürzung Vorgabe" />
+          <ScalarProperty Name="Abkürzung_Art" ColumnName="Abkürzung Art" />
+          <ScalarProperty Name="AuszeichnungAbPunktzahl" ColumnName="AuszeichnungAbPunktzahl" />
+          <ScalarProperty Name="Auszeichnung_bis_Rang" ColumnName="Auszeichnung bis Rang" />
+          <ScalarProperty Name="Auszeichnung_bis_mind_Rang" ColumnName="Auszeichnung bis mind Rang" />
+          <ScalarProperty Name="Auszeichnung_in_Prozent" ColumnName="Auszeichnung in Prozent" />
+          <ScalarProperty Name="Auszeichnung_Art" ColumnName="Auszeichnung Art" />
+          <ScalarProperty Name="Index_Zuweisung_Disziplinengruppe" ColumnName="Index Zuweisung Disziplinengruppe" />
+          <ScalarProperty Name="Jahrgang_bis" ColumnName="Jahrgang bis" />
+          <ScalarProperty Name="Jahrgang_von" ColumnName="Jahrgang von" />
+          <ScalarProperty Name="Abkürzung_Kategorie" ColumnName="Abkürzung Kategorie" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="DisziplinenAuswahl1" TypeName="DatabaseModel.DisziplinenAuswahl1" StoreEntitySet="DisziplinenAuswahl">
+      <EndProperty Name="DisziplinenAuswahl_Beschreibung">
+        <ScalarProperty Name="Index" ColumnName="Index_DisziplinenAuswahl_Beschreibung" />
+      </EndProperty>
+      <EndProperty Name="DisziplinenAlt">
+        <ScalarProperty Name="Index" ColumnName="Index_Disziplin" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

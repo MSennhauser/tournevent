@@ -5,7 +5,6 @@
 }
 
 <h2>Index</h2>
-
 <table class="table">
     <tr>
         <th>
@@ -23,25 +22,26 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.VereinsName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Vorname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nachname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefon)
-        </td>
-        <td>
-            @Html.ActionLink("Annehmen", "Accept", new {  id=item.userId  }) |
-            @Html.ActionLink("Ablehnen", "Reject", new {  id=item.userId  })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VereinsName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vorname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nachname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefon)
+            </td>
+            <td>
+                @Html.ActionLink("Annehmen", "Accept", new { id = item.userId }) |
+                @Html.ActionLink("Ablehnen", "Reject", new { id = item.userId })
+            </td>
+        </tr>
+    }
 
 </table>

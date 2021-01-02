@@ -13,7 +13,7 @@ namespace Tournevent.Models
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
-            using (Entities db = new Entities())
+            using (DBContext db = new DBContext())
             {
                 foreach(string username in usernames)
                 {
@@ -37,7 +37,7 @@ namespace Tournevent.Models
         }
         public  void AddUserToRole(string username, string roleName)
         {
-            using (Entities db = new Entities())
+            using (DBContext db = new DBContext())
             {
                 int userId = (from user in db.Benutzer
                               where user.Email == username
@@ -75,7 +75,7 @@ namespace Tournevent.Models
 
         public override string[] GetRolesForUser(string username)
         {
-            using (Entities db = new Entities())
+            using (DBContext db = new DBContext())
             {
                 var userRoles = (from user in db.Benutzer
                                  join roleMapping in db.BenutzerRollen
@@ -95,7 +95,7 @@ namespace Tournevent.Models
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            using (Entities db = new Entities())
+            using (DBContext db = new DBContext())
             {
                 var userId = (from b in db.Benutzer
                               where b.Email == username
@@ -123,7 +123,7 @@ namespace Tournevent.Models
 
         public void ChangeUserRole(string username, string roleName)
         {
-            using (Entities db = new Entities())
+            using (DBContext db = new DBContext())
             {
                 var userId = (from b in db.Benutzer
                               where b.Email == username

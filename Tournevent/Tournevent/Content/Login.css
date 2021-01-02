@@ -1,4 +1,6 @@
-﻿.content {
+﻿
+
+.content {
     max-width: 500px;
     margin: auto;
     background: white;
@@ -29,7 +31,10 @@
     height: 30px;
     width: 100px;
     border-radius: 10px;
-    float:right;
+    float: right;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .form-control {
@@ -49,4 +54,19 @@
 
 .actionGroup {
     padding:7px;
+}
+
+.confirmationLink {
+    border-style: hidden;
+    border-radius: 10px;
+    width: auto;
+    color: white;
+    background-color: dodgerblue;
+    float: right;
+    text-decoration: none;
+    font-size: 17px;
+    height: 30px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }

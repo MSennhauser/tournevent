@@ -5,34 +5,36 @@
 
 }
 @Styles.Render("~/Content/Login.css")
+@Styles.Render("~/Content/Site.css")
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<div class="content">
-    <div class="card custom-card">
-        <div class="card-header">
-            <h1>Anmelden</h1>
-            <h3>Melden Sie sich mit ihrer E-Mail an</h3>
-        </div>
-        <div class="card-body">
-            <div class="form-group">
-                @Html.LabelFor(m => m.Email)
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+    <div class="content">
+        <div class="card custom-card">
+            <div class="card-header">
+                <h1>Anmelden</h1>
+                <h3>Melden Sie sich mit ihrer E-Mail an</h3>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Passwort)
-                @Html.PasswordFor(m => m.Passwort, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Passwort, "", new { @class = "text-danger" })
+            <div class="card-body">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Passwort)
+                    @Html.PasswordFor(m => m.Passwort, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Passwort, "", new { @class = "text-danger" })
+                </div>
+                <div class="actionGroup">
+                    @Html.ActionLink("New User", "Register", null,
+                    new { @class = "actionLink" })
+                    <button type="submit" class="submit">Login</button>
+                </div>
+
             </div>
             @Html.ValidationMessage("", new { @class = "text-danger" })
-            <div class="actionGroup">
-                @Html.ActionLink("New User", "Register", null,
-                new { @class = "actionLink" })
-                <button type="submit" class="submit">Login</button>
-            </div>
 
         </div>
     </div>
-</div>
 }

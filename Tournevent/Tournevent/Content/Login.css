@@ -48,8 +48,8 @@
 }
 
 .actionLink {
-    text-decoration: none!important;
-    color: dodgerblue!important;
+    text-decoration: none !important;
+    color: #187BCD !important;
 }
 
 .actionGroup {
@@ -61,7 +61,7 @@
     border-radius: 10px;
     width: auto;
     color: white;
-    background-color: dodgerblue;
+    background-color: #187BCD;
     float: right;
     text-decoration: none;
     font-size: 17px;

@@ -1,0 +1,52 @@
+﻿.content {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 10px;
+}
+
+.custom-card {
+    border-radius: 25px;
+    border: 2px solid black;
+    padding: 50px;
+    width: auto;
+    height: auto;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.form-group {
+    display: grid;
+    padding: 7px
+}
+
+.submit {
+    background-color: dodgerblue;
+    color: white;
+    border-style: hidden;
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    float:right;
+}
+
+.form-control {
+    height: 40px;
+    border-radius: 8px;
+    border: 1.5px solid black;
+}
+
+.label {
+    font-size: 21px;
+}
+
+.actionLink {
+    text-decoration: none!important;
+    color: dodgerblue!important;
+}
+
+.actionGroup {
+    padding:7px;
+}

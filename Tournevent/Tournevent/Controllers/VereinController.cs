@@ -31,12 +31,6 @@ namespace Tournevent.Controllers
             return View(lst);
         }
 
-        // GET: Verein/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Verein/Create
         public ActionResult Create()
         {
@@ -64,6 +58,40 @@ namespace Tournevent.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult Edit(int id)
+        {
+            Benutzer benutzer = (from b in db.Benutzer where b.Id == id select b).Single();
+            VereinKontoDaten vkDaten = new VereinKontoDaten(benutzer, benutzer.Verein);
+            return View(vkDaten);
+        }
+        [HttpPost]
+        public ActionResult Edit(VereinKontoDaten vkDaten)
+        {
+            vkDaten.Update();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            Benutzer benutzer = (from b in db.Benutzer where b.Id == id select b).Single();
+            List<Athleten> lstAthleten = (from a in db.Athleten where a.VereinsId == benutzer.VereinId select a).ToList();
+            foreach(var athlet in lstAthleten)
+            {
+                db.Athleten.Remove(athlet);
+            }
+            BenutzerRollen benutzerRollen = (from b in db.BenutzerRollen
+                                             where b.BenutzerId == benutzer.Id
+                                             select b).SingleOrDefault();
+            VereineWettkampf vereineWettkampf = (from vw in db.VereineWettkampf
+                                             where vw.VereinId == benutzer.VereinId
+                                             select vw).SingleOrDefault();
+            db.VereineWettkampf.Remove(vereineWettkampf);
+            db.Verein.Remove(benutzer.Verein);
+            db.BenutzerRollen.Remove(benutzerRollen);
+            db.Benutzer.Remove(benutzer);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Verein/Edit/5

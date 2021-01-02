@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
@@ -19,13 +20,16 @@ namespace Tournevent.Models
             Vorname = athleten.Vorname;
             Nachname = athleten.Nachname;
             Jahrgang = athleten.Jahrgang;
-            Geschlecht = athleten.Geschlechter.Bezeichnung;
+            GeschlechtId = athleten.Geschlechter.Index;
+            Geschlecht = (from g in db.Geschlechter where g.Index == GeschlechtId select g.Definition).Single();
             Startnummer = startnummer;
         }
         public int Id { get; set; }
         public string Vorname { get; set; }
         public string Nachname { get; set; }
         public int Jahrgang { get; set; }
+        [DisplayName("Geschlecht")]
+        public int GeschlechtId { get; set; }
         public string Geschlecht { get; set; }
         public int Startnummer { get; set; }
 
@@ -36,7 +40,7 @@ namespace Tournevent.Models
             athlet.Nachname = Nachname;
             athlet.Jahrgang = Jahrgang;
             athlet.VereinsId = GlobalVariables.VereinsId;
-            athlet.GeschlechtId = (from g in db.Geschlechter join a in db.Athleten on g.Index equals a.GeschlechtId where g.Bezeichnung == Geschlecht select g.Index).Single();
+            athlet.GeschlechtId = Convert.ToInt32(GeschlechtId);
             db.Athleten.Add(athlet);
             db.SaveChanges();
 
@@ -55,7 +59,7 @@ namespace Tournevent.Models
             athlet.Vorname = Vorname;
             athlet.Nachname = Nachname;
             athlet.Jahrgang = Jahrgang;
-            athlet.GeschlechtId = (from g in db.Geschlechter join a in db.Athleten on g.Index equals a.GeschlechtId where g.Bezeichnung == Geschlecht select g.Index).Single();
+            athlet.GeschlechtId = Convert.ToInt32(GeschlechtId);
             db.Athleten.Attach(athlet);
             ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(athlet, System.Data.Entity.EntityState.Modified);
             db.SaveChanges();

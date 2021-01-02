@@ -225,6 +225,7 @@
     <Compile Include="Models\VereineWettkampf.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VereinKontoDaten.cs" />
     <Compile Include="Models\VereinsDaten.cs" />
     <Compile Include="Models\VereinWettkampf.cs" />
     <Compile Include="Models\Wettkampf.cs">
@@ -321,6 +322,7 @@
     <Content Include="Views\Kategorien\Index.cshtml" />
     <Content Include="Views\Disziplinen\Index.cshtml" />
     <Content Include="Views\Shared\Wettkampf.cshtml" />
+    <Content Include="Views\Verein\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -125,3 +125,22 @@ textarea {
 .text-danger {
     color:red;
 }
+
+/*icons*/
+#logoutIcon {
+    float:right;
+    font-size:30px;
+}
+
+.logoutcontainer a {
+    text-decoration:none;
+    color:black;
+    font-size:24px;
+    padding-right:12px;
+    
+}
+
+.logoutcontainer {
+    float:right;
+    margin-top:-33px;
+}

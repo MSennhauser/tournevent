@@ -5,11 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Meine ASP.NET-Anwendung</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     @Styles.Render("~/Content/css")
+ 
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    
+
     <div class="sidenav">
         <div class="user">
             @Html.ActionLink("Logout", "Logout", "Login")
@@ -21,6 +24,11 @@
         @{
             Html.RenderAction("Navigation", "Layout");
         }
+    </div>
+    <div class="logoutcontainer">
+        <i class="material-icons" id="logoutIcon">login</i>
+        @Html.ActionLink("Logout", "Logout", "Login")
+
     </div>
 
     <div class="main">

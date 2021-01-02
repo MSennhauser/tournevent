@@ -3,10 +3,18 @@
     ViewBag.Title = "WaitForConfirmation";
     Layout = null;
 }
+@Styles.Render("~/Content/Login.css");
+<div class="content">
+    <div class="custom-card">
+        <h1 class="card-header">Bitte warten</h1>
+        <h3>Bitte warten Sie, bis der Administrator sie zu ihrem entsprechendem Wettkampf hinzugefügt hat.</h3>
+        <h3>Sie bekommen eine E-Mail, wenn Sie sich anmelden können.</h3>
 
-<h2>WaitForConfirmation</h2>
+        <div class="actionGroup">
+            @Html.ActionLink("Zur Anmeldeseite", "Login", null,
+                new { @class = "confirmationLink" })
+        </div>
 
-<div class="form-group">
-
-    @Html.ActionLink("Zur Anmeldeseite", "Login")    
+    </div>
+   
 </div>

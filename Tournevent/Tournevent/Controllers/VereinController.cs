@@ -34,14 +34,22 @@ namespace Tournevent.Controllers
         // GET: Verein/Create
         public ActionResult Create()
         {
-            List<Verein> vereinList = (from v in db.Verein select v).ToList();
-            List<VereinWettkampf> vwList = new List<VereinWettkampf>();
-            foreach(var v in vereinList)
+            if (ModelState.IsValid)
             {
-                List<int> id = (from vw in db.VereineWettkampf where vw.VereinId == v.Index select vw.WettkampfId).ToList();
-                vwList.Add(new VereinWettkampf(v, id));
+                List<Verein> vereinList = (from v in db.Verein select v).ToList();
+                List<VereinWettkampf> vwList = new List<VereinWettkampf>();
+                foreach (var v in vereinList)
+                {
+                    BenutzerRollen rollen = (from b in db.Benutzer join br in db.BenutzerRollen on b.Id equals br.BenutzerId where b.VereinId == v.Index && br.RollenId != 3 select br).SingleOrDefault();
+                    if (rollen != null)
+                    {
+                        List<int> id = (from vw in db.VereineWettkampf where vw.VereinId == v.Index select vw.WettkampfId).ToList();
+                        vwList.Add(new VereinWettkampf(v, id));
+                    }
+                }
+                return View(vwList);
             }
-            return View(vwList);
+            return View();
         }
 
         // POST: Verein/Create
@@ -68,8 +76,12 @@ namespace Tournevent.Controllers
         [HttpPost]
         public ActionResult Edit(VereinKontoDaten vkDaten)
         {
-            vkDaten.Update();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                vkDaten.Update();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         public ActionResult Delete(int id)

@@ -25,6 +25,7 @@
                 @Html.PasswordFor(m => m.Passwort, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Passwort, "", new { @class = "text-danger" })
             </div>
+            @Html.ValidationMessage("", new { @class = "text-danger" })
             <div class="actionGroup">
                 @Html.ActionLink("New User", "Register", null,
                 new { @class = "actionLink" })

@@ -31,9 +31,27 @@ namespace Tournevent.Controllers
             
             return View(lst);
         }
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Overview(int id)
+        {
+            int wettkampfId = GlobalVariables.WettkampfId;
+            //Benutzer benutzer = (from b in db.Benutzer where b.Email == User.Identity.Name select b).Single();
+            List<Startnummern> startnummern = (from s in db.Startnummern
+                                               join a in db.Athleten on s.AthletId equals a.Id
+                                               where s.WettkampfId == wettkampfId && a.VereinsId == id
+                                               select s).ToList();
+            List<AthletDaten> lst = new List<AthletDaten>();
+            foreach (var nr in startnummern)
+            {
+                Athleten athlet = (from a in db.Athleten where a.Id == nr.AthletId select a).Single();
+                AthletDaten data = new AthletDaten(athlet, nr.Startnummer);
+                lst.Add(data);
+            }
+
+            return View("Index", lst);
+        }
 
         // GET: Athleten/Create
-        [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Create()
         {
             AthletDaten data = new AthletDaten();
@@ -61,29 +79,41 @@ namespace Tournevent.Controllers
 
         // POST: Athleten/Create
         [HttpPost]
-        [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Create(AthletDaten athletDaten)
         {
             if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-                int wettkampfId = GlobalVariables.WettkampfId;
-                var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.WettkampfId == wettkampfId select s).SingleOrDefault();
-
-                if (startnummer == null && GlobalVariables.WettkampfId != 0)
+                Athleten athlet = (from a in db.Athleten
+                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Jahrgang == athletDaten.Jahrgang && a.VereinsId == GlobalVariables.VereinsId
+                                   select a).SingleOrDefault();
+                if (athlet == null)
                 {
-                    athletDaten.New();
-                    return RedirectToAction("Index");
+                    // TODO: Add insert logic here
+                    int wettkampfId = GlobalVariables.WettkampfId;
+                    var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.WettkampfId == wettkampfId select s).SingleOrDefault();
+
+                    if (startnummer == null && GlobalVariables.WettkampfId != 0)
+                    {
+                        athletDaten.New();
+                        if (User.IsInRole("Administrator"))
+                        {
+                            return RedirectToAction("Overview", new { id = GlobalVariables.VereinsId });
+                        }
+                        return RedirectToAction("Index");
+                    }
+                    ModelState.AddModelError("Startnummer", "Diese Startnummer ist bereits vergeben.");
                 }
-                ModelState.AddModelError("Startnummer", "Diese Startnummer ist bereits vergeben.");
-                return View();
+                else
+                {
+                    ModelState.AddModelError("Vorname", "Dieser Athlet existiert bereits.");
+                }
+                
             }
             return View();
 
         }
 
         // GET: Athleten/Edit/5
-        [Authorize(Roles = "Administrator,Vereinsverantwortlicher")]
         public ActionResult Edit(int id)
         {
             int wettkampfId = GlobalVariables.WettkampfId;
@@ -93,26 +123,42 @@ namespace Tournevent.Controllers
         }
 
         // POST: Athleten/Edit/5
-        [Authorize(Roles = "Administrator,Vereinsverantwortlicher")]
         [HttpPost]
         public ActionResult Edit(AthletDaten athletDaten)
         {
-            int wettkampfId = GlobalVariables.WettkampfId;
-            var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.AthletId != athletDaten.Id && s.WettkampfId == wettkampfId
-                               select s).SingleOrDefault();
-
-            if (startnummer == null && GlobalVariables.WettkampfId != 0)
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-                athletDaten.Update();
-                return RedirectToAction("Index");
+                Athleten athlet = (from a in db.Athleten
+                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Jahrgang == athletDaten.Jahrgang && a.VereinsId == GlobalVariables.VereinsId
+                                   select a).SingleOrDefault();
+                if (athlet == null)
+                {
+                    int wettkampfId = GlobalVariables.WettkampfId;
+                    var startnummer = (from s in db.Startnummern
+                                       where s.Startnummer == athletDaten.Startnummer && s.AthletId != athletDaten.Id && s.WettkampfId == wettkampfId
+                                       select s).SingleOrDefault();
+
+                    if (startnummer == null && GlobalVariables.WettkampfId != 0)
+                    {
+                        // TODO: Add update logic here
+                        athletDaten.Update();
+                        if (User.IsInRole("Administrator"))
+                        {
+                            return RedirectToAction("Overview", new { id = GlobalVariables.VereinsId });
+                        }
+                        return RedirectToAction("Index");
+                    }
+                    ModelState.AddModelError("Startnummer", "Diese Startnummer ist bereits vergeben.");
+                }
+                else
+                {
+                    ModelState.AddModelError("Vorname", "Dieser Athlet existiert bereits.");
+                }
             }
-            ModelState.AddModelError("Startnummer", "Diese Startnummer ist bereits vergeben.");
             return View();
         }
 
         // GET: Athleten/Delete/5
-        [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Delete(int id)
         {
             Athleten athlet = (from a in db.Athleten where a.Id == id select a).Single();
@@ -122,6 +168,10 @@ namespace Tournevent.Controllers
             db.Startnummern.Remove(nr);
             db.Athleten.Remove(athlet);
             db.SaveChanges();
+            if (User.IsInRole("Administrator"))
+            {
+                return RedirectToAction("Overview", new { id = GlobalVariables.VereinsId });
+            }
             return RedirectToAction("Index");
         }
     }

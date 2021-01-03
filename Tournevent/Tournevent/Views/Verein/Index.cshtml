@@ -49,6 +49,7 @@
                 @Html.DisplayFor(modelItem => item.Telefon)
             </td>
             <td>
+                @Html.ActionLink("Athletenübersicht", "Athleten", new { id = item.userId }) |
                 @Html.ActionLink("Edit", "Edit", new { id = item.userId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.userId })
             </td>

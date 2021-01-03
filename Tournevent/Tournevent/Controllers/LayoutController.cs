@@ -18,7 +18,7 @@ namespace Tournevent.Controllers
         public ActionResult Wettkaempfe()
         {
             var vId = (from b in db.Benutzer where b.Email == User.Identity.Name select b.VereinId).Single();
-            if (vId != null)
+            if (vId != null && User.IsInRole("Vereinsverantwortlicher"))
             {
                 GlobalVariables.VereinsId = (int)vId;
             }

@@ -5,11 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Styles.Render("~/Content/Site.css")
+@Styles.Render("~/Content/Add.css")
+
 
 <h2>Athleten</h2>
 
 <p>
-    @Html.ActionLink("Hinzufügen", "Create")
+    @Html.ActionLink("Hinzufügen", "Create", null,
+                       new { @class = "actionLink" })
+
 </p>
 <table class="table">
     <tr>

@@ -4,8 +4,8 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Hinzufügen</h2>
+@Styles.Render("~/Content/Site.css")
+<h2>Verein hinzufügen</h2>
 
 
 <table class="table">
@@ -18,37 +18,38 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.HiddenFor(modelItem => item.vereinId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VereinsName)
-        </td>
-        <td>
-            @{
-                bool contains = false;
-                foreach (var id in item.WettkampfIds)
-                {
-
-                    if (id == GlobalVariables.WettkampfId)
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.HiddenFor(modelItem => item.vereinId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VereinsName)
+            </td>
+            <td>
+                @{
+                    bool contains = false;
+                    foreach (var id in item.WettkampfIds)
                     {
-                        contains = true;
+
+                        if (id == GlobalVariables.WettkampfId)
+                        {
+                            contains = true;
+                        }
+                    }
+                    if (!contains)
+                    {
+                        @Html.ActionLink("Hinzufügen", "Add", new { id = item.vereinId })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Entfernen", "Remove", new { id = item.vereinId })
                     }
                 }
-                if (!contains)
-                {
-                    @Html.ActionLink("Hinzufügen", "Add", new { id = item.vereinId })
-                }
-                else
-                {
-                    @Html.ActionLink("Entfernen", "Remove", new { id = item.vereinId })
-                }
-            }
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
 <div>

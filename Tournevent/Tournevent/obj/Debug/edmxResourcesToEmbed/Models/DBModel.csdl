@@ -172,6 +172,7 @@
     <NavigationProperty Name="Startnummern" Relationship="Self.fk_startnummerWettkampf" FromRole="Wettkampf" ToRole="Startnummern" />
     <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_wettkampf" FromRole="Wettkampf" ToRole="VereineWettkampf" />
     <NavigationProperty Name="Wettkampfart" Relationship="Self.fk_WeWeA" FromRole="Wettkampf" ToRole="Wettkampfart" />
+    <Property Name="Datum" Type="DateTime" Precision="0" Nullable="false" />
   </EntityType>
   <EntityType Name="Wettkampfart">
     <Key>

@@ -137,6 +137,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\StartnummerController.cs" />
     <Compile Include="Controllers\VereinController.cs" />
+    <Compile Include="Controllers\WettkampfController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,6 +235,7 @@
     <Compile Include="Models\Wettkampfart.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WettkampfDaten.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +327,7 @@
     <Content Include="Views\Disziplinen\Index.cshtml" />
     <Content Include="Views\Shared\Wettkampf.cshtml" />
     <Content Include="Views\Verein\Edit.cshtml" />
+    <Content Include="Views\Wettkampf\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

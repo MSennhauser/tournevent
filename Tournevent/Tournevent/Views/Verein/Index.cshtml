@@ -5,10 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Styles.Render("~/Content/Site.css")
+@Styles.Render("~/Content/Add.css")
 
 <h2>Vereine</h2>
 
-<p>
+<p class="tableActions">
     @Html.ActionLink("Vereine verwalten", "Create")
 </p>
 <table class="table">
@@ -27,7 +28,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Telefon)
         </th>
-        <th></th>
+        <th>Aktionen</th>
     </tr>
 
     @foreach (var item in Model)
@@ -48,7 +49,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Telefon)
             </td>
-            <td>
+            <td class="tableActions">
                 @Html.ActionLink("Athletenübersicht", "Athleten", new { id = item.userId }) |
                 @Html.ActionLink("Edit", "Edit", new { id = item.userId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.userId })

@@ -29,7 +29,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Versuche)
         </th>
-        <th></th>
+        <th>Aktionen</th>
     </tr>
 
     @foreach (var item in Model)
@@ -53,7 +53,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Versuche)
             </td>
-            <td>
+            <td class="tableActions">
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })

@@ -13,7 +13,7 @@ namespace Tournevent.Controllers
     {
         private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
-        // GET: Anfrage
+        // Gibt alle Anfragen zurück
         public ActionResult Index()
         {
             List<VereinsDaten> lst = new List<VereinsDaten>();
@@ -47,6 +47,7 @@ namespace Tournevent.Controllers
             }
             return View(lst); 
         }
+        // Anfrage wird akzeptiert
         public ActionResult Accept(int id)
         {
             Benutzer benutzer = (from b in db.Benutzer
@@ -56,6 +57,7 @@ namespace Tournevent.Controllers
             roleProvider.ChangeUserRole(benutzer.Email, "Vereinsverantwortlicher");
             return RedirectToAction("Index");
         }
+        // Anfrage wird abgelehnt
         public ActionResult Reject(int id)
         {
             Benutzer benutzer = (from b in db.Benutzer

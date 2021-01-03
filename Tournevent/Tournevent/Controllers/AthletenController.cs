@@ -12,7 +12,7 @@ namespace Tournevent.Controllers
     {
         private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
-        // GET: Athleten
+        // Gibt Alle Athleten im aktuellen Wettkampf zurück
         [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Index()
         {
@@ -32,10 +32,10 @@ namespace Tournevent.Controllers
             return View(lst);
         }
         [Authorize(Roles = "Administrator")]
+        // Gibt Alle Athleten im aktuellen Wettkampf zurück
         public ActionResult Overview(int id)
         {
             int wettkampfId = GlobalVariables.WettkampfId;
-            //Benutzer benutzer = (from b in db.Benutzer where b.Email == User.Identity.Name select b).Single();
             List<Startnummern> startnummern = (from s in db.Startnummern
                                                join a in db.Athleten on s.AthletId equals a.Id
                                                where s.WettkampfId == wettkampfId && a.VereinsId == id
@@ -51,7 +51,7 @@ namespace Tournevent.Controllers
             return View("Index", lst);
         }
 
-        // GET: Athleten/Create
+        // Ein neuer Athlet kann hinzugefügt werden / Startnummer wird automatisch eingefügt
         public ActionResult Create()
         {
             AthletDaten data = new AthletDaten();
@@ -77,7 +77,7 @@ namespace Tournevent.Controllers
 
         }
 
-        // POST: Athleten/Create
+        // Der Athlet wird in die Datenbank geschrieben
         [HttpPost]
         public ActionResult Create(AthletDaten athletDaten)
         {
@@ -113,7 +113,7 @@ namespace Tournevent.Controllers
 
         }
 
-        // GET: Athleten/Edit/5
+        // Athlet kann Editiert werden
         public ActionResult Edit(int id)
         {
             int wettkampfId = GlobalVariables.WettkampfId;
@@ -140,7 +140,6 @@ namespace Tournevent.Controllers
 
                     if (startnummer == null && GlobalVariables.WettkampfId != 0)
                     {
-                        // TODO: Add update logic here
                         athletDaten.Update();
                         if (User.IsInRole("Administrator"))
                         {

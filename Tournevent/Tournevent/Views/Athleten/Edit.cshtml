@@ -6,7 +6,7 @@
 }
 @Styles.Render("~/Content/Site.css")
 @Styles.Render("~/Content/Add.css")
-<h2>Bearbeiten</h2>
+<h2>Athlet Bearbeiten</h2>
 
 @using (Html.BeginForm())
 {
@@ -61,16 +61,16 @@
         </div>
 
 
-        <div class="actionGroup">
+        <div class="actionGroup tableActions">
 
             <input type="submit" value="Speichern" class="submit" />
             @if (User.IsInRole("Vereinsverantwortlicher"))
             {
-                @Html.ActionLink("Back to List", "Index", new { @class = "actionLink" })
+                @Html.ActionLink("Zurück", "Index", new { @class = "actionLink" })
             }
             else
             {
-                @Html.ActionLink("Back to List", "Index", "Startnummer", new { @class = "actionLink" })
+                @Html.ActionLink("Zurück", "Index", "Startnummer")
             }
         </div>
     </div>

@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Styles.Render("~/Content/Site.css")
 
 <h2>Startnummern</h2>
 <table class="table">
@@ -23,11 +24,11 @@
         <tr>
             @foreach (var i in item)
             {
-            <td class="tableActions">
-                @Html.ActionLink(i.ToString(), "Details", new { id = i})
-            </td>
+                <td class="tableActions">
+                    @Html.ActionLink(i.ToString(), "Details", new { id = i })
+                </td>
             }
         </tr>
     }
 
-    </table>
+</table>

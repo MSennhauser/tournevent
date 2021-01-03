@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Styles.Render("~/Content/Site.css")
+@Styles.Render("~/Content/Add.css")
 <h2>Bearbeiten</h2>
 
 @using (Html.BeginForm())
@@ -12,13 +13,13 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>AthletDaten</h4>
+        <h4>Athlet Daten</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Vorname, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Vorname, htmlAttributes: new { @class = "control-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Vorname, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Vorname, "", new { @class = "text-danger" })
@@ -26,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Nachname, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Nachname, htmlAttributes: new { @class = "control-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Nachname, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Nachname, "", new { @class = "text-danger" })
@@ -34,7 +35,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Jahrgang, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Jahrgang, htmlAttributes: new { @class = "control-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Jahrgang, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Jahrgang, "", new { @class = "text-danger" })
@@ -42,15 +43,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Startnummer, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Startnummer, htmlAttributes: new { @class = "control-label" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Startnummer, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Startnummer, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.GeschlechtId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.GeschlechtId, htmlAttributes: new { @class = "control-label" })
+            <div class="dropdownForm">
                 @Html.DropDownList("GeschlechtId", new List<SelectListItem>
                 {
                     new SelectListItem { Text = "Weiblich", Value = "1", Selected=(Model.GeschlechtId == 1)},
@@ -60,22 +61,22 @@
         </div>
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        <div class="actionGroup">
+
+            <input type="submit" value="Speichern" class="submit" />
+            @if (User.IsInRole("Vereinsverantwortlicher"))
+            {
+                @Html.ActionLink("Back to List", "Index", new { @class = "actionLink" })
+            }
+            else
+            {
+                @Html.ActionLink("Back to List", "Index", "Startnummer", new { @class = "actionLink" })
+            }
         </div>
     </div>
 }
 
 <div>
-    @if (User.IsInRole("Vereinsverantwortlicher"))
-    {
-        @Html.ActionLink("Back to List", "Index")
-    }
-    else
-    {
-        @Html.ActionLink("Back to List", "Index", "Startnummer")
-    }
+
 
 </div>

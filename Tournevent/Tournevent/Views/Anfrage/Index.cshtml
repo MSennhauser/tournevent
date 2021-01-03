@@ -21,7 +21,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Telefon)
         </th>
-        <th></th>
+        <th>Aktionen</th>
     </tr>
 
     @foreach (var item in Model)
@@ -39,7 +39,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Telefon)
             </td>
-            <td>
+            <td class="tableActions">
                 @Html.ActionLink("Annehmen", "Accept", new { id = item.userId }) |
                 @Html.ActionLink("Ablehnen", "Reject", new { id = item.userId })
             </td>

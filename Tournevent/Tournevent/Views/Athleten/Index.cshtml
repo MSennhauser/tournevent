@@ -32,7 +32,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Geschlecht)
         </th>
-        <th></th>
+        <th>Aktionen</th>
     </tr>
 
     @foreach (var item in Model)
@@ -53,7 +53,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Geschlecht)
             </td>
-            <td>
+            <td class="tableActions">
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>

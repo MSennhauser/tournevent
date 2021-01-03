@@ -145,4 +145,17 @@ textarea {
     margin-top:-33px;
 }
 
+.actionGroup a {
+    text-decoration: none !important;
+    color: #187BCD !important;
+}
+
+/*Aktionslinks in der Tabelle*/
+/*ActionLinks in Table*/
+.tableActions a {
+    text-decoration: none !important;
+    color: #187BCD !important;
+}
+}
+
 

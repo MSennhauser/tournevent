@@ -3,7 +3,6 @@
 /*adding form*/
 .form-horizontal {
     max-width: 500px;
-    margin: auto;
     background: white;
     padding: 10px;
 }
@@ -37,6 +36,7 @@
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    cursor:pointer;
 }
 
 .control-label {

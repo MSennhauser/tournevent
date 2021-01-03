@@ -23,7 +23,7 @@
         <tr>
             @foreach (var i in item)
             {
-            <td>
+            <td class="tableActions">
                 @Html.ActionLink(i.ToString(), "Details", new { id = i})
             </td>
             }

@@ -52,8 +52,8 @@
             <div class="dropdownForm">
                 @Html.DropDownList("GeschlechtId", new List<SelectListItem>
                 {
-                    new SelectListItem { Text = "Weiblich", Value = "1", Selected=(Model.GeschlechtId == 1)},
-                    new SelectListItem { Text = "Männlich", Value = "2", Selected=(Model.GeschlechtId == 2)}
+                    new SelectListItem { Text = "Weiblich", Value = "1", Selected=true},
+                    new SelectListItem { Text = "Männlich", Value = "2", Selected=false}
                 }, new { @class = "wettkampf" })
             </div>
         </div>

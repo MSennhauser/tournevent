@@ -105,6 +105,12 @@ namespace Tournevent.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult Athleten(int id)
+        {
+            Benutzer benutzer = (from b in db.Benutzer where b.Id == id select b).Single();
+            GlobalVariables.VereinsId = (int)benutzer.VereinId;
+            return RedirectToAction("Overview", "Athleten", new { id = benutzer.VereinId});
+        }
 
         // GET: Verein/Edit/5
         public ActionResult Add(int id)

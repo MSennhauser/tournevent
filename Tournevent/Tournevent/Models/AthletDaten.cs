@@ -51,7 +51,8 @@ namespace Tournevent.Models
             db.SaveChanges();
 
             Startnummern nr = new Startnummern();
-            nr.AthletId = (from a in db.Athleten where a.Vorname == Vorname && a.Nachname == Nachname && a.Jahrgang == Jahrgang
+            
+            nr.AthletId = (from a in db.Athleten where a.Vorname == Vorname && a.Nachname == Nachname && a.Jahrgang == Jahrgang && a.VereinsId == GlobalVariables.VereinsId
                            select a.Id).Single();
             nr.WettkampfId = GlobalVariables.WettkampfId;
             nr.Startnummer = Startnummer;
@@ -70,6 +71,11 @@ namespace Tournevent.Models
             ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(athlet, System.Data.Entity.EntityState.Modified);
             db.SaveChanges();
 
+            Startnummern nr = (from s in db.Startnummern where s.AthletId == athlet.Id && s.WettkampfId == GlobalVariables.WettkampfId select s).Single();
+            nr.Startnummer = Startnummer;
+            db.Startnummern.Attach(nr);
+            ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(nr, System.Data.Entity.EntityState.Modified);
+            db.SaveChanges();
         }
     }
 }

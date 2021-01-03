@@ -13,6 +13,7 @@ namespace Tournevent.Controllers
         private readonly DBContext db = new DBContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Athleten
+        [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Index()
         {
             int wettkampfId = GlobalVariables.WettkampfId;
@@ -32,6 +33,7 @@ namespace Tournevent.Controllers
         }
 
         // GET: Athleten/Create
+        [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Create()
         {
             AthletDaten data = new AthletDaten();
@@ -59,6 +61,7 @@ namespace Tournevent.Controllers
 
         // POST: Athleten/Create
         [HttpPost]
+        [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Create(AthletDaten athletDaten)
         {
             if (ModelState.IsValid)
@@ -80,6 +83,7 @@ namespace Tournevent.Controllers
         }
 
         // GET: Athleten/Edit/5
+        [Authorize(Roles = "Administrator,Vereinsverantwortlicher")]
         public ActionResult Edit(int id)
         {
             int wettkampfId = GlobalVariables.WettkampfId;
@@ -89,6 +93,7 @@ namespace Tournevent.Controllers
         }
 
         // POST: Athleten/Edit/5
+        [Authorize(Roles = "Administrator,Vereinsverantwortlicher")]
         [HttpPost]
         public ActionResult Edit(AthletDaten athletDaten)
         {
@@ -107,6 +112,7 @@ namespace Tournevent.Controllers
         }
 
         // GET: Athleten/Delete/5
+        [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Delete(int id)
         {
             Athleten athlet = (from a in db.Athleten where a.Id == id select a).Single();

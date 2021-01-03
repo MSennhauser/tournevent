@@ -150,6 +150,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WettkampfName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="WettkampfartId" Type="int" Nullable="false" />
+          <Property Name="Datum" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Wettkampfart">
           <Key>
@@ -592,6 +593,7 @@
           <NavigationProperty Name="Startnummern" Relationship="Self.fk_startnummerWettkampf" FromRole="Wettkampf" ToRole="Startnummern" />
           <NavigationProperty Name="VereineWettkampf" Relationship="Self.fk_wettkampf" FromRole="Wettkampf" ToRole="VereineWettkampf" />
           <NavigationProperty Name="Wettkampfart" Relationship="Self.fk_WeWeA" FromRole="Wettkampf" ToRole="Wettkampfart" />
+          <Property Name="Datum" Type="DateTime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Wettkampfart">
           <Key>
@@ -1021,6 +1023,7 @@
           <EntitySetMapping Name="Wettkampf">
             <EntityTypeMapping TypeName="DBModel.Wettkampf">
               <MappingFragment StoreEntitySet="Wettkampf">
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="WettkampfName" ColumnName="WettkampfName" />
                 <ScalarProperty Name="WettkampfartId" ColumnName="WettkampfartId" />

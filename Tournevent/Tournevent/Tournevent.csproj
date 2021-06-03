@@ -192,6 +192,7 @@
     <Compile Include="Models\Rollen.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SqlServerConnection.cs" />
     <Compile Include="Models\Startnummern.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>

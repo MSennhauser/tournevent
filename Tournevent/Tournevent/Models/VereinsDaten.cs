@@ -15,10 +15,7 @@ namespace Tournevent.Models
         }
         public VereinsDaten(Benutzer benutzer, Verein verein)
         {
-            userId = benutzer.Id;
-            VereinsName = verein.Vereinsname;
-            Vorname = benutzer.Vorname;
-            Nachname = benutzer.Nachname;
+            userId = benutzer.ID_Benutzer;
             Telefon = benutzer.Telefon;
         }
         public int userId { get; set; }

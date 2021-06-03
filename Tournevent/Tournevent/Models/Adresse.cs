@@ -12,23 +12,24 @@ namespace Tournevent.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Geschlechter
+    public partial class Adresse
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Geschlechter()
+        public Adresse()
         {
-            this.Athleten = new HashSet<Athleten>();
-            this.Kategorien = new HashSet<Kategorien>();
+            this.Athlet = new HashSet<Athlet>();
+            this.Vereinsverantwortlicher = new HashSet<Vereinsverantwortlicher>();
         }
     
-        public int Index { get; set; }
-        public string Definition { get; set; }
-        public string Abkürzung_Geschlecht { get; set; }
-        public string Bezeichnung { get; set; }
+        public int ID_Adresse { get; set; }
+        public string Strasse { get; set; }
+        public string Ort { get; set; }
+        public short PLZ { get; set; }
+        public short Hausnummer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Athleten> Athleten { get; set; }
+        public virtual ICollection<Athlet> Athlet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Kategorien> Kategorien { get; set; }
+        public virtual ICollection<Vereinsverantwortlicher> Vereinsverantwortlicher { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace Tournevent.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DBContext : DbContext
+    public partial class DataContext : DbContext
     {
-        public DBContext()
-            : base("name=DBContext")
+        public DataContext()
+            : base("name=DataContext")
         {
         }
     
@@ -25,20 +25,18 @@ namespace Tournevent.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Athleten> Athleten { get; set; }
+        public virtual DbSet<Administrator> Administrator { get; set; }
+        public virtual DbSet<Adresse> Adresse { get; set; }
+        public virtual DbSet<Anmeldung> Anmeldung { get; set; }
+        public virtual DbSet<Athlet> Athlet { get; set; }
         public virtual DbSet<Benutzer> Benutzer { get; set; }
-        public virtual DbSet<BenutzerRollen> BenutzerRollen { get; set; }
-        public virtual DbSet<Bewertungsart> Bewertungsart { get; set; }
-        public virtual DbSet<Disziplinen> Disziplinen { get; set; }
-        public virtual DbSet<Geschlechter> Geschlechter { get; set; }
-        public virtual DbSet<Kategorien> Kategorien { get; set; }
-        public virtual DbSet<KategorienDisziplinen> KategorienDisziplinen { get; set; }
-        public virtual DbSet<Rollen> Rollen { get; set; }
-        public virtual DbSet<Startnummern> Startnummern { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Disziplin> Disziplin { get; set; }
+        public virtual DbSet<Kategore_Disziplin> Kategore_Disziplin { get; set; }
+        public virtual DbSet<Kategorie> Kategorie { get; set; }
+        public virtual DbSet<Startnummer> Startnummer { get; set; }
         public virtual DbSet<Verein> Verein { get; set; }
-        public virtual DbSet<VereineWettkampf> VereineWettkampf { get; set; }
+        public virtual DbSet<Vereinsverantwortlicher> Vereinsverantwortlicher { get; set; }
+        public virtual DbSet<Wahldisziplin> Wahldisziplin { get; set; }
         public virtual DbSet<Wettkampf> Wettkampf { get; set; }
-        public virtual DbSet<Wettkampfart> Wettkampfart { get; set; }
     }
 }

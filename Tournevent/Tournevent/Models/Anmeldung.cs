@@ -12,9 +12,14 @@ namespace Tournevent.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Bewertungsart
+    public partial class Anmeldung
     {
-        public int Index { get; set; }
-        public string Bezeichnung { get; set; }
+        public int ID_Anmeldung { get; set; }
+        public int ID_Wettkampf { get; set; }
+        public int ID_Verein { get; set; }
+        public int moeglicheAthleten { get; set; }
+    
+        public virtual Verein Verein { get; set; }
+        public virtual Wettkampf Wettkampf { get; set; }
     }
 }

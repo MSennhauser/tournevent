@@ -12,23 +12,26 @@ namespace Tournevent.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Disziplinen
+    public partial class Athlet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Disziplinen()
+        public Athlet()
         {
-            this.KategorienDisziplinen = new HashSet<KategorienDisziplinen>();
+            this.Startnummer = new HashSet<Startnummer>();
         }
     
-        public int Id { get; set; }
-        public string Disziplin { get; set; }
-        public string Abkuerzung { get; set; }
-        public int WettkampfartId { get; set; }
-        public Nullable<int> anzTeilnehmer { get; set; }
-        public Nullable<int> Versuche { get; set; }
+        public int ID_Athlet { get; set; }
+        public int ID_Adresse { get; set; }
+        public int ID_Verein { get; set; }
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
+        public System.DateTime Geburtsdatum { get; set; }
+        public string Geschlecht { get; set; }
+        public int Jahrgang { get; set; }
     
+        public virtual Adresse Adresse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KategorienDisziplinen> KategorienDisziplinen { get; set; }
-        public virtual Wettkampfart Wettkampfart { get; set; }
+        public virtual ICollection<Startnummer> Startnummer { get; set; }
+        public virtual Verein Verein { get; set; }
     }
 }

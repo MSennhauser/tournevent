@@ -10,19 +10,18 @@ namespace Tournevent.Models
 {
     public class AthletDaten
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         public AthletDaten()
         {
 
         }
-        public AthletDaten(Athleten athleten, int startnummer)
+        public AthletDaten(Athlet athlet, int startnummer)
         {
-            Id = athleten.Id;
-            Vorname = athleten.Vorname;
-            Nachname = athleten.Nachname;
-            Jahrgang = athleten.Jahrgang;
-            GeschlechtId = athleten.Geschlechter.Index;
-            Geschlecht = (from g in db.Geschlechter where g.Index == GeschlechtId select g.Definition).Single();
+            Id = athlet.ID_Athlet;
+            Vorname = athlet.Vorname;
+            Nachname = athlet.Nachname;
+            Jahrgang = athlet.Jahrgang;
+            Geschlecht = athlet.Geschlecht;
             Startnummer = startnummer;
         }
         public int Id { get; set; }
@@ -34,46 +33,45 @@ namespace Tournevent.Models
         public int Jahrgang { get; set; }
         [DisplayName("Geschlecht")]
         [Required]
-        public int GeschlechtId { get; set; }
         public string Geschlecht { get; set; }
         [Required]
         public int Startnummer { get; set; }
 
         public void New()
         {
-            Athleten athlet = new Athleten();
+            Athlet athlet = new Athlet();
             athlet.Vorname = Vorname;
             athlet.Nachname = Nachname;
             athlet.Jahrgang = Jahrgang;
-            athlet.VereinsId = GlobalVariables.VereinsId;
-            athlet.GeschlechtId = Convert.ToInt32(GeschlechtId);
-            db.Athleten.Add(athlet);
+            athlet.ID_Verein = GlobalVariables.VereinsId;
+            athlet.Geschlecht = Geschlecht;
+            db.Athlet.Add(athlet);
             db.SaveChanges();
 
-            Startnummern nr = new Startnummern();
+            Startnummer nr = new Startnummer();
             
-            nr.AthletId = (from a in db.Athleten where a.Vorname == Vorname && a.Nachname == Nachname && a.Jahrgang == Jahrgang && a.VereinsId == GlobalVariables.VereinsId
-                           select a.Id).Single();
-            nr.WettkampfId = GlobalVariables.WettkampfId;
-            nr.Startnummer = Startnummer;
-            db.Startnummern.Add(nr);
+            nr.ID_Athlet = (from a in db.Athlet where a.Vorname == Vorname && a.Nachname == Nachname && a.Jahrgang == Jahrgang && a.ID_Verein == GlobalVariables.VereinsId
+                           select a.ID_Athlet).Single();
+            nr.ID_Wettkampf = GlobalVariables.WettkampfId;
+            nr.Startnr = Startnummer;
+            db.Startnummer.Add(nr);
             db.SaveChanges();
         }
 
         public void Update()
         {
-            Athleten athlet = (from a in db.Athleten where a.Id == Id select a).Single();
+            Athlet athlet = (from a in db.Athlet where a.ID_Athlet == Id select a).Single();
             athlet.Vorname = Vorname;
             athlet.Nachname = Nachname;
             athlet.Jahrgang = Jahrgang;
-            athlet.GeschlechtId = Convert.ToInt32(GeschlechtId);
-            db.Athleten.Attach(athlet);
+            athlet.Geschlecht = Geschlecht;
+            db.Athlet.Attach(athlet);
             ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(athlet, System.Data.Entity.EntityState.Modified);
             db.SaveChanges();
 
-            Startnummern nr = (from s in db.Startnummern where s.AthletId == athlet.Id && s.WettkampfId == GlobalVariables.WettkampfId select s).Single();
-            nr.Startnummer = Startnummer;
-            db.Startnummern.Attach(nr);
+            Startnummer nr = (from s in db.Startnummer where s.ID_Athlet == athlet.ID_Athlet && s.ID_Wettkampf == GlobalVariables.WettkampfId select s).Single();
+            nr.Startnr = Startnummer;
+            db.Startnummer.Attach(nr);
             ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(nr, System.Data.Entity.EntityState.Modified);
             db.SaveChanges();
         }

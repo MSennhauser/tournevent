@@ -12,25 +12,27 @@ namespace Tournevent.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Wettkampfart
+    public partial class Disziplin
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Wettkampfart()
+        public Disziplin()
         {
-            this.Disziplinen = new HashSet<Disziplinen>();
-            this.Kategorien = new HashSet<Kategorien>();
-            this.Wettkampf = new HashSet<Wettkampf>();
+            this.Wahldisziplin = new HashSet<Wahldisziplin>();
+            this.Kategore_Disziplin = new HashSet<Kategore_Disziplin>();
         }
     
-        public int Id { get; set; }
-        public string Wettkampfart1 { get; set; }
+        public int ID_Disziplin { get; set; }
+        public int ID_Wettkampf { get; set; }
+        public string Name { get; set; }
         public string Abkuerzung { get; set; }
+        public Nullable<short> ZeitTeilnehmer { get; set; }
+        public byte AnzahlVersuche { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Disziplinen> Disziplinen { get; set; }
+        public virtual ICollection<Wahldisziplin> Wahldisziplin { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Kategorien> Kategorien { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wettkampf> Wettkampf { get; set; }
+        public virtual ICollection<Kategore_Disziplin> Kategore_Disziplin { get; set; }
+        public virtual Wahldisziplin Wahldisziplin1 { get; set; }
+        public virtual Wettkampf Wettkampf { get; set; }
     }
 }

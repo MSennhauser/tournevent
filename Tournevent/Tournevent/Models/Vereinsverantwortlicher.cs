@@ -12,13 +12,16 @@ namespace Tournevent.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BenutzerRollen
+    public partial class Vereinsverantwortlicher
     {
-        public int Id { get; set; }
-        public Nullable<int> BenutzerId { get; set; }
-        public Nullable<int> RollenId { get; set; }
+        public int ID_Vereinsverantwortlicher { get; set; }
+        public int ID_Verein { get; set; }
+        public int ID_Adresse { get; set; }
+        public string Mailadresse { get; set; }
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
     
-        public virtual Benutzer Benutzer { get; set; }
-        public virtual Rollen Rollen { get; set; }
+        public virtual Adresse Adresse { get; set; }
+        public virtual Verein Verein { get; set; }
     }
 }

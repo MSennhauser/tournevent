@@ -12,18 +12,20 @@ namespace Tournevent.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Rollen
+    public partial class Administrator
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Rollen()
+        public Administrator()
         {
-            this.BenutzerRollen = new HashSet<BenutzerRollen>();
+            this.Wettkampf = new HashSet<Wettkampf>();
         }
     
-        public int Id { get; set; }
-        public string Rolle { get; set; }
+        public int ID_Administrator { get; set; }
+        public string Mailadresse { get; set; }
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BenutzerRollen> BenutzerRollen { get; set; }
+        public virtual ICollection<Wettkampf> Wettkampf { get; set; }
     }
 }

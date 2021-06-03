@@ -13,7 +13,7 @@ namespace Tournevent.Models
         {
 
         }
-        public VereinsDaten(Benutzer benutzer, Verein verein)
+        public VereinsDaten(Benutzer benutzer)
         {
             userId = benutzer.ID_Benutzer;
             Telefon = benutzer.Telefon;

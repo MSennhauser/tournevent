@@ -46,11 +46,13 @@ namespace Tournevent.Models
 
         public void New()
         {
-            Wettkampfart wettkampfart = (from wa in db.Wettkampfart where wa.Wettkampfart1 == WettkampfArt select wa).Single();
             Wettkampf wettkampf = new Wettkampf();
-            wettkampf.WettkampfName = WettkampfName;
+            wettkampf.Name = WettkampfName;
             wettkampf.Datum = Datum;
-            wettkampf.WettkampfartId = wettkampfart.Id;
+            wettkampf.Teilnahmebeginn = TeilnahmeBeginn;
+            wettkampf.Teilnahmeschluss = TeilnahmeSchluss;
+            wettkampf.NummerVon = NummerVon;
+            wettkampf.NummerBis = NummerBis;
             db.Wettkampf.Add(wettkampf);
             db.SaveChanges();
         }

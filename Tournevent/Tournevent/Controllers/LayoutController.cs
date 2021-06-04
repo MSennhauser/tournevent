@@ -11,13 +11,13 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator,Vereinsverantwortlicher")]
     public class LayoutController : Controller
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Layout
         [ChildActionOnly]
         public ActionResult Wettkaempfe()
         {
-            var vId = (from b in db.Benutzer where b.Email == User.Identity.Name select b.VereinId).Single();
+            var vId = (from b in db.Benutzer where b.Email == User.Identity.Name select b.ID_Object).Single();
             if (vId != null && User.IsInRole("Vereinsverantwortlicher"))
             {
                 GlobalVariables.VereinsId = (int)vId;
@@ -64,29 +64,30 @@ namespace Tournevent.Controllers
             else if (User.IsInRole("Vereinsverantwortlicher"))
             {
                 var email = User.Identity.Name;
-                Verein verein = (from b in db.Benutzer
-                                 join v in db.Verein on b.VereinId equals v.Index
-                                 where b.Email == email
-                                 select v).Single();
+                Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
+                                                                   join b in db.Benutzer on v.ID_Vereinsverantwortlicher equals b.ID_Object
+                                                                   where b.Email == email
+                                                                   select v).SingleOrDefault();
+                Verein verein = vereinsverantwortlicher.Verein;
 
                 wettkampf = (from w in db.Wettkampf
-                                             join vw in db.VereineWettkampf on w.Id equals vw.WettkampfId
-                                             where vw.VereinId == verein.Index
-                                             select w).ToList();
+                                join a in db.Anmeldung on w.ID_Wettkampf equals a.ID_Wettkampf
+                                where a.ID_Verein == verein.ID_Verein
+                                select w).ToList();
             }
             if(wettkampf.Count() == 1)
             {
-                GlobalVariables.WettkampfId = wettkampf.ElementAt(0).Id;
+                GlobalVariables.WettkampfId = wettkampf.ElementAt(0).ID_Wettkampf;
             }
-            foreach (var tmp in wettkampf)
+            foreach (Wettkampf tmp in wettkampf)
             {
-                if (tmp.Id == GlobalVariables.WettkampfId)
+                if (tmp.ID_Wettkampf == GlobalVariables.WettkampfId)
                 {
-                    lst.Add(new SelectListItem() { Text = tmp.WettkampfName, Value = tmp.Id.ToString(), Selected = true });
+                    lst.Add(new SelectListItem() { Text = tmp.Name, Value = tmp.ID_Wettkampf.ToString(), Selected = true });
                 }
                 else
                 {
-                    lst.Add(new SelectListItem() { Text = tmp.WettkampfName, Value = tmp.Id.ToString(), Selected = false });
+                    lst.Add(new SelectListItem() { Text = tmp.Name, Value = tmp.ID_Wettkampf.ToString(), Selected = false });
                 }
 
                 if(GlobalVariables.WettkampfId == 0)

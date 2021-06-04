@@ -10,7 +10,7 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator,Vereinsverantwortlicher")]
     public class AthletenController : Controller
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // Gibt Alle Athleten im aktuellen Wettkampf zurück
         [Authorize(Roles = "Vereinsverantwortlicher")]
@@ -18,14 +18,14 @@ namespace Tournevent.Controllers
         {
             int wettkampfId = GlobalVariables.WettkampfId;
             Benutzer benutzer = (from b in db.Benutzer where b.Email == User.Identity.Name select b).Single();
-            List<Startnummern> startnummern = (from s in db.Startnummern
-                                               join a in db.Athleten on s.AthletId equals a.Id
-                                               where s.WettkampfId == wettkampfId && a.VereinsId == benutzer.VereinId select s).ToList();
+            List<Startnummer> startnummerList = (from s in db.Startnummer
+                                               join a in db.Athlet on s.ID_Athlet equals a.ID_Athlet
+                                               where s.ID_Wettkampf == wettkampfId && a.ID_Verein == benutzer.ID_Object select s).ToList();
             List<AthletDaten> lst = new List<AthletDaten>();
-            foreach (var nr in startnummern)
+            foreach (Startnummer nr in startnummerList)
             {
-                Athleten athlet = (from a in db.Athleten where a.Id == nr.AthletId select a).Single();
-                AthletDaten data = new AthletDaten(athlet, nr.Startnummer);
+                Athlet athlet = (from a in db.Athlet where a.ID_Athlet == nr.ID_Athlet select a).Single();
+                AthletDaten data = new AthletDaten(athlet, nr.Startnr);
                 lst.Add(data);
             }
             
@@ -36,15 +36,15 @@ namespace Tournevent.Controllers
         public ActionResult Overview(int id)
         {
             int wettkampfId = GlobalVariables.WettkampfId;
-            List<Startnummern> startnummern = (from s in db.Startnummern
-                                               join a in db.Athleten on s.AthletId equals a.Id
-                                               where s.WettkampfId == wettkampfId && a.VereinsId == id
+            List<Startnummer> startnummern = (from s in db.Startnummer
+                                               join a in db.Athlet on s.ID_Athlet equals a.ID_Athlet
+                                               where s.ID_Wettkampf == wettkampfId && a.ID_Verein == id
                                                select s).ToList();
             List<AthletDaten> lst = new List<AthletDaten>();
             foreach (var nr in startnummern)
             {
-                Athleten athlet = (from a in db.Athleten where a.Id == nr.AthletId select a).Single();
-                AthletDaten data = new AthletDaten(athlet, nr.Startnummer);
+                Athlet athlet = (from a in db.Athlet where a.ID_Athlet == nr.ID_Athlet select a).Single();
+                AthletDaten data = new AthletDaten(athlet, nr.Startnr);
                 lst.Add(data);
             }
 
@@ -58,10 +58,10 @@ namespace Tournevent.Controllers
             int wettkampfId = GlobalVariables.WettkampfId;
             if (wettkampfId != 0)
             {
-                var nr = (from s in db.Startnummern where s.WettkampfId == wettkampfId select s).FirstOrDefault();
+                var nr = (from s in db.Startnummer where s.ID_Wettkampf == wettkampfId select s).FirstOrDefault();
                 if (nr != null)
                 {
-                    data.Startnummer = (from s in db.Startnummern where s.WettkampfId == wettkampfId select s.Startnummer).Max() + 1;
+                    data.Startnummer = (from s in db.Startnummer where s.ID_Wettkampf == wettkampfId select s.Startnr).Max() + 1;
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace Tournevent.Controllers
             }
             else
             {
-                data.Startnummer = (from s in db.Startnummern select s.Startnummer).Max() + 1;
+                data.Startnummer = (from s in db.Startnummer select s.Startnr).Max() + 1;
             }
             return View(data);
 
@@ -83,14 +83,14 @@ namespace Tournevent.Controllers
         {
             if (ModelState.IsValid)
             {
-                Athleten athlet = (from a in db.Athleten
-                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Jahrgang == athletDaten.Jahrgang && a.VereinsId == GlobalVariables.VereinsId
+                Athlet athlet = (from a in db.Athlet
+                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Jahrgang == athletDaten.Jahrgang && a.ID_Verein == GlobalVariables.VereinsId
                                    select a).SingleOrDefault();
                 if (athlet == null)
                 {
                     // TODO: Add insert logic here
                     int wettkampfId = GlobalVariables.WettkampfId;
-                    var startnummer = (from s in db.Startnummern where s.Startnummer == athletDaten.Startnummer && s.WettkampfId == wettkampfId select s).SingleOrDefault();
+                    var startnummer = (from s in db.Startnummer where s.Startnr == athletDaten.Startnummer && s.ID_Wettkampf == wettkampfId select s).SingleOrDefault();
 
                     if (startnummer == null && GlobalVariables.WettkampfId != 0)
                     {
@@ -117,9 +117,9 @@ namespace Tournevent.Controllers
         public ActionResult Edit(int id)
         {
             int wettkampfId = GlobalVariables.WettkampfId;
-            Athleten athlet = (from a in db.Athleten where a.Id == id select a).Single();
-            Startnummern nr = (from s in db.Startnummern where s.AthletId == id && s.WettkampfId == wettkampfId select s).Single();
-            return View(new AthletDaten(athlet, nr.Startnummer));
+            Athlet athlet = (from a in db.Athlet where a.ID_Athlet == id select a).Single();
+            Startnummer nr = (from s in db.Startnummer where s.ID_Athlet == id && s.ID_Wettkampf == wettkampfId select s).Single();
+            return View(new AthletDaten(athlet, nr.Startnr));
         }
 
         // POST: Athleten/Edit/5
@@ -128,14 +128,14 @@ namespace Tournevent.Controllers
         {
             if (ModelState.IsValid)
             {
-                Athleten athlet = (from a in db.Athleten
-                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Jahrgang == athletDaten.Jahrgang && a.VereinsId == GlobalVariables.VereinsId
+                Athlet athlet = (from a in db.Athlet
+                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Jahrgang == athletDaten.Jahrgang && a.ID_Verein == GlobalVariables.VereinsId
                                    select a).SingleOrDefault();
                 if (athlet == null)
                 {
                     int wettkampfId = GlobalVariables.WettkampfId;
-                    var startnummer = (from s in db.Startnummern
-                                       where s.Startnummer == athletDaten.Startnummer && s.AthletId != athletDaten.Id && s.WettkampfId == wettkampfId
+                    var startnummer = (from s in db.Startnummer
+                                       where s.Startnr == athletDaten.Startnummer && s.ID_Athlet != athletDaten.Id && s.ID_Wettkampf == wettkampfId
                                        select s).SingleOrDefault();
 
                     if (startnummer == null && GlobalVariables.WettkampfId != 0)
@@ -160,12 +160,12 @@ namespace Tournevent.Controllers
         // GET: Athleten/Delete/5
         public ActionResult Delete(int id)
         {
-            Athleten athlet = (from a in db.Athleten where a.Id == id select a).Single();
-            Startnummern nr = (from s in db.Startnummern
-                               where s.AthletId == id
+            Athlet athlet = (from a in db.Athlet where a.ID_Athlet == id select a).Single();
+            Startnummer nr = (from s in db.Startnummer
+                               where s.ID_Athlet == id
                                select s).Single();
-            db.Startnummern.Remove(nr);
-            db.Athleten.Remove(athlet);
+            db.Startnummer.Remove(nr);
+            db.Athlet.Remove(athlet);
             db.SaveChanges();
             if (User.IsInRole("Administrator"))
             {

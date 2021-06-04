@@ -12,18 +12,18 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator")]
     public class StartnummerController : Controller
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Startnummer
         public ActionResult Index()
         {
             int wettkampfId = GlobalVariables.WettkampfId;
-            List<Startnummern> allNummbers = (from s in db.Startnummern where s.WettkampfId == wettkampfId select s).ToList();
+            List<Startnummer> allNummbers = (from s in db.Startnummer where s.ID_Wettkampf == wettkampfId select s).ToList();
             List<List<int>> nums = new List<List<int>>();
             List<int> tmpLst = new List<int>();
             for (var i = 0; i < allNummbers.Count(); i++)
             {
-                tmpLst.Add(allNummbers.ElementAt(i).Startnummer);
+                tmpLst.Add(allNummbers.ElementAt(i).Startnr);
                 if((i+ 1) % 10 == 0 || (i+1) == allNummbers.Count())
                 {
                     nums.Add(tmpLst);
@@ -37,7 +37,7 @@ namespace Tournevent.Controllers
         // GET: Startnummer/Details/5
         public ActionResult Details(int id)
         {
-            int athletenId = (from s in db.Startnummern where s.Startnummer == id && s.WettkampfId == GlobalVariables.WettkampfId select s.AthletId).Single();
+            int athletenId = (from s in db.Startnummer where s.Startnr == id && s.ID_Wettkampf == GlobalVariables.WettkampfId select s.ID_Athlet).Single();
             return RedirectToAction("Edit", new RouteValueDictionary(
                     new { controller = "Athleten", action = "Edit", Id = athletenId }));
         }

@@ -11,35 +11,30 @@ namespace Tournevent.Controllers
     [Authorize(Roles ="Administrator")]
     public class AnfrageController : Controller
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // Gibt alle Anfragen zurück
         public ActionResult Index()
         {
             List<VereinsDaten> lst = new List<VereinsDaten>();
-            var benutzerIds = from o in db.Rollen
-                                join r in db.BenutzerRollen on o.Id equals r.RollenId
-                                where o.Rolle == "WartetAufBestaetigung"
-                                select r.BenutzerId;
+            List<Benutzer> benutzerWartetList = (from b in db.Benutzer
+                                where b.Rolle == "WartetAufBestaetigung"
+                                select b).ToList();
 
-            Debug.WriteLine(benutzerIds);
-
-            foreach(var item in benutzerIds)
+            foreach(Benutzer benutzer in benutzerWartetList)
             {
-                Verein verein = (from v in db.Verein
-                         join b in db.Benutzer on v.Index equals b.VereinId
-                         where b.Id == item
+                Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
+                         join b in db.Benutzer on v.ID_Vereinsverantwortlicher equals b.ID_Object
+                         where b.ID_Benutzer == benutzer.ID_Benutzer
                          select v).SingleOrDefault();
-                Benutzer benutzer = (from b in db.Benutzer
-                                     where b.Id == item
-                                     select b).SingleOrDefault();
-                if(verein != null && benutzer != null)
+                Verein verein = vereinsverantwortlicher.Verein;
+                if (verein != null && benutzer != null)
                 {
                     VereinsDaten data = new VereinsDaten();
-                    data.userId = benutzer.Id;
-                    data.VereinsName = verein.Vereinsname;
-                    data.Vorname = benutzer.Vorname;
-                    data.Nachname = benutzer.Nachname;
+                    data.userId = benutzer.ID_Benutzer;
+                    data.VereinsName = verein.Name;
+                    data.Vorname = vereinsverantwortlicher.Vorname;
+                    data.Nachname = vereinsverantwortlicher.Nachname;
                     data.Telefon = benutzer.Telefon;
                     lst.Add(data);
                 }
@@ -51,7 +46,7 @@ namespace Tournevent.Controllers
         public ActionResult Accept(int id)
         {
             Benutzer benutzer = (from b in db.Benutzer
-                                 where b.Id == id
+                                 where b.ID_Benutzer == id
                                  select b).SingleOrDefault();
 
             roleProvider.ChangeUserRole(benutzer.Email, "Vereinsverantwortlicher");
@@ -61,17 +56,16 @@ namespace Tournevent.Controllers
         public ActionResult Reject(int id)
         {
             Benutzer benutzer = (from b in db.Benutzer
-                                 where b.Id == id
+                                 where b.ID_Benutzer == id
                                  select b).SingleOrDefault();
-            BenutzerRollen benutzerRollen = (from b in db.BenutzerRollen
-                                             where b.BenutzerId == benutzer.Id
-                                             select b).SingleOrDefault();
-            Verein verein = (from v in db.Verein
-                             where v.Index == benutzer.VereinId
-                             select v).SingleOrDefault();
+
+            Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
+                                                               join b in db.Benutzer on v.ID_Vereinsverantwortlicher equals b.ID_Object
+                                                               where b.ID_Benutzer == benutzer.ID_Benutzer
+                                                               select v).SingleOrDefault();
+            Verein verein = vereinsverantwortlicher.Verein;
 
             db.Verein.Remove(verein);
-            db.BenutzerRollen.Remove(benutzerRollen);
             db.Benutzer.Remove(benutzer);
             db.SaveChanges();
 

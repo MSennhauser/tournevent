@@ -10,7 +10,7 @@ namespace Tournevent.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
 
         public ActionResult Index()
@@ -19,9 +19,9 @@ namespace Tournevent.Controllers
             if (rolle == "WartetAufBestaetigung")
             {
                 Benutzer benutzer = (from b in db.Benutzer where b.Email == User.Identity.Name select b).SingleOrDefault();
-                if (benutzer.VereinId == null)
+                if (benutzer.ID_Object == null)
                 {
-                    return RedirectToAction("VereinsDaten", "Login", new { userId = benutzer.Id });
+                    return RedirectToAction("VereinsDaten", "Login", new { userId = benutzer.ID_Benutzer });
                 }
                 else
                 {

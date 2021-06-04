@@ -84,7 +84,7 @@
           <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Abkuerzung" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Geschlecht" Type="date" Nullable="false" />
+          <Property Name="Geschlecht" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="JahrgangVon" Type="smallint" Nullable="false" />
           <Property Name="JahrgangBis" Type="smallint" Nullable="false" />
         </EntityType>
@@ -481,21 +481,7 @@
           <Property Name="ID_Disziplin" Type="Int32" Nullable="false" />
           <Property Name="ID_Kategorie" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Disziplin" Relationship="Self.fk_Disziplin_Kategore_Disziplin" FromRole="Kategore_Disziplin" ToRole="Disziplin" />
-          <NavigationProperty Name="Kategorie" Relationship="Self.fk_Kategorie_Kategore_Disziplin" FromRole="Kategore_Disziplin" ToRole="Kategorie" />
-        </EntityType>
-        <EntityType Name="Kategorie">
-          <Key>
-            <PropertyRef Name="ID_Kategorie" />
-          </Key>
-          <Property Name="ID_Kategorie" Type="Int32" Nullable="false" />
-          <Property Name="ID_Wettkampf" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Abkuerzung" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Geschlecht" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="JahrgangVon" Type="Int16" Nullable="false" />
-          <Property Name="JahrgangBis" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="Kategore_Disziplin" Relationship="Self.fk_Kategorie_Kategore_Disziplin" FromRole="Kategorie" ToRole="Kategore_Disziplin" />
-          <NavigationProperty Name="Wettkampf" Relationship="Self.fk_Wettkampf_Kategorie" FromRole="Kategorie" ToRole="Wettkampf" />
+          <NavigationProperty Name="Kategorie" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin" FromRole="Kategore_Disziplin" ToRole="Kategorie" />
         </EntityType>
         <EntityType Name="Startnummer">
           <Key>
@@ -559,8 +545,8 @@
           <NavigationProperty Name="Administrator" Relationship="Self.fk_Administrator_Wettkampf" FromRole="Wettkampf" ToRole="Administrator" />
           <NavigationProperty Name="Anmeldung" Relationship="Self.fk_Wettkampf_Anmeldung" FromRole="Wettkampf" ToRole="Anmeldung" />
           <NavigationProperty Name="Disziplin" Relationship="Self.fk_Wettkampf_Disziplin" FromRole="Wettkampf" ToRole="Disziplin" />
-          <NavigationProperty Name="Kategorie" Relationship="Self.fk_Wettkampf_Kategorie" FromRole="Wettkampf" ToRole="Kategorie" />
           <NavigationProperty Name="Startnummer" Relationship="Self.fk_Wettkampf_Startnummer" FromRole="Wettkampf" ToRole="Startnummer" />
+          <NavigationProperty Name="Kategorie" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie" FromRole="Wettkampf" ToRole="Kategorie" />
         </EntityType>
         <Association Name="fk_Administrator_Wettkampf">
           <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
@@ -694,30 +680,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Kategorie_Kategore_Disziplin">
-          <End Role="Kategorie" Type="Self.Kategorie" Multiplicity="1" />
-          <End Role="Kategore_Disziplin" Type="Self.Kategore_Disziplin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Kategorie">
-              <PropertyRef Name="ID_Kategorie" />
-            </Principal>
-            <Dependent Role="Kategore_Disziplin">
-              <PropertyRef Name="ID_Kategorie" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Wettkampf_Kategorie">
-          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
-          <End Role="Kategorie" Type="Self.Kategorie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Wettkampf">
-              <PropertyRef Name="ID_Wettkampf" />
-            </Principal>
-            <Dependent Role="Kategorie">
-              <PropertyRef Name="ID_Wettkampf" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Wettkampf_Startnummer">
           <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
           <End Role="Startnummer" Type="Self.Startnummer" Multiplicity="*" />
@@ -750,7 +712,6 @@
           <EntitySet Name="Benutzer" EntityType="Self.Benutzer" />
           <EntitySet Name="Disziplin" EntityType="Self.Disziplin" />
           <EntitySet Name="Kategore_Disziplin" EntityType="Self.Kategore_Disziplin" />
-          <EntitySet Name="Kategorie" EntityType="Self.Kategorie" />
           <EntitySet Name="Startnummer" EntityType="Self.Startnummer" />
           <EntitySet Name="Verein" EntityType="Self.Verein" />
           <EntitySet Name="Vereinsverantwortlicher" EntityType="Self.Vereinsverantwortlicher" />
@@ -800,14 +761,6 @@
             <End Role="Wettkampf" EntitySet="Wettkampf" />
             <End Role="Disziplin" EntitySet="Disziplin" />
           </AssociationSet>
-          <AssociationSet Name="fk_Kategorie_Kategore_Disziplin" Association="Self.fk_Kategorie_Kategore_Disziplin">
-            <End Role="Kategorie" EntitySet="Kategorie" />
-            <End Role="Kategore_Disziplin" EntitySet="Kategore_Disziplin" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Wettkampf_Kategorie" Association="Self.fk_Wettkampf_Kategorie">
-            <End Role="Wettkampf" EntitySet="Wettkampf" />
-            <End Role="Kategorie" EntitySet="Kategorie" />
-          </AssociationSet>
           <AssociationSet Name="fk_Wettkampf_Startnummer" Association="Self.fk_Wettkampf_Startnummer">
             <End Role="Wettkampf" EntitySet="Wettkampf" />
             <End Role="Startnummer" EntitySet="Startnummer" />
@@ -816,7 +769,54 @@
             <End Role="Verein" EntitySet="Verein" />
             <End Role="Vereinsverantwortlicher" EntitySet="Vereinsverantwortlicher" />
           </AssociationSet>
+          <EntitySet Name="Kategorie" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" />
+          <AssociationSet Name="fk_Kategorie_Kategore_Disziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin">
+            <End Role="Kategorie" EntitySet="Kategorie" />
+            <End Role="Kategore_Disziplin" EntitySet="Kategore_Disziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Wettkampf_Kategorie" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Kategorie" EntitySet="Kategorie" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Kategorie">
+          <Key>
+            <PropertyRef Name="ID_Kategorie" />
+          </Key>
+          <Property Name="ID_Kategorie" Type="Int32" Nullable="false" />
+          <Property Name="ID_Wettkampf" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Abkuerzung" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Geschlecht" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="JahrgangVon" Type="Int16" Nullable="false" />
+          <Property Name="JahrgangBis" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Kategore_Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin" FromRole="Kategorie" ToRole="Kategore_Disziplin" />
+          <NavigationProperty Name="Wettkampf" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie" FromRole="Kategorie" ToRole="Wettkampf" />
+        </EntityType>
+        <Association Name="fk_Kategorie_Kategore_Disziplin">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" Role="Kategorie" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin" Role="Kategore_Disziplin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorie">
+              <PropertyRef Name="ID_Kategorie" />
+            </Principal>
+            <Dependent Role="Kategore_Disziplin">
+              <PropertyRef Name="ID_Kategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Wettkampf_Kategorie">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" Role="Wettkampf" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" Role="Kategorie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Principal>
+            <Dependent Role="Kategorie">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -901,19 +901,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Kategorie">
-            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie">
-              <MappingFragment StoreEntitySet="Kategorie">
-                <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
-                <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
-                <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
-                <ScalarProperty Name="JahrgangVon" ColumnName="JahrgangVon" />
-                <ScalarProperty Name="JahrgangBis" ColumnName="JahrgangBis" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Startnummer">
             <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer">
               <MappingFragment StoreEntitySet="Startnummer">
@@ -967,6 +954,19 @@
                 <ScalarProperty Name="Teilnahmeschluss" ColumnName="Teilnahmeschluss" />
                 <ScalarProperty Name="NummerVon" ColumnName="NummerVon" />
                 <ScalarProperty Name="NummerBis" ColumnName="NummerBis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategorie">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie">
+              <MappingFragment StoreEntitySet="Kategorie">
+                <ScalarProperty Name="JahrgangBis" ColumnName="JahrgangBis" />
+                <ScalarProperty Name="JahrgangVon" ColumnName="JahrgangVon" />
+                <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
+                <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+                <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

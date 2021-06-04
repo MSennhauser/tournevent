@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RLP2021_INAI3a_Gruppe5_IDModelStoreContainer" CdmEntityContainer="DataContext">
+    <EntitySetMapping Name="Administrator">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Administrator">
+        <MappingFragment StoreEntitySet="Administrator">
+          <ScalarProperty Name="ID_Administrator" ColumnName="ID_Administrator" />
+          <ScalarProperty Name="Mailadresse" ColumnName="Mailadresse" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Adresse">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Adresse">
+        <MappingFragment StoreEntitySet="Adresse">
+          <ScalarProperty Name="ID_Adresse" ColumnName="ID_Adresse" />
+          <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+          <ScalarProperty Name="Ort" ColumnName="Ort" />
+          <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+          <ScalarProperty Name="Hausnummer" ColumnName="Hausnummer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Anmeldung">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Anmeldung">
+        <MappingFragment StoreEntitySet="Anmeldung">
+          <ScalarProperty Name="ID_Anmeldung" ColumnName="ID_Anmeldung" />
+          <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+          <ScalarProperty Name="ID_Verein" ColumnName="ID_Verein" />
+          <ScalarProperty Name="moeglicheAthleten" ColumnName="moeglicheAthleten" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Athlet">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Athlet">
+        <MappingFragment StoreEntitySet="Athlet">
+          <ScalarProperty Name="Jahrgang" ColumnName="Jahrgang" />
+          <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
+          <ScalarProperty Name="ID_Athlet" ColumnName="ID_Athlet" />
+          <ScalarProperty Name="ID_Adresse" ColumnName="ID_Adresse" />
+          <ScalarProperty Name="ID_Verein" ColumnName="ID_Verein" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+          <ScalarProperty Name="Geburtsdatum" ColumnName="Geburtsdatum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Benutzer">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer">
+        <MappingFragment StoreEntitySet="Benutzer">
+          <ScalarProperty Name="ID_Benutzer" ColumnName="ID_Benutzer" />
+          <ScalarProperty Name="ID_Object" ColumnName="ID_Object" />
+          <ScalarProperty Name="Rolle" ColumnName="Rolle" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Disziplin">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin">
+        <MappingFragment StoreEntitySet="Disziplin">
+          <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
+          <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+          <ScalarProperty Name="ZeitTeilnehmer" ColumnName="ZeitTeilnehmer" />
+          <ScalarProperty Name="AnzahlVersuche" ColumnName="AnzahlVersuche" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategore_Disziplin">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin">
+        <MappingFragment StoreEntitySet="Kategore_Disziplin">
+          <ScalarProperty Name="ID_Kategore_Disziplin" ColumnName="ID_Kategore_Disziplin" />
+          <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
+          <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Startnummer">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer">
+        <MappingFragment StoreEntitySet="Startnummer">
+          <ScalarProperty Name="Startnr" ColumnName="Startnr" />
+          <ScalarProperty Name="ID_Startnummer" ColumnName="ID_Startnummer" />
+          <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+          <ScalarProperty Name="ID_Athlet" ColumnName="ID_Athlet" />
+          <ScalarProperty Name="ID_Verein" ColumnName="ID_Verein" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Verein">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Verein">
+        <MappingFragment StoreEntitySet="Verein">
+          <ScalarProperty Name="ID_Verein" ColumnName="ID_Verein" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Ort" ColumnName="Ort" />
+          <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vereinsverantwortlicher">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher">
+        <MappingFragment StoreEntitySet="Vereinsverantwortlicher">
+          <ScalarProperty Name="ID_Vereinsverantwortlicher" ColumnName="ID_Vereinsverantwortlicher" />
+          <ScalarProperty Name="ID_Verein" ColumnName="ID_Verein" />
+          <ScalarProperty Name="ID_Adresse" ColumnName="ID_Adresse" />
+          <ScalarProperty Name="Mailadresse" ColumnName="Mailadresse" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wahldisziplin">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin">
+        <MappingFragment StoreEntitySet="Wahldisziplin">
+          <ScalarProperty Name="ID_Wahldisziplin" ColumnName="ID_Wahldisziplin" />
+          <ScalarProperty Name="Wahldisziplin_Name" ColumnName="Wahldisziplin_Name" />
+          <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wettkampf">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf">
+        <MappingFragment StoreEntitySet="Wettkampf">
+          <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+          <ScalarProperty Name="ID_Administrator" ColumnName="ID_Administrator" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="Teilnahmebeginn" ColumnName="Teilnahmebeginn" />
+          <ScalarProperty Name="Teilnahmeschluss" ColumnName="Teilnahmeschluss" />
+          <ScalarProperty Name="NummerVon" ColumnName="NummerVon" />
+          <ScalarProperty Name="NummerBis" ColumnName="NummerBis" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategorie">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie">
+        <MappingFragment StoreEntitySet="Kategorie">
+          <ScalarProperty Name="JahrgangBis" ColumnName="JahrgangBis" />
+          <ScalarProperty Name="JahrgangVon" ColumnName="JahrgangVon" />
+          <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
+          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+          <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

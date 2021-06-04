@@ -50,12 +50,12 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.GeschlechtId, htmlAttributes: new { @class = "control-label" })
+            @Html.LabelFor(model => model.Geschlecht, htmlAttributes: new { @class = "control-label" })
             <div class="dropdownForm">
                 @Html.DropDownList("GeschlechtId", new List<SelectListItem>
                 {
-                    new SelectListItem { Text = "Weiblich", Value = "1", Selected=(Model.GeschlechtId == 1)},
-                    new SelectListItem { Text = "Männlich", Value = "2", Selected=(Model.GeschlechtId == 2)}
+                    new SelectListItem { Text = "Weiblich", Value = "1", Selected=(Model.Geschlecht == "w")},
+                    new SelectListItem { Text = "Männlich", Value = "2", Selected=(Model.Geschlecht == "m")}
                 }, new { @class = "wettkampf" })
             </div>
         </div>

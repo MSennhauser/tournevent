@@ -20,6 +20,7 @@ namespace Tournevent.Models
             Abkuerzung = kategorie.Abkuerzung;
             JahrgangVon = kategorie.JahrgangVon;
             JahrgangBis = kategorie.JahrgangBis;
+            Geschlecht = kategorie.Geschlecht;
         }
         public int kategorieID { get; set; }
         [Required]
@@ -31,6 +32,7 @@ namespace Tournevent.Models
         public int JahrgangVon { get; set; }
         [Required]
         public int JahrgangBis { get; set; }
-
+        [Required]
+        public string Geschlecht { get; set; }
     }
 }

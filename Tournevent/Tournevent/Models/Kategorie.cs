@@ -24,7 +24,7 @@ namespace Tournevent.Models
         public int ID_Wettkampf { get; set; }
         public string Name { get; set; }
         public string Abkuerzung { get; set; }
-        public System.DateTime Geschlecht { get; set; }
+        public string Geschlecht { get; set; }
         public short JahrgangVon { get; set; }
         public short JahrgangBis { get; set; }
     

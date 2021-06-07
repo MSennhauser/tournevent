@@ -44,8 +44,8 @@
     <Key>
       <PropertyRef Name="ID_Benutzer" />
     </Key>
-    <Property Name="ID_Benutzer" Type="int" Nullable="false" />
-    <Property Name="Rolle" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_Benutzer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rolle" Type="varchar" MaxLength="50" />
     <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Passwort" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Telefon" Type="varchar" MaxLength="50" Nullable="false" />
@@ -77,7 +77,7 @@
     <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Abkuerzung" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Geschlecht" Type="date" Nullable="false" />
+    <Property Name="Geschlecht" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="JahrgangVon" Type="smallint" Nullable="false" />
     <Property Name="JahrgangBis" Type="smallint" Nullable="false" />
   </EntityType>

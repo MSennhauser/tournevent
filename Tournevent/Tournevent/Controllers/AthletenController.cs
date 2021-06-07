@@ -84,7 +84,7 @@ namespace Tournevent.Controllers
             if (ModelState.IsValid)
             {
                 Athlet athlet = (from a in db.Athlet
-                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Jahrgang == athletDaten.Jahrgang && a.ID_Verein == GlobalVariables.VereinsId
+                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Geburtsdatum == athletDaten.Geburtsdatum && a.ID_Verein == GlobalVariables.VereinsId
                                    select a).SingleOrDefault();
                 if (athlet == null)
                 {
@@ -129,7 +129,7 @@ namespace Tournevent.Controllers
             if (ModelState.IsValid)
             {
                 Athlet athlet = (from a in db.Athlet
-                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Jahrgang == athletDaten.Jahrgang && a.ID_Verein == GlobalVariables.VereinsId
+                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Geburtsdatum == athletDaten.Geburtsdatum && a.ID_Verein == GlobalVariables.VereinsId
                                    select a).SingleOrDefault();
                 if (athlet == null)
                 {

@@ -45,17 +45,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Benutzer">
-      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer">
-        <MappingFragment StoreEntitySet="Benutzer">
-          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
-          <ScalarProperty Name="Passwort" ColumnName="Passwort" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Rolle" ColumnName="Rolle" />
-          <ScalarProperty Name="ID_Benutzer" ColumnName="ID_Benutzer" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Disziplin">
       <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin">
         <MappingFragment StoreEntitySet="Disziplin">
@@ -74,19 +63,6 @@
           <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
           <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
           <ScalarProperty Name="ID_Kategore_Disziplin" ColumnName="ID_Kategore_Disziplin" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Kategorie">
-      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie">
-        <MappingFragment StoreEntitySet="Kategorie">
-          <ScalarProperty Name="JahrgangBis" ColumnName="JahrgangBis" />
-          <ScalarProperty Name="JahrgangVon" ColumnName="JahrgangVon" />
-          <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
-          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
-          <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -143,6 +119,30 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID_Administrator" ColumnName="ID_Administrator" />
           <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategorie">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie">
+        <MappingFragment StoreEntitySet="Kategorie">
+          <ScalarProperty Name="JahrgangBis" ColumnName="JahrgangBis" />
+          <ScalarProperty Name="JahrgangVon" ColumnName="JahrgangVon" />
+          <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
+          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+          <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Benutzer">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer">
+        <MappingFragment StoreEntitySet="Benutzer">
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Rolle" ColumnName="Rolle" />
+          <ScalarProperty Name="ID_Benutzer" ColumnName="ID_Benutzer" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

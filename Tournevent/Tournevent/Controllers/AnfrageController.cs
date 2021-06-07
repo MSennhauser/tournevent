@@ -16,24 +16,19 @@ namespace Tournevent.Controllers
         // Gibt alle Anfragen zurück
         public ActionResult Index()
         {
-            List<VereinsDaten> lst = new List<VereinsDaten>();
+            List<AnfrageDaten> lst = new List<AnfrageDaten>();
             List<Benutzer> benutzerWartetList = (from b in db.Benutzer
-                                where b.Rolle == "WartetAufBestaetigung"
+                                where b.Rolle == "WaitForConfirmation"
                                 select b).ToList();
 
             foreach(Benutzer benutzer in benutzerWartetList)
             {
                 Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
-                         join b in db.Benutzer on v.Mailadresse equals b.Email
-                         where b.ID_Benutzer == benutzer.ID_Benutzer
+                         where v.Mailadresse == benutzer.Email
                          select v).SingleOrDefault();
-                Verein verein = vereinsverantwortlicher.Verein;
-                if (verein != null && benutzer != null)
+                if (vereinsverantwortlicher != null && benutzer != null)
                 {
-                    VereinsDaten data = new VereinsDaten();
-                    data.VereinsName = verein.Name;
-                    data.Ort = verein.Ort;
-                    data.PLZ = verein.PLZ;
+                    AnfrageDaten data = new AnfrageDaten(vereinsverantwortlicher);
                     lst.Add(data);
                 }
             
@@ -64,6 +59,7 @@ namespace Tournevent.Controllers
             Verein verein = vereinsverantwortlicher.Verein;
 
             db.Verein.Remove(verein);
+            db.Vereinsverantwortlicher.Remove(vereinsverantwortlicher);
             db.Benutzer.Remove(benutzer);
             db.SaveChanges();
 

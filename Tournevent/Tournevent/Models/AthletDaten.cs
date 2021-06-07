@@ -20,7 +20,7 @@ namespace Tournevent.Models
             Id = athlet.ID_Athlet;
             Vorname = athlet.Vorname;
             Nachname = athlet.Nachname;
-            Jahrgang = athlet.Jahrgang;
+            Geburtsdatum = athlet.Geburtsdatum;
             Geschlecht = athlet.Geschlecht;
             Startnummer = startnummer;
         }
@@ -30,7 +30,7 @@ namespace Tournevent.Models
         [Required]
         public string Nachname { get; set; }
         [Required]
-        public int Jahrgang { get; set; }
+        public DateTime Geburtsdatum { get; set; }
         [DisplayName("Geschlecht")]
         [Required]
         public string Geschlecht { get; set; }
@@ -42,7 +42,7 @@ namespace Tournevent.Models
             Athlet athlet = new Athlet();
             athlet.Vorname = Vorname;
             athlet.Nachname = Nachname;
-            athlet.Jahrgang = Jahrgang;
+            athlet.Geburtsdatum = Geburtsdatum;
             athlet.ID_Verein = GlobalVariables.VereinsId;
             athlet.Geschlecht = Geschlecht;
             db.Athlet.Add(athlet);
@@ -50,7 +50,7 @@ namespace Tournevent.Models
 
             Startnummer nr = new Startnummer();
             
-            nr.ID_Athlet = (from a in db.Athlet where a.Vorname == Vorname && a.Nachname == Nachname && a.Jahrgang == Jahrgang && a.ID_Verein == GlobalVariables.VereinsId
+            nr.ID_Athlet = (from a in db.Athlet where a.Vorname == Vorname && a.Nachname == Nachname && a.Geburtsdatum == Geburtsdatum && a.ID_Verein == GlobalVariables.VereinsId
                            select a.ID_Athlet).Single();
             nr.ID_Wettkampf = GlobalVariables.WettkampfId;
             nr.Startnr = Startnummer;
@@ -63,7 +63,7 @@ namespace Tournevent.Models
             Athlet athlet = (from a in db.Athlet where a.ID_Athlet == Id select a).Single();
             athlet.Vorname = Vorname;
             athlet.Nachname = Nachname;
-            athlet.Jahrgang = Jahrgang;
+            athlet.Geburtsdatum = Geburtsdatum;
             athlet.Geschlecht = Geschlecht;
             db.Athlet.Attach(athlet);
             ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(athlet, System.Data.Entity.EntityState.Modified);

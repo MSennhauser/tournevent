@@ -70,7 +70,8 @@ namespace Tournevent.Controllers
                     db.Benutzer.Add(benutzer);
                     db.SaveChanges();
 
-                    roleProvider.ChangeUserRole(User.Identity.Name, "VereinsDaten");
+                    FormsAuthentication.SetAuthCookie(benutzer.Email, false);
+                    roleProvider.ChangeUserRole(benutzer.Email, "VereinsDaten");
                     return RedirectToAction("VereinsDaten");
                 }
                 else

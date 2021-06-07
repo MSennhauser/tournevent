@@ -60,6 +60,7 @@ namespace Tournevent.Controllers
 
             db.Verein.Remove(verein);
             db.Vereinsverantwortlicher.Remove(vereinsverantwortlicher);
+            db.SaveChanges();
             db.Benutzer.Remove(benutzer);
             db.SaveChanges();
 

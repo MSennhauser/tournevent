@@ -11,7 +11,6 @@ namespace Tournevent.Controllers
     public class AthletenController : Controller
     {
         private readonly DataContext db = new DataContext();
-        private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // Gibt Alle Athleten im aktuellen Wettkampf zurück
         [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Index()
@@ -24,11 +23,9 @@ namespace Tournevent.Controllers
             List<AthletDaten> lst = new List<AthletDaten>();
             foreach (Startnummer nr in startnummerList)
             {
-                Athlet athlet = (from a in db.Athlet where a.ID_Athlet == nr.ID_Athlet select a).Single();
-                AthletDaten data = new AthletDaten(athlet, nr.Startnr);
+                AthletDaten data = new AthletDaten(nr.Athlet, nr.Startnr);
                 lst.Add(data);
             }
-            
             return View(lst);
         }
         [Authorize(Roles = "Administrator")]
@@ -71,7 +68,7 @@ namespace Tournevent.Controllers
             }
             else
             {
-                data.Startnummer = (from s in db.Startnummer select s.Startnr).Max() + 1;
+                data.Startnummer = (from s in db.Startnummer where s.ID_Wettkampf == wettkampfId select s).FirstOrDefault().Startnr;
             }
             return View(data);
 

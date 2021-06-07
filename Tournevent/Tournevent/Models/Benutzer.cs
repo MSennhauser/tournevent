@@ -15,7 +15,6 @@ namespace Tournevent.Models
     public partial class Benutzer
     {
         public int ID_Benutzer { get; set; }
-        public int ID_Object { get; set; }
         public string Rolle { get; set; }
         public string Email { get; set; }
         public string Passwort { get; set; }

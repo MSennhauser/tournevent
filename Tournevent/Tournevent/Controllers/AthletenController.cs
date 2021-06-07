@@ -17,10 +17,10 @@ namespace Tournevent.Controllers
         public ActionResult Index()
         {
             int wettkampfId = GlobalVariables.WettkampfId;
-            Benutzer benutzer = (from b in db.Benutzer where b.Email == User.Identity.Name select b).Single();
+            Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher where v.Mailadresse == User.Identity.Name select v).Single();
             List<Startnummer> startnummerList = (from s in db.Startnummer
                                                join a in db.Athlet on s.ID_Athlet equals a.ID_Athlet
-                                               where s.ID_Wettkampf == wettkampfId && a.ID_Verein == benutzer.ID_Object select s).ToList();
+                                               where s.ID_Wettkampf == wettkampfId && a.ID_Verein == vereinsverantwortlicher.ID_Verein select s).ToList();
             List<AthletDaten> lst = new List<AthletDaten>();
             foreach (Startnummer nr in startnummerList)
             {

@@ -24,18 +24,16 @@ namespace Tournevent.Controllers
             foreach(Benutzer benutzer in benutzerWartetList)
             {
                 Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
-                         join b in db.Benutzer on v.ID_Vereinsverantwortlicher equals b.ID_Object
+                         join b in db.Benutzer on v.Mailadresse equals b.Email
                          where b.ID_Benutzer == benutzer.ID_Benutzer
                          select v).SingleOrDefault();
                 Verein verein = vereinsverantwortlicher.Verein;
                 if (verein != null && benutzer != null)
                 {
                     VereinsDaten data = new VereinsDaten();
-                    data.userId = benutzer.ID_Benutzer;
                     data.VereinsName = verein.Name;
-                    data.Vorname = vereinsverantwortlicher.Vorname;
-                    data.Nachname = vereinsverantwortlicher.Nachname;
-                    data.Telefon = benutzer.Telefon;
+                    data.Ort = verein.Ort;
+                    data.PLZ = verein.PLZ;
                     lst.Add(data);
                 }
             
@@ -60,7 +58,7 @@ namespace Tournevent.Controllers
                                  select b).SingleOrDefault();
 
             Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
-                                                               join b in db.Benutzer on v.ID_Vereinsverantwortlicher equals b.ID_Object
+                                                               join b in db.Benutzer on v.Mailadresse equals b.Email
                                                                where b.ID_Benutzer == benutzer.ID_Benutzer
                                                                select v).SingleOrDefault();
             Verein verein = vereinsverantwortlicher.Verein;

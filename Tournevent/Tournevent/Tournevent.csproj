@@ -185,14 +185,22 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KategorienDaten.cs" />
+    <Compile Include="Models\AnfrageDaten.cs" />
+    <Compile Include="Models\Startnummer.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Verein.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vereinsverantwortlicher.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VereinsverantwortlicherDaten.cs" />
     <Compile Include="Models\KontoDaten.cs" />
     <Compile Include="Models\Roles.cs">
       <DependentUpon>UserModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SqlServerConnection.cs" />
-    <Compile Include="Models\Startnummer.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\UserModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -215,14 +223,8 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>UserModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Verein.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VereinKontoDaten.cs" />
     <Compile Include="Models\VereinsDaten.cs" />
-    <Compile Include="Models\Vereinsverantwortlicher.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VereinWettkampf.cs" />
     <Compile Include="Models\Wahldisziplin.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -319,6 +321,7 @@
     <Content Include="Views\Shared\Wettkampf.cshtml" />
     <Content Include="Views\Verein\Edit.cshtml" />
     <Content Include="Views\Wettkampf\Create.cshtml" />
+    <Content Include="Views\Login\VereinsverantwortlicherDaten.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -19,11 +19,9 @@ namespace Tournevent.Models
                 {
                     foreach(string roleName in roleNames)
                     {
-                        int userId = (from user in db.Benutzer
+                        Benutzer benutzer = (from user in db.Benutzer
                                       where user.Email == username
-                                      select user.ID_Benutzer).FirstOrDefault();
-                        Benutzer benutzer = new Benutzer();
-                        benutzer.ID_Benutzer = userId;
+                                      select user).FirstOrDefault();
                         benutzer.Rolle = roleName;
                         db.Benutzer.Add(benutzer);
                         db.SaveChanges();
@@ -36,11 +34,9 @@ namespace Tournevent.Models
         {
             using (DataContext db = new DataContext())
             {
-                int userId = (from user in db.Benutzer
+                Benutzer benutzer = (from user in db.Benutzer
                               where user.Email == username
-                                                select user.ID_Benutzer).FirstOrDefault();
-                Benutzer benutzer = new Benutzer();
-                benutzer.ID_Benutzer = userId;
+                                                select user).FirstOrDefault();
                 benutzer.Rolle = roleName;
                 db.Benutzer.Add(benutzer);
                 db.SaveChanges();

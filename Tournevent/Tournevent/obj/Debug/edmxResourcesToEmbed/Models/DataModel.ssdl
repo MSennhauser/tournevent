@@ -4,8 +4,8 @@
     <Key>
       <PropertyRef Name="ID_Administrator" />
     </Key>
-    <Property Name="ID_Administrator" Type="int" Nullable="false" />
-    <Property Name="Mailadresse" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="ID_Administrator" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mailadresse" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Vorname" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Nachname" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
@@ -13,7 +13,7 @@
     <Key>
       <PropertyRef Name="ID_Adresse" />
     </Key>
-    <Property Name="ID_Adresse" Type="int" Nullable="false" />
+    <Property Name="ID_Adresse" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Strasse" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Ort" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="PLZ" Type="smallint" Nullable="false" />
@@ -23,7 +23,7 @@
     <Key>
       <PropertyRef Name="ID_Anmeldung" />
     </Key>
-    <Property Name="ID_Anmeldung" Type="int" Nullable="false" />
+    <Property Name="ID_Anmeldung" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
     <Property Name="ID_Verein" Type="int" Nullable="false" />
     <Property Name="moeglicheAthleten" Type="int" Nullable="false" />
@@ -32,21 +32,19 @@
     <Key>
       <PropertyRef Name="ID_Athlet" />
     </Key>
-    <Property Name="ID_Athlet" Type="int" Nullable="false" />
+    <Property Name="ID_Athlet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_Adresse" Type="int" Nullable="false" />
     <Property Name="ID_Verein" Type="int" Nullable="false" />
     <Property Name="Vorname" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Nachname" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Geburtsdatum" Type="date" Nullable="false" />
     <Property Name="Geschlecht" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="Jahrgang" Type="int" Nullable="false" />
+    <Property Name="Geburtsdatum" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="Benutzer">
     <Key>
       <PropertyRef Name="ID_Benutzer" />
     </Key>
     <Property Name="ID_Benutzer" Type="int" Nullable="false" />
-    <Property Name="ID_Object" Type="int" Nullable="false" />
     <Property Name="Rolle" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Passwort" Type="varchar" MaxLength="50" Nullable="false" />
@@ -56,7 +54,7 @@
     <Key>
       <PropertyRef Name="ID_Disziplin" />
     </Key>
-    <Property Name="ID_Disziplin" Type="int" Nullable="false" />
+    <Property Name="ID_Disziplin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Abkuerzung" Type="varchar" MaxLength="50" Nullable="false" />
@@ -67,7 +65,7 @@
     <Key>
       <PropertyRef Name="ID_Kategore_Disziplin" />
     </Key>
-    <Property Name="ID_Kategore_Disziplin" Type="int" Nullable="false" />
+    <Property Name="ID_Kategore_Disziplin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_Disziplin" Type="int" Nullable="false" />
     <Property Name="ID_Kategorie" Type="int" Nullable="false" />
   </EntityType>
@@ -75,11 +73,11 @@
     <Key>
       <PropertyRef Name="ID_Kategorie" />
     </Key>
-    <Property Name="ID_Kategorie" Type="int" Nullable="false" />
+    <Property Name="ID_Kategorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Abkuerzung" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Geschlecht" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="Geschlecht" Type="date" Nullable="false" />
     <Property Name="JahrgangVon" Type="smallint" Nullable="false" />
     <Property Name="JahrgangBis" Type="smallint" Nullable="false" />
   </EntityType>
@@ -87,7 +85,7 @@
     <Key>
       <PropertyRef Name="ID_Startnummer" />
     </Key>
-    <Property Name="ID_Startnummer" Type="int" Nullable="false" />
+    <Property Name="ID_Startnummer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
     <Property Name="ID_Athlet" Type="int" Nullable="false" />
     <Property Name="ID_Verein" Type="int" Nullable="false" />
@@ -97,7 +95,7 @@
     <Key>
       <PropertyRef Name="ID_Verein" />
     </Key>
-    <Property Name="ID_Verein" Type="int" Nullable="false" />
+    <Property Name="ID_Verein" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Ort" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="PLZ" Type="int" Nullable="false" />
@@ -106,7 +104,7 @@
     <Key>
       <PropertyRef Name="ID_Vereinsverantwortlicher" />
     </Key>
-    <Property Name="ID_Vereinsverantwortlicher" Type="int" Nullable="false" />
+    <Property Name="ID_Vereinsverantwortlicher" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_Verein" Type="int" Nullable="false" />
     <Property Name="ID_Adresse" Type="int" Nullable="false" />
     <Property Name="Mailadresse" Type="varchar" MaxLength="50" Nullable="false" />
@@ -117,7 +115,7 @@
     <Key>
       <PropertyRef Name="ID_Wahldisziplin" />
     </Key>
-    <Property Name="ID_Wahldisziplin" Type="int" Nullable="false" />
+    <Property Name="ID_Wahldisziplin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Wahldisziplin_Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ID_Disziplin" Type="int" Nullable="false" />
   </EntityType>
@@ -125,7 +123,7 @@
     <Key>
       <PropertyRef Name="ID_Wettkampf" />
     </Key>
-    <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
+    <Property Name="ID_Wettkampf" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ID_Administrator" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Datum" Type="date" Nullable="false" />
@@ -182,6 +180,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6035: Beziehung 'fk_Benutzer_Administrator' enthält Spalten, die nicht zum Schlüssel der Tabelle auf der Primärseite der Beziehung gehören. Die Beziehung wurde ausgeschlossen.
+        <Association Name="fk_Benutzer_Administrator" />-->
+  <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, die nicht zum Schlüssel der Tabelle auf der Primärseite der Beziehung gehören. Die Beziehung wurde ausgeschlossen.
+        <Association Name="fk_Benutzer_Vereinsverantwortlicher" />-->
   <Association Name="fk_Disziplin_Disziplin">
     <End Role="Disziplin" Type="Self.Disziplin" Multiplicity="1" />
     <End Role="Wahldisziplin" Type="Self.Wahldisziplin" Multiplicity="*" />

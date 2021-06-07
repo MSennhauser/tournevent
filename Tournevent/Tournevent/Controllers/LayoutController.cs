@@ -17,7 +17,7 @@ namespace Tournevent.Controllers
         [ChildActionOnly]
         public ActionResult Wettkaempfe()
         {
-            var vId = (from b in db.Benutzer where b.Email == User.Identity.Name select b.ID_Object).Single();
+            var vId = (from v in db.Vereinsverantwortlicher where v.Mailadresse == User.Identity.Name select v.ID_Verein).Single();
             if (vId != null && User.IsInRole("Vereinsverantwortlicher"))
             {
                 GlobalVariables.VereinsId = (int)vId;
@@ -65,8 +65,7 @@ namespace Tournevent.Controllers
             {
                 var email = User.Identity.Name;
                 Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
-                                                                   join b in db.Benutzer on v.ID_Vereinsverantwortlicher equals b.ID_Object
-                                                                   where b.Email == email
+                                                                   where v.Mailadresse == email
                                                                    select v).SingleOrDefault();
                 Verein verein = vereinsverantwortlicher.Verein;
 

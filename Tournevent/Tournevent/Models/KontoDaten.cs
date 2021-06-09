@@ -9,6 +9,17 @@ namespace Tournevent.Models
 {
     public class KontoDaten
     {
+        public KontoDaten()
+        {
+
+        }
+        public KontoDaten(Benutzer benutzer)
+        {
+            Email = benutzer.Email;
+            Telefon = benutzer.Telefon;
+            Passwort = benutzer.Passwort;
+            ConfirmPasswort = benutzer.Passwort;
+        }
         [Required]
         [EmailAddress]
         public string Email { get; set; }

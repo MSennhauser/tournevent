@@ -68,7 +68,7 @@ namespace Tournevent.Controllers
             }
             else
             {
-                data.Startnummer = (from s in db.Startnummer where s.ID_Wettkampf == wettkampfId select s).FirstOrDefault().Startnr;
+                /*data.Startnummer = (from s in db.Startnummer where s.ID_Wettkampf == wettkampfId select s).FirstOrDefault().Startnr;*/
             }
             return View(data);
 

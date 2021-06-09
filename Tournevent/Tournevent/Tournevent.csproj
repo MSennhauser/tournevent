@@ -147,6 +147,7 @@
     <Compile Include="Models\Adresse.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VereinKontoDaten.cs" />
     <Compile Include="Models\Anmeldung.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

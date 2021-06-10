@@ -10,15 +10,14 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator")]
     public class DisziplinenController : Controller
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Disziplinen
         public ActionResult Index()
         {
             int wettkampfID = GlobalVariables.WettkampfId;
-            List<Disziplinen> disziplinen = (from d in db.Disziplinen
-                                           join w in db.Wettkampf on d.WettkampfartId equals w.WettkampfartId
-                                           where w.Id == wettkampfID
+            List<Disziplin> disziplinen = (from d in db.Disziplin
+                                           where d.ID_Wettkampf == wettkampfID
                                            select d).ToList();
             List<DisziplinenDaten> lst = new List<DisziplinenDaten>();
             foreach (var d in disziplinen)

@@ -1,0 +1,996 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RLP2021_INAI3a_Gruppe5_IDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="ID_Administrator" />
+          </Key>
+          <Property Name="ID_Administrator" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mailadresse" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Adresse">
+          <Key>
+            <PropertyRef Name="ID_Adresse" />
+          </Key>
+          <Property Name="ID_Adresse" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Strasse" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ort" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PLZ" Type="smallint" Nullable="false" />
+          <Property Name="Hausnummer" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Anmeldung">
+          <Key>
+            <PropertyRef Name="ID_Anmeldung" />
+          </Key>
+          <Property Name="ID_Anmeldung" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
+          <Property Name="ID_Verein" Type="int" Nullable="false" />
+          <Property Name="moeglicheAthleten" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Athlet">
+          <Key>
+            <PropertyRef Name="ID_Athlet" />
+          </Key>
+          <Property Name="ID_Athlet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Adresse" Type="int" Nullable="false" />
+          <Property Name="ID_Verein" Type="int" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Geschlecht" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Geburtsdatum" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Benutzer">
+          <Key>
+            <PropertyRef Name="ID_Benutzer" />
+          </Key>
+          <Property Name="ID_Benutzer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rolle" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Passwort" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Disziplin">
+          <Key>
+            <PropertyRef Name="ID_Disziplin" />
+          </Key>
+          <Property Name="ID_Disziplin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Abkuerzung" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ZeitTeilnehmer" Type="smallint" />
+          <Property Name="AnzahlVersuche" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategore_Disziplin">
+          <Key>
+            <PropertyRef Name="ID_Kategore_Disziplin" />
+          </Key>
+          <Property Name="ID_Kategore_Disziplin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Disziplin" Type="int" Nullable="false" />
+          <Property Name="ID_Kategorie" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategorie">
+          <Key>
+            <PropertyRef Name="ID_Kategorie" />
+          </Key>
+          <Property Name="ID_Kategorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Abkuerzung" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Geschlecht" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="JahrgangVon" Type="smallint" Nullable="false" />
+          <Property Name="JahrgangBis" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Startnummer">
+          <Key>
+            <PropertyRef Name="ID_Startnummer" />
+          </Key>
+          <Property Name="ID_Startnummer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Wettkampf" Type="int" Nullable="false" />
+          <Property Name="ID_Athlet" Type="int" Nullable="false" />
+          <Property Name="ID_Verein" Type="int" Nullable="false" />
+          <Property Name="Startnr" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Verein">
+          <Key>
+            <PropertyRef Name="ID_Verein" />
+          </Key>
+          <Property Name="ID_Verein" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ort" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PLZ" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vereinsverantwortlicher">
+          <Key>
+            <PropertyRef Name="ID_Vereinsverantwortlicher" />
+          </Key>
+          <Property Name="ID_Vereinsverantwortlicher" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Verein" Type="int" Nullable="false" />
+          <Property Name="ID_Adresse" Type="int" Nullable="false" />
+          <Property Name="Mailadresse" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wahldisziplin">
+          <Key>
+            <PropertyRef Name="ID_Wahldisziplin" />
+          </Key>
+          <Property Name="ID_Wahldisziplin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Wahldisziplin_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Disziplin" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wettkampf">
+          <Key>
+            <PropertyRef Name="ID_Wettkampf" />
+          </Key>
+          <Property Name="ID_Wettkampf" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Administrator" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Datum" Type="date" Nullable="false" />
+          <Property Name="Teilnahmebeginn" Type="date" Nullable="false" />
+          <Property Name="Teilnahmeschluss" Type="date" Nullable="false" />
+          <Property Name="NummerVon" Type="int" Nullable="false" />
+          <Property Name="NummerBis" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Administrator_Wettkampf">
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrator">
+              <PropertyRef Name="ID_Administrator" />
+            </Principal>
+            <Dependent Role="Wettkampf">
+              <PropertyRef Name="ID_Administrator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Adresse_Athlet">
+          <End Role="Adresse" Type="Self.Adresse" Multiplicity="1" />
+          <End Role="Athlet" Type="Self.Athlet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="ID_Adresse" />
+            </Principal>
+            <Dependent Role="Athlet">
+              <PropertyRef Name="ID_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Adresse_Vereinsverantwortlicher">
+          <End Role="Adresse" Type="Self.Adresse" Multiplicity="1" />
+          <End Role="Vereinsverantwortlicher" Type="Self.Vereinsverantwortlicher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="ID_Adresse" />
+            </Principal>
+            <Dependent Role="Vereinsverantwortlicher">
+              <PropertyRef Name="ID_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Athlet_Startnummer">
+          <End Role="Athlet" Type="Self.Athlet" Multiplicity="1" />
+          <End Role="Startnummer" Type="Self.Startnummer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Athlet">
+              <PropertyRef Name="ID_Athlet" />
+            </Principal>
+            <Dependent Role="Startnummer">
+              <PropertyRef Name="ID_Athlet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6035: Beziehung 'fk_Benutzer_Administrator' enthält Spalten, die nicht zum Schlüssel der Tabelle auf der Primärseite der Beziehung gehören. Die Beziehung wurde ausgeschlossen.
+        <Association Name="fk_Benutzer_Administrator" />-->
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, die nicht zum Schlüssel der Tabelle auf der Primärseite der Beziehung gehören. Die Beziehung wurde ausgeschlossen.
+        <Association Name="fk_Benutzer_Vereinsverantwortlicher" />-->
+        <Association Name="fk_Disziplin_Disziplin">
+          <End Role="Disziplin" Type="Self.Disziplin" Multiplicity="1" />
+          <End Role="Wahldisziplin" Type="Self.Wahldisziplin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disziplin">
+              <PropertyRef Name="ID_Disziplin" />
+            </Principal>
+            <Dependent Role="Wahldisziplin">
+              <PropertyRef Name="ID_Disziplin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Disziplin_Kategore_Disziplin">
+          <End Role="Disziplin" Type="Self.Disziplin" Multiplicity="1" />
+          <End Role="Kategore_Disziplin" Type="Self.Kategore_Disziplin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disziplin">
+              <PropertyRef Name="ID_Disziplin" />
+            </Principal>
+            <Dependent Role="Kategore_Disziplin">
+              <PropertyRef Name="ID_Disziplin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Disziplin_Wahldisziplin">
+          <End Role="Disziplin" Type="Self.Disziplin" Multiplicity="1" />
+          <End Role="Wahldisziplin" Type="Self.Wahldisziplin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Disziplin">
+              <PropertyRef Name="ID_Disziplin" />
+            </Principal>
+            <Dependent Role="Wahldisziplin">
+              <PropertyRef Name="ID_Wahldisziplin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Kategorie_Kategore_Disziplin">
+          <End Role="Kategorie" Type="Self.Kategorie" Multiplicity="1" />
+          <End Role="Kategore_Disziplin" Type="Self.Kategore_Disziplin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorie">
+              <PropertyRef Name="ID_Kategorie" />
+            </Principal>
+            <Dependent Role="Kategore_Disziplin">
+              <PropertyRef Name="ID_Kategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Verein_Anmeldung">
+          <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+          <End Role="Anmeldung" Type="Self.Anmeldung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="ID_Verein" />
+            </Principal>
+            <Dependent Role="Anmeldung">
+              <PropertyRef Name="ID_Verein" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Verein_Athlet">
+          <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+          <End Role="Athlet" Type="Self.Athlet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="ID_Verein" />
+            </Principal>
+            <Dependent Role="Athlet">
+              <PropertyRef Name="ID_Verein" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Verein_Vereinsverantwortlicher">
+          <End Role="Verein" Type="Self.Verein" Multiplicity="1" />
+          <End Role="Vereinsverantwortlicher" Type="Self.Vereinsverantwortlicher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="ID_Verein" />
+            </Principal>
+            <Dependent Role="Vereinsverantwortlicher">
+              <PropertyRef Name="ID_Verein" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Wettkampf_Anmeldung">
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+          <End Role="Anmeldung" Type="Self.Anmeldung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Principal>
+            <Dependent Role="Anmeldung">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Wettkampf_Disziplin">
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+          <End Role="Disziplin" Type="Self.Disziplin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Principal>
+            <Dependent Role="Disziplin">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Wettkampf_Kategorie">
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+          <End Role="Kategorie" Type="Self.Kategorie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Principal>
+            <Dependent Role="Kategorie">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Wettkampf_Startnummer">
+          <End Role="Wettkampf" Type="Self.Wettkampf" Multiplicity="1" />
+          <End Role="Startnummer" Type="Self.Startnummer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Principal>
+            <Dependent Role="Startnummer">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RLP2021_INAI3a_Gruppe5_IDModelStoreContainer">
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Adresse" EntityType="Self.Adresse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Anmeldung" EntityType="Self.Anmeldung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Athlet" EntityType="Self.Athlet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Benutzer" EntityType="Self.Benutzer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Disziplin" EntityType="Self.Disziplin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategore_Disziplin" EntityType="Self.Kategore_Disziplin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategorie" EntityType="Self.Kategorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Startnummer" EntityType="Self.Startnummer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Verein" EntityType="Self.Verein" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vereinsverantwortlicher" EntityType="Self.Vereinsverantwortlicher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wahldisziplin" EntityType="Self.Wahldisziplin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wettkampf" EntityType="Self.Wettkampf" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Administrator_Wettkampf" Association="Self.fk_Administrator_Wettkampf">
+            <End Role="Administrator" EntitySet="Administrator" />
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Adresse_Athlet" Association="Self.fk_Adresse_Athlet">
+            <End Role="Adresse" EntitySet="Adresse" />
+            <End Role="Athlet" EntitySet="Athlet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Adresse_Vereinsverantwortlicher" Association="Self.fk_Adresse_Vereinsverantwortlicher">
+            <End Role="Adresse" EntitySet="Adresse" />
+            <End Role="Vereinsverantwortlicher" EntitySet="Vereinsverantwortlicher" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Athlet_Startnummer" Association="Self.fk_Athlet_Startnummer">
+            <End Role="Athlet" EntitySet="Athlet" />
+            <End Role="Startnummer" EntitySet="Startnummer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Disziplin_Disziplin" Association="Self.fk_Disziplin_Disziplin">
+            <End Role="Disziplin" EntitySet="Disziplin" />
+            <End Role="Wahldisziplin" EntitySet="Wahldisziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Disziplin_Kategore_Disziplin" Association="Self.fk_Disziplin_Kategore_Disziplin">
+            <End Role="Disziplin" EntitySet="Disziplin" />
+            <End Role="Kategore_Disziplin" EntitySet="Kategore_Disziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Disziplin_Wahldisziplin" Association="Self.fk_Disziplin_Wahldisziplin">
+            <End Role="Disziplin" EntitySet="Disziplin" />
+            <End Role="Wahldisziplin" EntitySet="Wahldisziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Kategorie_Kategore_Disziplin" Association="Self.fk_Kategorie_Kategore_Disziplin">
+            <End Role="Kategorie" EntitySet="Kategorie" />
+            <End Role="Kategore_Disziplin" EntitySet="Kategore_Disziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Verein_Anmeldung" Association="Self.fk_Verein_Anmeldung">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Anmeldung" EntitySet="Anmeldung" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Verein_Athlet" Association="Self.fk_Verein_Athlet">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Athlet" EntitySet="Athlet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Verein_Vereinsverantwortlicher" Association="Self.fk_Verein_Vereinsverantwortlicher">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Vereinsverantwortlicher" EntitySet="Vereinsverantwortlicher" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Wettkampf_Anmeldung" Association="Self.fk_Wettkampf_Anmeldung">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Anmeldung" EntitySet="Anmeldung" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Wettkampf_Disziplin" Association="Self.fk_Wettkampf_Disziplin">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Disziplin" EntitySet="Disziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Wettkampf_Kategorie" Association="Self.fk_Wettkampf_Kategorie">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Kategorie" EntitySet="Kategorie" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Wettkampf_Startnummer" Association="Self.fk_Wettkampf_Startnummer">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Startnummer" EntitySet="Startnummer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RLP2021_INAI3a_Gruppe5_IDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DataContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrator" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Administrator" />
+          <EntitySet Name="Adresse" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" />
+          <EntitySet Name="Anmeldung" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Anmeldung" />
+          <EntitySet Name="Athlet" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Athlet" />
+          <EntitySet Name="Disziplin" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" />
+          <EntitySet Name="Kategore_Disziplin" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin" />
+          <EntitySet Name="Startnummer" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer" />
+          <EntitySet Name="Verein" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Verein" />
+          <EntitySet Name="Vereinsverantwortlicher" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher" />
+          <EntitySet Name="Wahldisziplin" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin" />
+          <EntitySet Name="Wettkampf" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" />
+          <AssociationSet Name="fk_Administrator_Wettkampf" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Administrator_Wettkampf">
+            <End Role="Administrator" EntitySet="Administrator" />
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Adresse_Athlet" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet">
+            <End Role="Adresse" EntitySet="Adresse" />
+            <End Role="Athlet" EntitySet="Athlet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Adresse_Vereinsverantwortlicher" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher">
+            <End Role="Adresse" EntitySet="Adresse" />
+            <End Role="Vereinsverantwortlicher" EntitySet="Vereinsverantwortlicher" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Verein_Anmeldung" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Anmeldung">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Anmeldung" EntitySet="Anmeldung" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Wettkampf_Anmeldung" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Anmeldung">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Anmeldung" EntitySet="Anmeldung" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Athlet_Startnummer" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Athlet_Startnummer">
+            <End Role="Athlet" EntitySet="Athlet" />
+            <End Role="Startnummer" EntitySet="Startnummer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Verein_Athlet" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Athlet">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Athlet" EntitySet="Athlet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Disziplin_Disziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin">
+            <End Role="Disziplin" EntitySet="Disziplin" />
+            <End Role="Wahldisziplin" EntitySet="Wahldisziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Disziplin_Kategore_Disziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Kategore_Disziplin">
+            <End Role="Disziplin" EntitySet="Disziplin" />
+            <End Role="Kategore_Disziplin" EntitySet="Kategore_Disziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Disziplin_Wahldisziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin">
+            <End Role="Disziplin" EntitySet="Disziplin" />
+            <End Role="Wahldisziplin" EntitySet="Wahldisziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Wettkampf_Disziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Disziplin">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Disziplin" EntitySet="Disziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Wettkampf_Startnummer" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Startnummer">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Startnummer" EntitySet="Startnummer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Verein_Vereinsverantwortlicher" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Vereinsverantwortlicher">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Vereinsverantwortlicher" EntitySet="Vereinsverantwortlicher" />
+          </AssociationSet>
+          <EntitySet Name="Kategorie" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" />
+          <AssociationSet Name="fk_Kategorie_Kategore_Disziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin">
+            <End Role="Kategorie" EntitySet="Kategorie" />
+            <End Role="Kategore_Disziplin" EntitySet="Kategore_Disziplin" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Wettkampf_Kategorie" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Kategorie" EntitySet="Kategorie" />
+          </AssociationSet>
+          <EntitySet Name="Benutzer" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer" />
+          </EntityContainer>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="ID_Administrator" />
+          </Key>
+          <Property Name="ID_Administrator" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mailadresse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Vorname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nachname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Wettkampf" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Administrator_Wettkampf" FromRole="Administrator" ToRole="Wettkampf" />
+        </EntityType>
+        <EntityType Name="Adresse">
+          <Key>
+            <PropertyRef Name="ID_Adresse" />
+          </Key>
+          <Property Name="ID_Adresse" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Strasse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PLZ" Type="Int16" Nullable="false" />
+          <Property Name="Hausnummer" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Athlet" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet" FromRole="Adresse" ToRole="Athlet" />
+          <NavigationProperty Name="Vereinsverantwortlicher" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher" FromRole="Adresse" ToRole="Vereinsverantwortlicher" />
+        </EntityType>
+        <EntityType Name="Anmeldung">
+          <Key>
+            <PropertyRef Name="ID_Anmeldung" />
+          </Key>
+          <Property Name="ID_Anmeldung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Wettkampf" Type="Int32" Nullable="false" />
+          <Property Name="ID_Verein" Type="Int32" Nullable="false" />
+          <Property Name="moeglicheAthleten" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Verein" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Anmeldung" FromRole="Anmeldung" ToRole="Verein" />
+          <NavigationProperty Name="Wettkampf" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Anmeldung" FromRole="Anmeldung" ToRole="Wettkampf" />
+        </EntityType>
+        <EntityType Name="Athlet">
+          <Key>
+            <PropertyRef Name="ID_Athlet" />
+          </Key>
+          <Property Name="ID_Athlet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Adresse" Type="Int32" Nullable="false" />
+          <Property Name="ID_Verein" Type="Int32" Nullable="false" />
+          <Property Name="Vorname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nachname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Geschlecht" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Geburtsdatum" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Adresse" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet" FromRole="Athlet" ToRole="Adresse" />
+          <NavigationProperty Name="Startnummer" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Athlet_Startnummer" FromRole="Athlet" ToRole="Startnummer" />
+          <NavigationProperty Name="Verein" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Athlet" FromRole="Athlet" ToRole="Verein" />
+        </EntityType>
+        <EntityType Name="Disziplin">
+          <Key>
+            <PropertyRef Name="ID_Disziplin" />
+          </Key>
+          <Property Name="ID_Disziplin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Wettkampf" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Abkuerzung" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZeitTeilnehmer" Type="Int16" />
+          <Property Name="AnzahlVersuche" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Wahldisziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin" FromRole="Disziplin" ToRole="Wahldisziplin" />
+          <NavigationProperty Name="Kategore_Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Kategore_Disziplin" FromRole="Disziplin" ToRole="Kategore_Disziplin" />
+          <NavigationProperty Name="Wahldisziplin1" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin" FromRole="Disziplin" ToRole="Wahldisziplin" />
+          <NavigationProperty Name="Wettkampf" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Disziplin" FromRole="Disziplin" ToRole="Wettkampf" />
+        </EntityType>
+        <EntityType Name="Kategore_Disziplin">
+          <Key>
+            <PropertyRef Name="ID_Kategore_Disziplin" />
+          </Key>
+          <Property Name="ID_Kategore_Disziplin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Disziplin" Type="Int32" Nullable="false" />
+          <Property Name="ID_Kategorie" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Kategore_Disziplin" FromRole="Kategore_Disziplin" ToRole="Disziplin" />
+          <NavigationProperty Name="Kategorie" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin" FromRole="Kategore_Disziplin" ToRole="Kategorie" />
+        </EntityType>
+        <EntityType Name="Startnummer">
+          <Key>
+            <PropertyRef Name="ID_Startnummer" />
+          </Key>
+          <Property Name="ID_Startnummer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Wettkampf" Type="Int32" Nullable="false" />
+          <Property Name="ID_Athlet" Type="Int32" Nullable="false" />
+          <Property Name="ID_Verein" Type="Int32" Nullable="false" />
+          <Property Name="Startnr" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Athlet" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Athlet_Startnummer" FromRole="Startnummer" ToRole="Athlet" />
+          <NavigationProperty Name="Wettkampf" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Startnummer" FromRole="Startnummer" ToRole="Wettkampf" />
+        </EntityType>
+        <EntityType Name="Verein">
+          <Key>
+            <PropertyRef Name="ID_Verein" />
+          </Key>
+          <Property Name="ID_Verein" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PLZ" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Anmeldung" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Anmeldung" FromRole="Verein" ToRole="Anmeldung" />
+          <NavigationProperty Name="Athlet" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Athlet" FromRole="Verein" ToRole="Athlet" />
+          <NavigationProperty Name="Vereinsverantwortlicher" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Vereinsverantwortlicher" FromRole="Verein" ToRole="Vereinsverantwortlicher" />
+        </EntityType>
+        <EntityType Name="Vereinsverantwortlicher">
+          <Key>
+            <PropertyRef Name="ID_Vereinsverantwortlicher" />
+          </Key>
+          <Property Name="ID_Vereinsverantwortlicher" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Verein" Type="Int32" Nullable="false" />
+          <Property Name="ID_Adresse" Type="Int32" Nullable="false" />
+          <Property Name="Mailadresse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Vorname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nachname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Adresse" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher" FromRole="Vereinsverantwortlicher" ToRole="Adresse" />
+          <NavigationProperty Name="Verein" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Vereinsverantwortlicher" FromRole="Vereinsverantwortlicher" ToRole="Verein" />
+        </EntityType>
+        <EntityType Name="Wahldisziplin">
+          <Key>
+            <PropertyRef Name="ID_Wahldisziplin" />
+          </Key>
+          <Property Name="ID_Wahldisziplin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Wahldisziplin_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Disziplin" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin" FromRole="Wahldisziplin" ToRole="Disziplin" />
+          <NavigationProperty Name="Disziplin1" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin" FromRole="Wahldisziplin" ToRole="Disziplin" />
+        </EntityType>
+        <EntityType Name="Wettkampf">
+          <Key>
+            <PropertyRef Name="ID_Wettkampf" />
+          </Key>
+          <Property Name="ID_Wettkampf" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Administrator" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Teilnahmebeginn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Teilnahmeschluss" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NummerVon" Type="Int32" Nullable="false" />
+          <Property Name="NummerBis" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Administrator" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Administrator_Wettkampf" FromRole="Wettkampf" ToRole="Administrator" />
+          <NavigationProperty Name="Anmeldung" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Anmeldung" FromRole="Wettkampf" ToRole="Anmeldung" />
+          <NavigationProperty Name="Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Disziplin" FromRole="Wettkampf" ToRole="Disziplin" />
+          <NavigationProperty Name="Startnummer" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Startnummer" FromRole="Wettkampf" ToRole="Startnummer" />
+          <NavigationProperty Name="Kategorie" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie" FromRole="Wettkampf" ToRole="Kategorie" />
+        </EntityType>
+        <Association Name="fk_Administrator_Wettkampf">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Administrator" Role="Administrator" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" Role="Wettkampf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrator">
+              <PropertyRef Name="ID_Administrator" />
+            </Principal>
+            <Dependent Role="Wettkampf">
+              <PropertyRef Name="ID_Administrator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Adresse_Athlet">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" Role="Adresse" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Athlet" Role="Athlet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="ID_Adresse" />
+            </Principal>
+            <Dependent Role="Athlet">
+              <PropertyRef Name="ID_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Adresse_Vereinsverantwortlicher">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" Role="Adresse" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher" Role="Vereinsverantwortlicher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="ID_Adresse" />
+            </Principal>
+            <Dependent Role="Vereinsverantwortlicher">
+              <PropertyRef Name="ID_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Verein_Anmeldung">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Verein" Role="Verein" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Anmeldung" Role="Anmeldung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="ID_Verein" />
+            </Principal>
+            <Dependent Role="Anmeldung">
+              <PropertyRef Name="ID_Verein" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Wettkampf_Anmeldung">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" Role="Wettkampf" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Anmeldung" Role="Anmeldung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Principal>
+            <Dependent Role="Anmeldung">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Athlet_Startnummer">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Athlet" Role="Athlet" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer" Role="Startnummer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Athlet">
+              <PropertyRef Name="ID_Athlet" />
+            </Principal>
+            <Dependent Role="Startnummer">
+              <PropertyRef Name="ID_Athlet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Verein_Athlet">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Verein" Role="Verein" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Athlet" Role="Athlet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="ID_Verein" />
+            </Principal>
+            <Dependent Role="Athlet">
+              <PropertyRef Name="ID_Verein" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Disziplin_Disziplin">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Role="Disziplin" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin" Role="Wahldisziplin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disziplin">
+              <PropertyRef Name="ID_Disziplin" />
+            </Principal>
+            <Dependent Role="Wahldisziplin">
+              <PropertyRef Name="ID_Disziplin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Disziplin_Kategore_Disziplin">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Role="Disziplin" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin" Role="Kategore_Disziplin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disziplin">
+              <PropertyRef Name="ID_Disziplin" />
+            </Principal>
+            <Dependent Role="Kategore_Disziplin">
+              <PropertyRef Name="ID_Disziplin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Disziplin_Wahldisziplin">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Role="Disziplin" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin" Role="Wahldisziplin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Disziplin">
+              <PropertyRef Name="ID_Disziplin" />
+            </Principal>
+            <Dependent Role="Wahldisziplin">
+              <PropertyRef Name="ID_Wahldisziplin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Wettkampf_Disziplin">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" Role="Wettkampf" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Role="Disziplin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Principal>
+            <Dependent Role="Disziplin">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Wettkampf_Startnummer">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" Role="Wettkampf" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer" Role="Startnummer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Principal>
+            <Dependent Role="Startnummer">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Verein_Vereinsverantwortlicher">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Verein" Role="Verein" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher" Role="Vereinsverantwortlicher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="ID_Verein" />
+            </Principal>
+            <Dependent Role="Vereinsverantwortlicher">
+              <PropertyRef Name="ID_Verein" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Kategorie">
+          <Key>
+            <PropertyRef Name="ID_Kategorie" />
+          </Key>
+          <Property Name="ID_Kategorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Wettkampf" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Abkuerzung" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Geschlecht" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="JahrgangVon" Type="Int16" Nullable="false" />
+          <Property Name="JahrgangBis" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Kategore_Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin" FromRole="Kategorie" ToRole="Kategore_Disziplin" />
+          <NavigationProperty Name="Wettkampf" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie" FromRole="Kategorie" ToRole="Wettkampf" />
+        </EntityType>
+        <Association Name="fk_Kategorie_Kategore_Disziplin">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" Role="Kategorie" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin" Role="Kategore_Disziplin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorie">
+              <PropertyRef Name="ID_Kategorie" />
+            </Principal>
+            <Dependent Role="Kategore_Disziplin">
+              <PropertyRef Name="ID_Kategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Wettkampf_Kategorie">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" Role="Wettkampf" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" Role="Kategorie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Principal>
+            <Dependent Role="Kategorie">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Benutzer">
+          <Key>
+            <PropertyRef Name="ID_Benutzer" />
+          </Key>
+          <Property Name="ID_Benutzer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rolle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Passwort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RLP2021_INAI3a_Gruppe5_IDModelStoreContainer" CdmEntityContainer="DataContext">
+          <EntitySetMapping Name="Administrator">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Administrator">
+              <MappingFragment StoreEntitySet="Administrator">
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Mailadresse" ColumnName="Mailadresse" />
+                <ScalarProperty Name="ID_Administrator" ColumnName="ID_Administrator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Adresse">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Adresse">
+              <MappingFragment StoreEntitySet="Adresse">
+                <ScalarProperty Name="Hausnummer" ColumnName="Hausnummer" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+                <ScalarProperty Name="ID_Adresse" ColumnName="ID_Adresse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Anmeldung">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Anmeldung">
+              <MappingFragment StoreEntitySet="Anmeldung">
+                <ScalarProperty Name="moeglicheAthleten" ColumnName="moeglicheAthleten" />
+                <ScalarProperty Name="ID_Verein" ColumnName="ID_Verein" />
+                <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+                <ScalarProperty Name="ID_Anmeldung" ColumnName="ID_Anmeldung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Athlet">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Athlet">
+              <MappingFragment StoreEntitySet="Athlet">
+                <ScalarProperty Name="Geburtsdatum" ColumnName="Geburtsdatum" />
+                <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="ID_Verein" ColumnName="ID_Verein" />
+                <ScalarProperty Name="ID_Adresse" ColumnName="ID_Adresse" />
+                <ScalarProperty Name="ID_Athlet" ColumnName="ID_Athlet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Disziplin">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin">
+              <MappingFragment StoreEntitySet="Disziplin">
+                <ScalarProperty Name="AnzahlVersuche" ColumnName="AnzahlVersuche" />
+                <ScalarProperty Name="ZeitTeilnehmer" ColumnName="ZeitTeilnehmer" />
+                <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+                <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategore_Disziplin">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin">
+              <MappingFragment StoreEntitySet="Kategore_Disziplin">
+                <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
+                <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
+                <ScalarProperty Name="ID_Kategore_Disziplin" ColumnName="ID_Kategore_Disziplin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Startnummer">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer">
+              <MappingFragment StoreEntitySet="Startnummer">
+                <ScalarProperty Name="Startnr" ColumnName="Startnr" />
+                <ScalarProperty Name="ID_Verein" ColumnName="ID_Verein" />
+                <ScalarProperty Name="ID_Athlet" ColumnName="ID_Athlet" />
+                <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+                <ScalarProperty Name="ID_Startnummer" ColumnName="ID_Startnummer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Verein">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Verein">
+              <MappingFragment StoreEntitySet="Verein">
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Verein" ColumnName="ID_Verein" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vereinsverantwortlicher">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher">
+              <MappingFragment StoreEntitySet="Vereinsverantwortlicher">
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Mailadresse" ColumnName="Mailadresse" />
+                <ScalarProperty Name="ID_Adresse" ColumnName="ID_Adresse" />
+                <ScalarProperty Name="ID_Verein" ColumnName="ID_Verein" />
+                <ScalarProperty Name="ID_Vereinsverantwortlicher" ColumnName="ID_Vereinsverantwortlicher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wahldisziplin">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin">
+              <MappingFragment StoreEntitySet="Wahldisziplin">
+                <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
+                <ScalarProperty Name="Wahldisziplin_Name" ColumnName="Wahldisziplin_Name" />
+                <ScalarProperty Name="ID_Wahldisziplin" ColumnName="ID_Wahldisziplin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wettkampf">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf">
+              <MappingFragment StoreEntitySet="Wettkampf">
+                <ScalarProperty Name="NummerBis" ColumnName="NummerBis" />
+                <ScalarProperty Name="NummerVon" ColumnName="NummerVon" />
+                <ScalarProperty Name="Teilnahmeschluss" ColumnName="Teilnahmeschluss" />
+                <ScalarProperty Name="Teilnahmebeginn" ColumnName="Teilnahmebeginn" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Administrator" ColumnName="ID_Administrator" />
+                <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategorie">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie">
+              <MappingFragment StoreEntitySet="Kategorie">
+                <ScalarProperty Name="JahrgangBis" ColumnName="JahrgangBis" />
+                <ScalarProperty Name="JahrgangVon" ColumnName="JahrgangVon" />
+                <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
+                <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+                <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Benutzer">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer">
+              <MappingFragment StoreEntitySet="Benutzer">
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Rolle" ColumnName="Rolle" />
+                <ScalarProperty Name="ID_Benutzer" ColumnName="ID_Benutzer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

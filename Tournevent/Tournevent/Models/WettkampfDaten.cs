@@ -9,17 +9,20 @@ namespace Tournevent.Models
 {
     public class WettkampfDaten
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         public WettkampfDaten()
         {
 
         }
         public WettkampfDaten(Wettkampf wettkampf)
         {
-            wettkampfId = wettkampf.Id;
-            WettkampfName = wettkampf.WettkampfName;
-            WettkampfArt = wettkampf.Wettkampfart.Wettkampfart1;
+            wettkampfId = wettkampf.ID_Wettkampf;
+            WettkampfName = wettkampf.Name;
             Datum = wettkampf.Datum;
+            TeilnahmeBeginn = wettkampf.Teilnahmebeginn;
+            TeilnahmeSchluss = wettkampf.Teilnahmeschluss;
+            NummerVon = wettkampf.NummerVon;
+            NummerBis = wettkampf.NummerBis;
         }
         public int wettkampfId { get; set; }
         [Required]
@@ -32,14 +35,24 @@ namespace Tournevent.Models
         [DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Datum { get; set; }
+        [Required]
+        public DateTime TeilnahmeBeginn { get; set; }
+        [Required]
+        public DateTime TeilnahmeSchluss { get; set; }
+        [Required]
+        public int NummerVon { get; set; }
+        [Required]
+        public int NummerBis { get; set; }
 
         public void New()
         {
-            Wettkampfart wettkampfart = (from wa in db.Wettkampfart where wa.Wettkampfart1 == WettkampfArt select wa).Single();
             Wettkampf wettkampf = new Wettkampf();
-            wettkampf.WettkampfName = WettkampfName;
+            wettkampf.Name = WettkampfName;
             wettkampf.Datum = Datum;
-            wettkampf.WettkampfartId = wettkampfart.Id;
+            wettkampf.Teilnahmebeginn = TeilnahmeBeginn;
+            wettkampf.Teilnahmeschluss = TeilnahmeSchluss;
+            wettkampf.NummerVon = NummerVon;
+            wettkampf.NummerBis = NummerBis;
             db.Wettkampf.Add(wettkampf);
             db.SaveChanges();
         }

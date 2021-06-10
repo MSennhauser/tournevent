@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Meine ASP.NET-Anwendung</title>
+    <title>@ViewBag.Title</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     @Styles.Render("~/Content/css")
@@ -12,11 +12,10 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
     <div class="sidenav">
         <div class="user">
         </div>
-        <a id="vereinsName" href="">TV Widnau</a>
+        <a id="vereinsName" href="">@ViewBag.Verein</a>
         @{
             Html.RenderAction("Wettkaempfe", "Layout");
         }

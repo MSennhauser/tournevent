@@ -13,22 +13,17 @@ namespace Tournevent.Models
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
-            using (DBContext db = new DBContext())
+            using (DataContext db = new DataContext())
             {
                 foreach(string username in usernames)
                 {
                     foreach(string roleName in roleNames)
                     {
-                        int userId = (from user in db.Benutzer
+                        Benutzer benutzer = (from user in db.Benutzer
                                       where user.Email == username
-                                      select user.Id).FirstOrDefault();
-                        int rolesId = (from role in db.Rollen
-                                       where role.Rolle == roleName
-                                      select role.Id).FirstOrDefault();
-                        BenutzerRollen userRolesMapping = new BenutzerRollen();
-                        userRolesMapping.BenutzerId = userId;
-                        userRolesMapping.RollenId = rolesId;
-                        db.BenutzerRollen.Add(userRolesMapping);
+                                      select user).FirstOrDefault();
+                        benutzer.Rolle = roleName;
+                        db.Benutzer.Add(benutzer);
                         db.SaveChanges();
                     }
                 }
@@ -37,18 +32,13 @@ namespace Tournevent.Models
         }
         public  void AddUserToRole(string username, string roleName)
         {
-            using (DBContext db = new DBContext())
+            using (DataContext db = new DataContext())
             {
-                int userId = (from user in db.Benutzer
+                Benutzer benutzer = (from user in db.Benutzer
                               where user.Email == username
-                                                select user.Id).FirstOrDefault();
-                int rolesId = (from role in db.Rollen
-                               where role.Rolle == roleName
-                                                select role.Id).FirstOrDefault();
-                BenutzerRollen userRolesMapping = new BenutzerRollen();
-                userRolesMapping.BenutzerId = userId;
-                userRolesMapping.RollenId = rolesId;
-                db.BenutzerRollen.Add(userRolesMapping);
+                                                select user).FirstOrDefault();
+                benutzer.Rolle = roleName;
+                db.Benutzer.Add(benutzer);
                 db.SaveChanges();
             }
         }
@@ -75,15 +65,11 @@ namespace Tournevent.Models
 
         public override string[] GetRolesForUser(string username)
         {
-            using (DBContext db = new DBContext())
+            using (DataContext db = new DataContext())
             {
                 var userRoles = (from user in db.Benutzer
-                                 join roleMapping in db.BenutzerRollen
-                                 on user.Id equals roleMapping.BenutzerId
-                                 join role in db.Rollen
-                                 on roleMapping.RollenId equals role.Id
                                  where user.Email == username
-                                 select role.Rolle).ToArray();
+                                 select user.Rolle).ToArray();
                 return userRoles;
             }
         }
@@ -95,19 +81,11 @@ namespace Tournevent.Models
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            using (DBContext db = new DBContext())
+            using (DataContext db = new DataContext())
             {
-                var userId = (from b in db.Benutzer
-                              where b.Email == username
-                              select b.Id).SingleOrDefault();
-                var roleId = (from b in db.Rollen
-                              where b.Rolle == roleName
-                              select b.Id).SingleOrDefault();
-                var userInRole = (from r in db.Rollen
-                                  join b in db.BenutzerRollen on r.Id equals b.RollenId
-                                  where b.BenutzerId == userId && b.RollenId == roleId
-                                  select b).SingleOrDefault();
-                return (userInRole != null);
+                Benutzer benutzer = (from b in db.Benutzer
+                              where b.Email == username select b).SingleOrDefault();
+                return (benutzer.Rolle == roleName);
             }
         }
 
@@ -123,23 +101,14 @@ namespace Tournevent.Models
 
         public void ChangeUserRole(string username, string roleName)
         {
-            using (DBContext db = new DBContext())
+            using (DataContext db = new DataContext())
             {
-                var userId = (from b in db.Benutzer
+                Benutzer benutzer = (from b in db.Benutzer
                               where b.Email == username
-                              select b.Id).SingleOrDefault();
-                var id = (from b in db.BenutzerRollen
-                          where b.BenutzerId == userId
-                          select b.Id).SingleOrDefault();
-                var roleId = (from b in db.Rollen
-                              where b.Rolle == roleName
-                              select b.Id).SingleOrDefault();
-                BenutzerRollen userRolesMapping = new BenutzerRollen();
-                userRolesMapping.Id = id;
-                userRolesMapping.BenutzerId = userId;
-                userRolesMapping.RollenId = roleId;
-                db.BenutzerRollen.Attach(userRolesMapping);
-                ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(userRolesMapping, System.Data.Entity.EntityState.Modified);
+                              select b).SingleOrDefault();
+                benutzer.Rolle = roleName;
+                db.Benutzer.Attach(benutzer);
+                ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(benutzer, System.Data.Entity.EntityState.Modified);
                 db.SaveChanges();
             }
         }

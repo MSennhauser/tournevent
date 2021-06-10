@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Tournevent.Models.VereinWettkampf>
-@using Tournevent.Models
+﻿@model IEnumerable<Tournevent.Models.Verein>
+    @using Tournevent.Models;
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,7 +14,7 @@
         <th>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VereinsName)
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th></th>
     </tr>
@@ -23,29 +23,26 @@
     {
         <tr>
             <td>
-                @Html.HiddenFor(modelItem => item.vereinId)
+                @Html.HiddenFor(modelItem => item.ID_Verein)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VereinsName)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td class="tableActions">
                 @{
                     bool contains = false;
-                    foreach (var id in item.WettkampfIds)
+                    foreach (var id in item.Anmeldung)
                     {
 
-                        if (id == GlobalVariables.WettkampfId)
-                        {
-                            contains = true;
-                        }
+                        contains = (id.ID_Wettkampf == GlobalVariables.WettkampfId);
                     }
                     if (!contains)
                     {
-                        @Html.ActionLink("Hinzufügen", "Add", new { id = item.vereinId })
+                        @Html.ActionLink("Hinzufügen", "Add", new { id = item.ID_Verein })
                     }
                     else
                     {
-                        @Html.ActionLink("Entfernen", "Remove", new { id = item.vereinId })
+                        @Html.ActionLink("Entfernen", "Remove", new { id = item.ID_Verein })
                     }
                 }
             </td>

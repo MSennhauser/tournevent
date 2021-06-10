@@ -10,23 +10,29 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator")]
     public class VereinController : Controller
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Verein
         public ActionResult Index()
         {
             int wettkampfId = GlobalVariables.WettkampfId;
-            List<VereinsDaten> lst = new List<VereinsDaten>();
+            List<VereinKontoDaten> lst = new List<VereinKontoDaten>();
             List<Verein> vereinList = new List<Verein>();
             vereinList = (from v in db.Verein
-                          join vw in db.VereineWettkampf on v.Index equals vw.VereinId
-                          where vw.WettkampfId == wettkampfId
+                          join a in db.Anmeldung on v.ID_Verein equals a.ID_Verein
+                          where a.ID_Wettkampf == wettkampfId
                           select v).ToList();
-            foreach(var verein in vereinList)
+            
+            foreach(Verein verein in vereinList)
             {
-                Benutzer benutzer = (from b in db.Benutzer 
-                                     where b.VereinId == verein.Index select b).Single();
-                lst.Add(new VereinsDaten(benutzer, verein));
+                Vereinsverantwortlicher vereinsverantwortlicher = (from ve in db.Vereinsverantwortlicher where ve.ID_Verein == ve.ID_Verein select ve).SingleOrDefault();
+                Benutzer benutzer = (from b in db.Benutzer where b.Rolle != "WartetAufBestaetigung" && b.Email == vereinsverantwortlicher.Mailadresse select b).SingleOrDefault();
+                VereinKontoDaten vereinKontoDaten = new VereinKontoDaten();
+                vereinKontoDaten.KontoDaten = new KontoDaten(benutzer);
+                vereinKontoDaten.VereinsverantwortlicherDaten = new VereinsverantwortlicherDaten(benutzer);
+                vereinKontoDaten.VereinsDaten = new VereinsDaten(verein);
+                vereinKontoDaten.userId = benutzer.ID_Benutzer;
+                lst.Add(vereinKontoDaten);
             }
             return View(lst);
         }
@@ -37,17 +43,20 @@ namespace Tournevent.Controllers
             if (ModelState.IsValid)
             {
                 List<Verein> vereinList = (from v in db.Verein select v).ToList();
-                List<VereinWettkampf> vwList = new List<VereinWettkampf>();
-                foreach (var v in vereinList)
+                /*
+                List<VereinKontoDaten> vwList = new List<VereinKontoDaten>();
+                foreach (Verein v in vereinList)
                 {
-                    BenutzerRollen rollen = (from b in db.Benutzer join br in db.BenutzerRollen on b.Id equals br.BenutzerId where b.VereinId == v.Index && br.RollenId != 3 select br).SingleOrDefault();
-                    if (rollen != null)
-                    {
-                        List<int> id = (from vw in db.VereineWettkampf where vw.VereinId == v.Index select vw.WettkampfId).ToList();
-                        vwList.Add(new VereinWettkampf(v, id));
-                    }
-                }
-                return View(vwList);
+                    Vereinsverantwortlicher vereinsverantwortlicher = (from ve in db.Vereinsverantwortlicher where ve.ID_Verein == ve.ID_Verein select ve).SingleOrDefault();
+                    Benutzer benutzer = (from b in db.Benutzer where b.Rolle != "WartetAufBestaetigung" && b.Email == vereinsverantwortlicher.Mailadresse select b).SingleOrDefault();
+                    VereinKontoDaten vereinKontoDaten = new VereinKontoDaten();
+                    vereinKontoDaten.KontoDaten = new KontoDaten(benutzer);
+                    vereinKontoDaten.VereinsverantwortlicherDaten = new VereinsverantwortlicherDaten(benutzer);
+                    vereinKontoDaten.VereinsDaten = new VereinsDaten(v);
+                    vereinKontoDaten.userId = benutzer.ID_Benutzer;
+                    vwList.Add(vereinKontoDaten);
+                }*/
+                return View(vereinList);
             }
             return View();
         }
@@ -69,8 +78,8 @@ namespace Tournevent.Controllers
         }
         public ActionResult Edit(int id)
         {
-            Benutzer benutzer = (from b in db.Benutzer where b.Id == id select b).Single();
-            VereinKontoDaten vkDaten = new VereinKontoDaten(benutzer, benutzer.Verein);
+            Benutzer benutzer = (from b in db.Benutzer where b.ID_Benutzer == id select b).Single();
+            VereinsverantwortlicherDaten vkDaten = new VereinsverantwortlicherDaten(benutzer);
             return View(vkDaten);
         }
         [HttpPost]
@@ -78,7 +87,7 @@ namespace Tournevent.Controllers
         {
             if (ModelState.IsValid)
             {
-                vkDaten.Update();
+                /*vkDaten.Update();*/
                 return RedirectToAction("Index");
             }
             return View();
@@ -86,40 +95,43 @@ namespace Tournevent.Controllers
 
         public ActionResult Delete(int id)
         {
-            Benutzer benutzer = (from b in db.Benutzer where b.Id == id select b).Single();
-            List<Athleten> lstAthleten = (from a in db.Athleten where a.VereinsId == benutzer.VereinId select a).ToList();
+            Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
+                                                               where v.Mailadresse == User.Identity.Name
+                                                               select v).SingleOrDefault();
+            // Statement könnte nicht funktionieren, da Benutzer noch überarbeitet werden muss
+            List<Athlet> lstAthleten = (from a in db.Athlet where a.ID_Verein == vereinsverantwortlicher.ID_Verein select a).ToList();
             foreach(var athlet in lstAthleten)
             {
-                db.Athleten.Remove(athlet);
+                db.Athlet.Remove(athlet);
             }
-            BenutzerRollen benutzerRollen = (from b in db.BenutzerRollen
-                                             where b.BenutzerId == benutzer.Id
-                                             select b).SingleOrDefault();
-            VereineWettkampf vereineWettkampf = (from vw in db.VereineWettkampf
-                                             where vw.VereinId == benutzer.VereinId
-                                             select vw).SingleOrDefault();
-            db.VereineWettkampf.Remove(vereineWettkampf);
-            db.Verein.Remove(benutzer.Verein);
-            db.BenutzerRollen.Remove(benutzerRollen);
-            db.Benutzer.Remove(benutzer);
+            
+            Anmeldung anmeldung = (from a in db.Anmeldung
+                                   where a.ID_Verein == vereinsverantwortlicher.ID_Verein
+                                   select a).SingleOrDefault();
+            db.Anmeldung.Remove(anmeldung);
+            db.Verein.Remove(vereinsverantwortlicher.Verein);
+            db.Vereinsverantwortlicher.Remove(vereinsverantwortlicher);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult Athleten(int id)
         {
-            Benutzer benutzer = (from b in db.Benutzer where b.Id == id select b).Single();
-            GlobalVariables.VereinsId = (int)benutzer.VereinId;
-            return RedirectToAction("Overview", "Athleten", new { id = benutzer.VereinId});
+            Benutzer benutzer = (from b in db.Benutzer where b.ID_Benutzer == id select b).Single();
+            Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
+                                                               where v.Mailadresse == benutzer.Email
+                                                               select v).SingleOrDefault();
+            GlobalVariables.VereinsId = vereinsverantwortlicher.ID_Verein;
+            return RedirectToAction("Overview", "Athleten", new { id = vereinsverantwortlicher.ID_Verein });
         }
 
         // GET: Verein/Edit/5
         public ActionResult Add(int id)
         {
             int wettkampfId = GlobalVariables.WettkampfId;
-            VereineWettkampf vw = new VereineWettkampf();
-            vw.VereinId = id;
-            vw.WettkampfId = wettkampfId;
-            db.VereineWettkampf.Add(vw);
+            Anmeldung anmeldung = new Anmeldung();
+            anmeldung.ID_Verein = id;
+            anmeldung.ID_Wettkampf = wettkampfId;
+            db.Anmeldung.Add(anmeldung);
             db.SaveChanges();
             return RedirectToAction("Create");
         }
@@ -128,8 +140,8 @@ namespace Tournevent.Controllers
         public ActionResult Remove(int id)
         {
             int wettkampfId = GlobalVariables.WettkampfId;
-            VereineWettkampf vw = (from v in db.VereineWettkampf where v.VereinId == id && v.WettkampfId == wettkampfId select v).Single();
-            db.VereineWettkampf.Remove(vw);
+            Anmeldung anmeldung = (from a in db.Anmeldung where a.ID_Verein == id && a.ID_Wettkampf == wettkampfId select a).Single();
+            db.Anmeldung.Remove(anmeldung);
             db.SaveChanges();
             return RedirectToAction("Create");
         }

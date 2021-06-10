@@ -12,13 +12,13 @@ namespace Tournevent.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class KategorienDisziplinen
+    public partial class Wahldisziplin
     {
-        public int Id { get; set; }
-        public int KategorieId { get; set; }
-        public int DisziplinId { get; set; }
+        public int ID_Wahldisziplin { get; set; }
+        public string Wahldisziplin_Name { get; set; }
+        public int ID_Disziplin { get; set; }
     
-        public virtual Disziplinen Disziplinen { get; set; }
-        public virtual Kategorien Kategorien { get; set; }
+        public virtual Disziplin Disziplin { get; set; }
+        public virtual Disziplin Disziplin1 { get; set; }
     }
 }

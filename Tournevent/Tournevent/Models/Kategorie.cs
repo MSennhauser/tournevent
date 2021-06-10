@@ -12,18 +12,24 @@ namespace Tournevent.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Rollen
+    public partial class Kategorie
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Rollen()
+        public Kategorie()
         {
-            this.BenutzerRollen = new HashSet<BenutzerRollen>();
+            this.Kategore_Disziplin = new HashSet<Kategore_Disziplin>();
         }
     
-        public int Id { get; set; }
-        public string Rolle { get; set; }
+        public int ID_Kategorie { get; set; }
+        public int ID_Wettkampf { get; set; }
+        public string Name { get; set; }
+        public string Abkuerzung { get; set; }
+        public string Geschlecht { get; set; }
+        public short JahrgangVon { get; set; }
+        public short JahrgangBis { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BenutzerRollen> BenutzerRollen { get; set; }
+        public virtual ICollection<Kategore_Disziplin> Kategore_Disziplin { get; set; }
+        public virtual Wettkampf Wettkampf { get; set; }
     }
 }

@@ -14,8 +14,8 @@ namespace Tournevent.Models
         }
         public VereinWettkampf(Verein verein, List<int> wettkampfId)
         {
-            vereinId = verein.Index;
-            VereinsName = verein.Vereinsname;
+            vereinId = verein.ID_Verein;
+            VereinsName = verein.Name;
             WettkampfIds = wettkampfId;
         }
         public int vereinId { get; set; }

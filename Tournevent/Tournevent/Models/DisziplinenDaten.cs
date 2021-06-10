@@ -13,14 +13,13 @@ namespace Tournevent.Models
         {
 
         }
-        public DisziplinenDaten(Disziplinen disziplinen)
+        public DisziplinenDaten(Disziplin disziplin)
         {
-            disziplinenId = disziplinen.Id;
-            Disziplin = disziplinen.Disziplin;
-            Abkuerzung = disziplinen.Abkuerzung;
-            Wettkampfart = disziplinen.Wettkampfart.Wettkampfart1;
-            anzTeilnehmer = disziplinen.anzTeilnehmer != null ? (int)disziplinen.anzTeilnehmer : 0 ;
-            Versuche = disziplinen.Versuche != null ? (int)disziplinen.Versuche : 0 ;
+            disziplinenId = disziplin.ID_Disziplin;
+            Disziplin = disziplin.Name;
+            Abkuerzung = disziplin.Abkuerzung;
+            ZeitTeilnehmer = disziplin.ZeitTeilnehmer;
+            AnzahlVersuche = disziplin.AnzahlVersuche;
         }
         public int disziplinenId { get; set; }
         [Required]
@@ -30,8 +29,9 @@ namespace Tournevent.Models
         public string Abkuerzung { get; set; }
         [Required]
         public string Wettkampfart { get; set; }
-        [DisplayName("Teilnehmer")]
-        public int anzTeilnehmer { get; set; }
+        [DisplayName("AnzahlVersuche")]
+        public int AnzahlVersuche { get; set; }
         public int Versuche { get; set; }
+        public short? ZeitTeilnehmer { get; set; }
     }
 }

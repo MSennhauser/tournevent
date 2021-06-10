@@ -10,23 +10,28 @@ namespace Tournevent.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
 
         public ActionResult Index()
         {
-            string rolle = roleProvider.GetRolesForUser(User.Identity.Name).ElementAt(0);
+            string rolle = roleProvider.GetRolesForUser(User.Identity.Name).ElementAtOrDefault(0);
+            Benutzer benutzer = (from b in db.Benutzer where b.Email == User.Identity.Name select b).SingleOrDefault();
+            if(rolle == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             if (rolle == "WartetAufBestaetigung")
             {
-                Benutzer benutzer = (from b in db.Benutzer where b.Email == User.Identity.Name select b).SingleOrDefault();
-                if (benutzer.VereinId == null)
-                {
-                    return RedirectToAction("VereinsDaten", "Login", new { userId = benutzer.Id });
-                }
-                else
-                {
-                    return RedirectToAction("WaitForConfirmation", "Login");
-                }
+                 return RedirectToAction("WaitForConfirmation", "Login");
+            }
+            if (rolle == "VereinsverantwortlicherDaten")
+            {
+                return RedirectToAction("VereinsverantwortlicherDaten", "Login", new { userId = benutzer.ID_Benutzer });
+            }
+            if (rolle == "VereinsDaten")
+            {
+                return RedirectToAction("VereinsDaten", "Login", new { userId = benutzer.ID_Benutzer });
             }
             if (rolle == "Administrator")
             {

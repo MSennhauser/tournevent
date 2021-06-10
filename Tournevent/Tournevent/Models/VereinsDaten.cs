@@ -13,26 +13,19 @@ namespace Tournevent.Models
         {
 
         }
-        public VereinsDaten(Benutzer benutzer, Verein verein)
+        public VereinsDaten(Verein verein)
         {
-            userId = benutzer.Id;
-            VereinsName = verein.Vereinsname;
-            Vorname = benutzer.Vorname;
-            Nachname = benutzer.Nachname;
-            Telefon = benutzer.Telefon;
+            VereinsName = verein.Name;
+            Ort = verein.Ort;
+            PLZ = verein.PLZ;
         }
-        public int userId { get; set; }
         [Required]
         [DisplayName("Vereins Name")]
         public string VereinsName { get; set; }
         [Required]
-        public string Vorname { get; set; }
+        public string Ort { get; set; }
         [Required]
-        public string Nachname { get; set; }
-        [Required]
-        [RegularExpression(@"(\b(0041|0)|\B\+41)(\s?\(0\))?(\s)?[1-9]{2}(\s)?[0-9]{3}(\s)?[0-9]{2}(\s)?[0-9]{2}\b", ErrorMessage = "Keine gültige Telefon Nr.")]
-        [DisplayName("Telefon Nr.")]
-        public string Telefon { get; set; }
+        public int PLZ { get; set; }       
 
     }
 }

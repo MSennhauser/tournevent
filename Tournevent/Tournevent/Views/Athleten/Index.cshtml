@@ -15,6 +15,7 @@
                        new { @class = "actionLink" })
 
 </p>
+<h1>@ViewBag.Athleten</h1>
 <table class="table">
     <tr>
         <th>
@@ -24,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Nachname)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Jahrgang)
+            @Html.DisplayNameFor(model => model.Geburtsdatum)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Startnummer)
@@ -45,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Nachname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Jahrgang)
+                @Html.DisplayFor(modelItem => item.Geburtsdatum)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Startnummer)

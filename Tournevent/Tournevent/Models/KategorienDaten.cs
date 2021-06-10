@@ -13,13 +13,14 @@ namespace Tournevent.Models
         {
 
         }
-        public KategorienDaten(Kategorien kategorien, Geschlechter geschlecht)
+        public KategorienDaten(Kategorie kategorie)
         {
-            kategorieID = kategorien.Id;
-            Kategorie = kategorien.Kategorie;
-            Abkuerzung = kategorien.Abkuerzung;
-            Jahrgang = kategorien.Jahrgang != null ? (int)kategorien.Jahrgang : 0;
-            Geschlecht = geschlecht.Bezeichnung;
+            kategorieID = kategorie.ID_Kategorie;
+            Kategorie = kategorie.Name;
+            Abkuerzung = kategorie.Abkuerzung;
+            JahrgangVon = kategorie.JahrgangVon;
+            JahrgangBis = kategorie.JahrgangBis;
+            Geschlecht = kategorie.Geschlecht;
         }
         public int kategorieID { get; set; }
         [Required]
@@ -28,9 +29,10 @@ namespace Tournevent.Models
         [DisplayName("Abkürzung")]
         public string Abkuerzung { get; set; }
         [Required]
-        public int Jahrgang { get; set; }
+        public int JahrgangVon { get; set; }
+        [Required]
+        public int JahrgangBis { get; set; }
         [Required]
         public string Geschlecht { get; set; }
-
     }
 }

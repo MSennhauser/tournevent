@@ -10,20 +10,19 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator")]
     public class KategorienController : Controller
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Kategorien
         public ActionResult Index()
         {
             int wettkampfID = GlobalVariables.WettkampfId;
-            List<Kategorien> kategorien = (from k in db.Kategorien
-                                     join w in db.Wettkampf on k.WettkampfartId equals w.WettkampfartId
-                                     where w.Id == wettkampfID
+            List<Kategorie> kategorien = (from k in db.Kategorie
+                                     where k.ID_Wettkampf == wettkampfID
                                      select k).ToList();
             List<KategorienDaten> lst = new List<KategorienDaten>();
             foreach(var k in kategorien)
             {
-                lst.Add(new KategorienDaten(k, k.Geschlechter));
+                lst.Add(new KategorienDaten(k));
             }
             return View(lst);
         }

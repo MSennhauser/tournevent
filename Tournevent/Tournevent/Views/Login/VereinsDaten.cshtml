@@ -17,27 +17,19 @@
         </div>
         <div class="card-body">
             <div class="form-group">
-                @Html.HiddenFor(m => m.userId, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
                 @Html.LabelFor(m => m.VereinsName)
                 @Html.TextBoxFor(m => m.VereinsName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.VereinsName, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Vorname)
-                @Html.TextBoxFor(m => m.Vorname, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Vorname, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.Ort)
+                @Html.TextBoxFor(m => m.Ort, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Ort, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Nachname)
-                @Html.TextBoxFor(m => m.Nachname, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Nachname, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Telefon)
-                @Html.TextBoxFor(m => m.Telefon, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Telefon, "", new { @class = "text-danger" })
+                @Html.LabelFor(m => m.PLZ)
+                @Html.TextBoxFor(m => m.PLZ, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PLZ, "", new { @class = "text-danger" })
             </div>
             <div class="actionGroup">
                 <button type="submit" class="submit">Register</button>

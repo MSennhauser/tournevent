@@ -17,39 +17,21 @@ namespace Tournevent.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Verein()
         {
-            this.Athleten = new HashSet<Athleten>();
-            this.Benutzer = new HashSet<Benutzer>();
-            this.VereineWettkampf = new HashSet<VereineWettkampf>();
+            this.Anmeldung = new HashSet<Anmeldung>();
+            this.Athlet = new HashSet<Athlet>();
+            this.Vereinsverantwortlicher = new HashSet<Vereinsverantwortlicher>();
         }
     
-        public int Index { get; set; }
-        public string Vereinsname { get; set; }
-        public string PC_Konto { get; set; }
-        public string Bank_Konto { get; set; }
+        public int ID_Verein { get; set; }
         public string Name { get; set; }
-        public string Vorname { get; set; }
-        public string Strasse { get; set; }
-        public string PLZ { get; set; }
         public string Ort { get; set; }
-        public string Telefon_privat { get; set; }
-        public string Telefon_geschäft { get; set; }
-        public string FAX { get; set; }
-        public string Natel { get; set; }
-        public string E_Mail { get; set; }
-        public Nullable<System.DateTime> Erstellt_am { get; set; }
-        public string Erstellt_von { get; set; }
-        public Nullable<System.DateTime> Letzte_Änderung { get; set; }
-        public string Zuletzt_gespeichert { get; set; }
-        public string ImportDatei { get; set; }
-        public string ExportDatei { get; set; }
-        public string Vorrunde { get; set; }
-        public Nullable<int> IndexVereinVorrunde { get; set; }
+        public int PLZ { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Athleten> Athleten { get; set; }
+        public virtual ICollection<Anmeldung> Anmeldung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Benutzer> Benutzer { get; set; }
+        public virtual ICollection<Athlet> Athlet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VereineWettkampf> VereineWettkampf { get; set; }
+        public virtual ICollection<Vereinsverantwortlicher> Vereinsverantwortlicher { get; set; }
     }
 }

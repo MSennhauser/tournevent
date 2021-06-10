@@ -17,19 +17,29 @@ namespace Tournevent.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Wettkampf()
         {
-            this.Startnummern = new HashSet<Startnummern>();
-            this.VereineWettkampf = new HashSet<VereineWettkampf>();
+            this.Anmeldung = new HashSet<Anmeldung>();
+            this.Disziplin = new HashSet<Disziplin>();
+            this.Startnummer = new HashSet<Startnummer>();
+            this.Kategorie = new HashSet<Kategorie>();
         }
     
-        public int Id { get; set; }
-        public string WettkampfName { get; set; }
-        public int WettkampfartId { get; set; }
+        public int ID_Wettkampf { get; set; }
+        public int ID_Administrator { get; set; }
+        public string Name { get; set; }
         public System.DateTime Datum { get; set; }
+        public System.DateTime Teilnahmebeginn { get; set; }
+        public System.DateTime Teilnahmeschluss { get; set; }
+        public int NummerVon { get; set; }
+        public int NummerBis { get; set; }
     
+        public virtual Administrator Administrator { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Startnummern> Startnummern { get; set; }
+        public virtual ICollection<Anmeldung> Anmeldung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VereineWettkampf> VereineWettkampf { get; set; }
-        public virtual Wettkampfart Wettkampfart { get; set; }
+        public virtual ICollection<Disziplin> Disziplin { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Startnummer> Startnummer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Kategorie> Kategorie { get; set; }
     }
 }

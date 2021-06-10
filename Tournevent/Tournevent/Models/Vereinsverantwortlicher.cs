@@ -12,12 +12,16 @@ namespace Tournevent.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class Vereinsverantwortlicher
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int ID_Vereinsverantwortlicher { get; set; }
+        public int ID_Verein { get; set; }
+        public int ID_Adresse { get; set; }
+        public string Mailadresse { get; set; }
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
+    
+        public virtual Adresse Adresse { get; set; }
+        public virtual Verein Verein { get; set; }
     }
 }

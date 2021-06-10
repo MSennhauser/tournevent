@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e3489fa8215348f0ba85191396ee3cf0" Name="Diagram1">
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Administrator" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" Width="1.5" PointX="3.75" PointY="1.375" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Anmeldung" Width="1.5" PointX="5.25" PointY="6.125" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Athlet" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Width="1.5" PointX="5.25" PointY="9.875" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin" Width="1.5" PointX="7.5" PointY="13.75" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer" Width="1.5" PointX="8.25" PointY="7" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Verein" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher" Width="1.5" PointX="9" PointY="3.125" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin" Width="1.5" PointX="7.5" PointY="10.375" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" Width="1.5" PointX="3" PointY="8.5" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Administrator_Wettkampf" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Anmeldung" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Anmeldung" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Athlet_Startnummer" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Athlet" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Kategore_Disziplin" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Disziplin" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Startnummer" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Vereinsverantwortlicher" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" Width="1.5" PointX="5.25" PointY="13.875" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer" Width="1.5" PointX="0.75" PointY="0.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tournevent.Models.VereinsDaten>
+﻿@model IEnumerable<Tournevent.Models.VereinKontoDaten>
 
 @{
     ViewBag.Title = "Index";
@@ -17,16 +17,16 @@
         <th>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VereinsName)
+            @Html.DisplayNameFor(model => model.VereinsDaten.VereinsName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Vorname)
+            @Html.DisplayNameFor(model => model.VereinsverantwortlicherDaten.Vorname)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Nachname)
+            @Html.DisplayNameFor(model => model.VereinsverantwortlicherDaten.Nachname)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Telefon)
+            @Html.DisplayNameFor(model => model.KontoDaten.Telefon)
         </th>
         <th>Aktionen</th>
     </tr>
@@ -38,16 +38,16 @@
                 @Html.HiddenFor(modelItem => item.userId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VereinsName)
+                @Html.DisplayFor(modelItem => item.VereinsDaten.VereinsName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Vorname)
+                @Html.DisplayFor(modelItem => item.VereinsverantwortlicherDaten.Vorname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Nachname)
+                @Html.DisplayFor(modelItem => item.VereinsverantwortlicherDaten.Nachname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Telefon)
+                @Html.DisplayFor(modelItem => item.KontoDaten.Telefon)
             </td>
             <td class="tableActions">
                 @Html.ActionLink("Athletenübersicht", "Athleten", new { id = item.userId }) |

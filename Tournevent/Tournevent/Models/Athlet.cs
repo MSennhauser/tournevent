@@ -12,18 +12,25 @@ namespace Tournevent.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Roles
+    public partial class Athlet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Roles()
+        public Athlet()
         {
-            this.UserRolesMapping = new HashSet<UserRolesMapping>();
+            this.Startnummer = new HashSet<Startnummer>();
         }
     
-        public int Id { get; set; }
-        public string RoleName { get; set; }
+        public int ID_Athlet { get; set; }
+        public int ID_Adresse { get; set; }
+        public int ID_Verein { get; set; }
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
+        public string Geschlecht { get; set; }
+        public System.DateTime Geburtsdatum { get; set; }
     
+        public virtual Adresse Adresse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRolesMapping> UserRolesMapping { get; set; }
+        public virtual ICollection<Startnummer> Startnummer { get; set; }
+        public virtual Verein Verein { get; set; }
     }
 }

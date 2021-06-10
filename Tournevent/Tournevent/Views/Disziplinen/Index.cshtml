@@ -21,10 +21,10 @@
             @Html.DisplayNameFor(model => model.Wettkampfart)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.anzTeilnehmer)
+            @Html.DisplayNameFor(model => model.AnzahlVersuche)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Versuche)
+            @Html.DisplayNameFor(model => model.ZeitTeilnehmer)
         </th>
         <th>Aktionen</th>
     </tr>
@@ -45,10 +45,10 @@
                 @Html.DisplayFor(modelItem => item.Wettkampfart)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.anzTeilnehmer)
+                @Html.DisplayFor(modelItem => item.AnzahlVersuche)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Versuche)
+                @Html.DisplayFor(modelItem => item.ZeitTeilnehmer)
             </td>
             <td class="tableActions">
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

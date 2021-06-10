@@ -11,7 +11,7 @@ namespace Tournevent.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly DBContext db = new DBContext();
+        private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
         // GET: Login
         public ActionResult Index()
@@ -22,6 +22,7 @@ namespace Tournevent.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(Benutzer user)
@@ -35,7 +36,7 @@ namespace Tournevent.Controllers
 
                 if (IsValidUser)
                 {
-                    FormsAuthentication.SetAuthCookie(user.Email, true);
+                    FormsAuthentication.SetAuthCookie(user.Email, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -51,29 +52,27 @@ namespace Tournevent.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(KontoDaten daten)
         {
             if (ModelState.IsValid)
             {
-                Benutzer benutzer = new Benutzer();
-                benutzer.Email = daten.Email;
-                benutzer.Passwort = daten.Passwort;
                 Benutzer email = db.Benutzer.FirstOrDefault(u => u.Email.ToLower() == daten.Email.ToLower());
                 
                 if(email == null)
                 {
-
+                    Benutzer benutzer = new Benutzer();
+                    benutzer.Email = daten.Email;
+                    benutzer.Passwort = daten.Passwort;
+                    benutzer.Telefon = daten.Telefon;
                     db.Benutzer.Add(benutzer);
                     db.SaveChanges();
 
-                    roleProvider.AddUserToRole(benutzer.Email, "WartetAufBestaetigung");
-
-                    var userId = (from b in db.Benutzer
-                                  where b.Email == benutzer.Email
-                                  select b.Id).SingleOrDefault();
-                    return RedirectToAction("VereinsDaten", new { userId = userId });
+                    FormsAuthentication.SetAuthCookie(benutzer.Email, false);
+                    roleProvider.ChangeUserRole(benutzer.Email, "VereinsDaten");
+                    return RedirectToAction("VereinsDaten");
                 }
                 else
                 {
@@ -82,50 +81,76 @@ namespace Tournevent.Controllers
             }
             return View();
         }
-        [Authorize(Roles = "WartetAufBestaetigung")]
+        [Authorize(Roles = "WaitForConfirmation")]
         public ActionResult WaitForConfirmation()
         {
             return View();
         }
 
-        public ActionResult VereinsDaten(int userId)
+        [Authorize(Roles = "VereinsverantwortlicherDaten")]
+        public ActionResult VereinsverantwortlicherDaten(int vereinsId)
         {
-            VereinsDaten vereinsDaten = new VereinsDaten();
-            vereinsDaten.userId = userId;
-            return View(vereinsDaten);
+            VereinsverantwortlicherDaten vereinsverantwortlicherDaten = new VereinsverantwortlicherDaten();
+            vereinsverantwortlicherDaten.vereinsId = vereinsId;
+            return View(vereinsverantwortlicherDaten);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult VereinsverantwortlicherDaten(VereinsverantwortlicherDaten data)
+        {
+            if (ModelState.IsValid)
+            {
+                Vereinsverantwortlicher vereinsverantwortlicher = new Vereinsverantwortlicher();
+                Adresse adresse = new Adresse();
+
+                vereinsverantwortlicher.Mailadresse = User.Identity.Name;
+                vereinsverantwortlicher.Nachname = data.Nachname;
+                vereinsverantwortlicher.Vorname = data.Vorname;
+                adresse.Strasse = data.Strasse;
+                adresse.PLZ = data.PLZ;
+                adresse.Ort = data.Ort;
+                adresse.Hausnummer = data.Hausnummer;
+                vereinsverantwortlicher.Adresse = adresse;
+                vereinsverantwortlicher.ID_Verein = data.vereinsId;
+
+                db.Vereinsverantwortlicher.Add(vereinsverantwortlicher);
+                db.SaveChanges();
+
+                FormsAuthentication.SetAuthCookie(User.Identity.Name, false);
+                roleProvider.ChangeUserRole(User.Identity.Name, "WaitForConfirmation");
+
+                return RedirectToAction("WaitForConfirmation", "Login");
+                
+            }
+            return View(data);
+        }
+
+        [Authorize(Roles = "VereinsDaten")]
+        public ActionResult VereinsDaten()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult VereinsDaten(VereinsDaten vereinsDaten)
         {
             if (ModelState.IsValid)
             {
-                Verein vereinsName = db.Verein.FirstOrDefault(u => u.Vereinsname.ToLower() == vereinsDaten.VereinsName.ToLower());
+                Verein vereinsName = db.Verein.FirstOrDefault(u => u.Name.ToLower() == vereinsDaten.VereinsName.ToLower());
 
                 if (vereinsName == null)
                 {
                     Verein verein = new Verein();
-                    verein.Vereinsname = vereinsDaten.VereinsName;
+                    verein.Name = vereinsDaten.VereinsName;
+                    verein.Ort = vereinsDaten.Ort;
+                    verein.PLZ = vereinsDaten.PLZ;
                     db.Verein.Add(verein);
                     db.SaveChanges();
-                    var vereinsId = (from v in db.Verein
-                                     where v.Vereinsname == vereinsDaten.VereinsName
-                                     select v.Index).Single();
-                    Benutzer benutzer = (from b in db.Benutzer
-                                         where b.Id == vereinsDaten.userId
-                                         select b).Single();
-                    benutzer.Telefon = vereinsDaten.Telefon;
-                    benutzer.Nachname = vereinsDaten.Nachname;
-                    benutzer.Vorname = vereinsDaten.Vorname;
-                    benutzer.VereinId = vereinsId;
-
-                    db.Benutzer.Attach(benutzer);
-                    ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(benutzer, System.Data.Entity.EntityState.Modified);
-
-                    db.SaveChanges();
-
-                    FormsAuthentication.SetAuthCookie(benutzer.Email, true);
-                    return RedirectToAction("WaitForConfirmation", "Login");
+                    
+                    roleProvider.ChangeUserRole(User.Identity.Name, "VereinsverantwortlicherDaten");
+                    return RedirectToAction("VereinsverantwortlicherDaten", new { vereinsId = verein.ID_Verein });
                 }
                 else
                 {

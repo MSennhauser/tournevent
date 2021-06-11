@@ -35,7 +35,7 @@ namespace Tournevent.Controllers
             {
                 int ID_Wettkampf = Convert.ToInt32(id);
                 Wettkampf wettkampf = (from w in db.Wettkampf where w.ID_Wettkampf == ID_Wettkampf select w).SingleOrDefault();
-
+                ViewBag.Wettkampf = wettkampf;
                 GlobalVariables.WettkampfId = Convert.ToInt32(id);
             }
             

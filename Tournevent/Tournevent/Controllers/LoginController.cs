@@ -37,6 +37,14 @@ namespace Tournevent.Controllers
                 if (IsValidUser)
                 {
                     FormsAuthentication.SetAuthCookie(user.Email, false);
+                    Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
+                                                                       where v.Mailadresse == user.Email
+                                                                       select v).SingleOrDefault();
+                    if (vereinsverantwortlicher != null)
+                    {
+                        TempData["Verein"] = vereinsverantwortlicher.Verein;
+
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 else

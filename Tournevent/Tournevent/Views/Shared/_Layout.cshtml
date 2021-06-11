@@ -8,14 +8,22 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     @Styles.Render("~/Content/css")
- 
+
     @Scripts.Render("~/bundles/modernizr")
+    @{
+        var verein = TempData["Verein"] as Tournevent.Models.Verein;
+    }
 </head>
 <body>
     <div class="sidenav">
         <div class="user">
         </div>
-        <a id="vereinsName" href="">@ViewBag.Verein</a>
+        <a id="vereinsName" href="">@{
+            if(verein != null)
+            {
+                @verein.Name;
+            }
+        }</a>
         @{
             Html.RenderAction("Wettkaempfe", "Layout");
         }

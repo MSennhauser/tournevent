@@ -42,7 +42,7 @@ namespace Tournevent.Models
         [Required]
         public string Strasse { get; set; }
         [Required]
-        public short Hausnummer { get; set; }
+        public string Hausnummer { get; set; }
         [Required]
         public string Ort { get; set; }
         [Required]

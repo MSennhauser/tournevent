@@ -28,9 +28,9 @@ namespace Tournevent.Models
         public string Geschlecht { get; set; }
         public System.DateTime Geburtsdatum { get; set; }
     
-        public virtual Adresse Adresse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Startnummer> Startnummer { get; set; }
         public virtual Verein Verein { get; set; }
+        public virtual Adresse Adresse { get; set; }
     }
 }

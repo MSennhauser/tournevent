@@ -42,10 +42,13 @@ namespace Tournevent.Controllers
                                          where w.ID_Administrator == administrator.ID_Administrator
                                          orderby w.Datum descending
                                          select w).ToList();
-                GlobalData.currentWettkampf = wList.First();
-                GlobalData.wettkampfList = wList;
-                TempData["CurrentWettkampf"] = wList.First();
-                TempData["WettkampfList"] = wList;
+                if(wList.Count > 0)
+                {
+                    GlobalData.currentWettkampf = wList.First();
+                    GlobalData.wettkampfList = wList;
+                    TempData["CurrentWettkampf"] = wList.First();
+                    TempData["WettkampfList"] = wList;
+                }
                 return RedirectToAction("Index", "Anfrage");
             }
             if (rolle == "Vereinsverantwortlicher")

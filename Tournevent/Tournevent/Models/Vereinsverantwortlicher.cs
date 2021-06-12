@@ -21,7 +21,7 @@ namespace Tournevent.Models
         public string Vorname { get; set; }
         public string Nachname { get; set; }
     
-        public virtual Adresse Adresse { get; set; }
         public virtual Verein Verein { get; set; }
+        public virtual Adresse Adresse { get; set; }
     }
 }

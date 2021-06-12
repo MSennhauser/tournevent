@@ -25,7 +25,7 @@ namespace Tournevent.Models
         public string Strasse { get; set; }
         public string Ort { get; set; }
         public short PLZ { get; set; }
-        public short Hausnummer { get; set; }
+        public string Hausnummer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Athlet> Athlet { get; set; }

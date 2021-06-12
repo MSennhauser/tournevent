@@ -22,7 +22,7 @@
           <Property Name="Strasse" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Ort" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PLZ" Type="smallint" Nullable="false" />
-          <Property Name="Hausnummer" Type="smallint" Nullable="false" />
+          <Property Name="Hausnummer" Type="varchar" MaxLength="4" Nullable="false" />
         </EntityType>
         <EntityType Name="Anmeldung">
           <Key>
@@ -185,12 +185,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6035: Beziehung 'fk_Benutzer_Administrator' enthält Spalten, die nicht zum Schlüssel der Tabelle auf der Primärseite der Beziehung gehören. Die Beziehung wurde ausgeschlossen.
-        <Association Name="fk_Benutzer_Administrator" />-->
-        <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, die nicht zum Schlüssel der Tabelle auf der Primärseite der Beziehung gehören. Die Beziehung wurde ausgeschlossen.
-        <Association Name="fk_Benutzer_Vereinsverantwortlicher" />-->
         <Association Name="fk_Disziplin_Disziplin">
           <End Role="Disziplin" Type="Self.Disziplin" Multiplicity="1" />
           <End Role="Wahldisziplin" Type="Self.Wahldisziplin" Multiplicity="*" />
@@ -404,11 +398,12 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
       <Schema Namespace="RLP2021_INAI3a_Gruppe5_IDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DataContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrator" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Administrator" />
-          <EntitySet Name="Adresse" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" />
           <EntitySet Name="Anmeldung" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Anmeldung" />
           <EntitySet Name="Athlet" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Athlet" />
+          <EntitySet Name="Benutzer" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer" />
           <EntitySet Name="Disziplin" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" />
           <EntitySet Name="Kategore_Disziplin" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin" />
+          <EntitySet Name="Kategorie" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" />
           <EntitySet Name="Startnummer" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer" />
           <EntitySet Name="Verein" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Verein" />
           <EntitySet Name="Vereinsverantwortlicher" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher" />
@@ -417,14 +412,6 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
           <AssociationSet Name="fk_Administrator_Wettkampf" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Administrator_Wettkampf">
             <End Role="Administrator" EntitySet="Administrator" />
             <End Role="Wettkampf" EntitySet="Wettkampf" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Adresse_Athlet" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet">
-            <End Role="Adresse" EntitySet="Adresse" />
-            <End Role="Athlet" EntitySet="Athlet" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Adresse_Vereinsverantwortlicher" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher">
-            <End Role="Adresse" EntitySet="Adresse" />
-            <End Role="Vereinsverantwortlicher" EntitySet="Vereinsverantwortlicher" />
           </AssociationSet>
           <AssociationSet Name="fk_Verein_Anmeldung" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Anmeldung">
             <End Role="Verein" EntitySet="Verein" />
@@ -458,15 +445,6 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
             <End Role="Wettkampf" EntitySet="Wettkampf" />
             <End Role="Disziplin" EntitySet="Disziplin" />
           </AssociationSet>
-          <AssociationSet Name="fk_Wettkampf_Startnummer" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Startnummer">
-            <End Role="Wettkampf" EntitySet="Wettkampf" />
-            <End Role="Startnummer" EntitySet="Startnummer" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Verein_Vereinsverantwortlicher" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Vereinsverantwortlicher">
-            <End Role="Verein" EntitySet="Verein" />
-            <End Role="Vereinsverantwortlicher" EntitySet="Vereinsverantwortlicher" />
-          </AssociationSet>
-          <EntitySet Name="Kategorie" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" />
           <AssociationSet Name="fk_Kategorie_Kategore_Disziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin">
             <End Role="Kategorie" EntitySet="Kategorie" />
             <End Role="Kategore_Disziplin" EntitySet="Kategore_Disziplin" />
@@ -475,8 +453,24 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
             <End Role="Wettkampf" EntitySet="Wettkampf" />
             <End Role="Kategorie" EntitySet="Kategorie" />
           </AssociationSet>
-          <EntitySet Name="Benutzer" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer" />
-          </EntityContainer>
+          <AssociationSet Name="fk_Wettkampf_Startnummer" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Startnummer">
+            <End Role="Wettkampf" EntitySet="Wettkampf" />
+            <End Role="Startnummer" EntitySet="Startnummer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Verein_Vereinsverantwortlicher" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Vereinsverantwortlicher">
+            <End Role="Verein" EntitySet="Verein" />
+            <End Role="Vereinsverantwortlicher" EntitySet="Vereinsverantwortlicher" />
+          </AssociationSet>
+          <EntitySet Name="Adresse" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" />
+          <AssociationSet Name="fk_Adresse_Athlet" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet">
+            <End Role="Adresse" EntitySet="Adresse" />
+            <End Role="Athlet" EntitySet="Athlet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Adresse_Vereinsverantwortlicher" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher">
+            <End Role="Adresse" EntitySet="Adresse" />
+            <End Role="Vereinsverantwortlicher" EntitySet="Vereinsverantwortlicher" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Administrator">
           <Key>
             <PropertyRef Name="ID_Administrator" />
@@ -486,18 +480,6 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
           <Property Name="Vorname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Nachname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Wettkampf" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Administrator_Wettkampf" FromRole="Administrator" ToRole="Wettkampf" />
-        </EntityType>
-        <EntityType Name="Adresse">
-          <Key>
-            <PropertyRef Name="ID_Adresse" />
-          </Key>
-          <Property Name="ID_Adresse" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Strasse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Ort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PLZ" Type="Int16" Nullable="false" />
-          <Property Name="Hausnummer" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="Athlet" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet" FromRole="Adresse" ToRole="Athlet" />
-          <NavigationProperty Name="Vereinsverantwortlicher" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher" FromRole="Adresse" ToRole="Vereinsverantwortlicher" />
         </EntityType>
         <EntityType Name="Anmeldung">
           <Key>
@@ -521,9 +503,19 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
           <Property Name="Nachname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Geschlecht" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="Geburtsdatum" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Adresse" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet" FromRole="Athlet" ToRole="Adresse" />
           <NavigationProperty Name="Startnummer" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Athlet_Startnummer" FromRole="Athlet" ToRole="Startnummer" />
           <NavigationProperty Name="Verein" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Athlet" FromRole="Athlet" ToRole="Verein" />
+          <NavigationProperty Name="Adresse" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet" FromRole="Athlet" ToRole="Adresse" />
+        </EntityType>
+        <EntityType Name="Benutzer">
+          <Key>
+            <PropertyRef Name="ID_Benutzer" />
+          </Key>
+          <Property Name="ID_Benutzer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rolle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Passwort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Disziplin">
           <Key>
@@ -549,6 +541,20 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
           <Property Name="ID_Kategorie" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Kategore_Disziplin" FromRole="Kategore_Disziplin" ToRole="Disziplin" />
           <NavigationProperty Name="Kategorie" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin" FromRole="Kategore_Disziplin" ToRole="Kategorie" />
+        </EntityType>
+        <EntityType Name="Kategorie">
+          <Key>
+            <PropertyRef Name="ID_Kategorie" />
+          </Key>
+          <Property Name="ID_Kategorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Wettkampf" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Abkuerzung" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Geschlecht" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="JahrgangVon" Type="Int16" Nullable="false" />
+          <Property Name="JahrgangBis" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Kategore_Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin" FromRole="Kategorie" ToRole="Kategore_Disziplin" />
+          <NavigationProperty Name="Wettkampf" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie" FromRole="Kategorie" ToRole="Wettkampf" />
         </EntityType>
         <EntityType Name="Startnummer">
           <Key>
@@ -584,8 +590,8 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
           <Property Name="Mailadresse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Vorname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Nachname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Adresse" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher" FromRole="Vereinsverantwortlicher" ToRole="Adresse" />
           <NavigationProperty Name="Verein" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Vereinsverantwortlicher" FromRole="Vereinsverantwortlicher" ToRole="Verein" />
+          <NavigationProperty Name="Adresse" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher" FromRole="Vereinsverantwortlicher" ToRole="Adresse" />
         </EntityType>
         <EntityType Name="Wahldisziplin">
           <Key>
@@ -612,8 +618,8 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
           <NavigationProperty Name="Administrator" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Administrator_Wettkampf" FromRole="Wettkampf" ToRole="Administrator" />
           <NavigationProperty Name="Anmeldung" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Anmeldung" FromRole="Wettkampf" ToRole="Anmeldung" />
           <NavigationProperty Name="Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Disziplin" FromRole="Wettkampf" ToRole="Disziplin" />
-          <NavigationProperty Name="Startnummer" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Startnummer" FromRole="Wettkampf" ToRole="Startnummer" />
           <NavigationProperty Name="Kategorie" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie" FromRole="Wettkampf" ToRole="Kategorie" />
+          <NavigationProperty Name="Startnummer" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Startnummer" FromRole="Wettkampf" ToRole="Startnummer" />
         </EntityType>
         <Association Name="fk_Administrator_Wettkampf">
           <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Administrator" Role="Administrator" Multiplicity="1" />
@@ -624,30 +630,6 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
             </Principal>
             <Dependent Role="Wettkampf">
               <PropertyRef Name="ID_Administrator" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Adresse_Athlet">
-          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" Role="Adresse" Multiplicity="1" />
-          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Athlet" Role="Athlet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Adresse">
-              <PropertyRef Name="ID_Adresse" />
-            </Principal>
-            <Dependent Role="Athlet">
-              <PropertyRef Name="ID_Adresse" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Adresse_Vereinsverantwortlicher">
-          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" Role="Adresse" Multiplicity="1" />
-          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher" Role="Vereinsverantwortlicher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Adresse">
-              <PropertyRef Name="ID_Adresse" />
-            </Principal>
-            <Dependent Role="Vereinsverantwortlicher">
-              <PropertyRef Name="ID_Adresse" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -747,44 +729,6 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Wettkampf_Startnummer">
-          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" Role="Wettkampf" Multiplicity="1" />
-          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer" Role="Startnummer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Wettkampf">
-              <PropertyRef Name="ID_Wettkampf" />
-            </Principal>
-            <Dependent Role="Startnummer">
-              <PropertyRef Name="ID_Wettkampf" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Verein_Vereinsverantwortlicher">
-          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Verein" Role="Verein" Multiplicity="1" />
-          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher" Role="Vereinsverantwortlicher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Verein">
-              <PropertyRef Name="ID_Verein" />
-            </Principal>
-            <Dependent Role="Vereinsverantwortlicher">
-              <PropertyRef Name="ID_Verein" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Kategorie">
-          <Key>
-            <PropertyRef Name="ID_Kategorie" />
-          </Key>
-          <Property Name="ID_Kategorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Wettkampf" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Abkuerzung" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Geschlecht" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="JahrgangVon" Type="Int16" Nullable="false" />
-          <Property Name="JahrgangBis" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="Kategore_Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin" FromRole="Kategorie" ToRole="Kategore_Disziplin" />
-          <NavigationProperty Name="Wettkampf" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie" FromRole="Kategorie" ToRole="Wettkampf" />
-        </EntityType>
         <Association Name="fk_Kategorie_Kategore_Disziplin">
           <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" Role="Kategorie" Multiplicity="1" />
           <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin" Role="Kategore_Disziplin" Multiplicity="*" />
@@ -809,16 +753,66 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Benutzer">
+        <Association Name="fk_Wettkampf_Startnummer">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" Role="Wettkampf" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer" Role="Startnummer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wettkampf">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Principal>
+            <Dependent Role="Startnummer">
+              <PropertyRef Name="ID_Wettkampf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Verein_Vereinsverantwortlicher">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Verein" Role="Verein" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher" Role="Vereinsverantwortlicher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Verein">
+              <PropertyRef Name="ID_Verein" />
+            </Principal>
+            <Dependent Role="Vereinsverantwortlicher">
+              <PropertyRef Name="ID_Verein" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Adresse">
           <Key>
-            <PropertyRef Name="ID_Benutzer" />
+            <PropertyRef Name="ID_Adresse" />
           </Key>
-          <Property Name="ID_Benutzer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Rolle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Passwort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Adresse" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Strasse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PLZ" Type="Int16" Nullable="false" />
+          <Property Name="Hausnummer" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Athlet" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet" FromRole="Adresse" ToRole="Athlet" />
+          <NavigationProperty Name="Vereinsverantwortlicher" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher" FromRole="Adresse" ToRole="Vereinsverantwortlicher" />
         </EntityType>
+        <Association Name="fk_Adresse_Athlet">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" Role="Adresse" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Athlet" Role="Athlet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="ID_Adresse" />
+            </Principal>
+            <Dependent Role="Athlet">
+              <PropertyRef Name="ID_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Adresse_Vereinsverantwortlicher">
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" Role="Adresse" Multiplicity="1" />
+          <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher" Role="Vereinsverantwortlicher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adresse">
+              <PropertyRef Name="ID_Adresse" />
+            </Principal>
+            <Dependent Role="Vereinsverantwortlicher">
+              <PropertyRef Name="ID_Adresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -832,17 +826,6 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
                 <ScalarProperty Name="Vorname" ColumnName="Vorname" />
                 <ScalarProperty Name="Mailadresse" ColumnName="Mailadresse" />
                 <ScalarProperty Name="ID_Administrator" ColumnName="ID_Administrator" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Adresse">
-            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Adresse">
-              <MappingFragment StoreEntitySet="Adresse">
-                <ScalarProperty Name="Hausnummer" ColumnName="Hausnummer" />
-                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
-                <ScalarProperty Name="Ort" ColumnName="Ort" />
-                <ScalarProperty Name="Strasse" ColumnName="Strasse" />
-                <ScalarProperty Name="ID_Adresse" ColumnName="ID_Adresse" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -869,6 +852,17 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Benutzer">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer">
+              <MappingFragment StoreEntitySet="Benutzer">
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Rolle" ColumnName="Rolle" />
+                <ScalarProperty Name="ID_Benutzer" ColumnName="ID_Benutzer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Disziplin">
             <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin">
               <MappingFragment StoreEntitySet="Disziplin">
@@ -887,6 +881,19 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
                 <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
                 <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
                 <ScalarProperty Name="ID_Kategore_Disziplin" ColumnName="ID_Kategore_Disziplin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategorie">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie">
+              <MappingFragment StoreEntitySet="Kategorie">
+                <ScalarProperty Name="JahrgangBis" ColumnName="JahrgangBis" />
+                <ScalarProperty Name="JahrgangVon" ColumnName="JahrgangVon" />
+                <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
+                <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+                <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -946,27 +953,14 @@ Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Kategorie">
-            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie">
-              <MappingFragment StoreEntitySet="Kategorie">
-                <ScalarProperty Name="JahrgangBis" ColumnName="JahrgangBis" />
-                <ScalarProperty Name="JahrgangVon" ColumnName="JahrgangVon" />
-                <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
-                <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
-                <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Benutzer">
-            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer">
-              <MappingFragment StoreEntitySet="Benutzer">
-                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
-                <ScalarProperty Name="Passwort" ColumnName="Passwort" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Rolle" ColumnName="Rolle" />
-                <ScalarProperty Name="ID_Benutzer" ColumnName="ID_Benutzer" />
+          <EntitySetMapping Name="Adresse">
+            <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Adresse">
+              <MappingFragment StoreEntitySet="Adresse">
+                <ScalarProperty Name="Hausnummer" ColumnName="Hausnummer" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+                <ScalarProperty Name="ID_Adresse" ColumnName="ID_Adresse" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

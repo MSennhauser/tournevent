@@ -17,7 +17,7 @@
     <Property Name="Strasse" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Ort" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="PLZ" Type="smallint" Nullable="false" />
-    <Property Name="Hausnummer" Type="smallint" Nullable="false" />
+    <Property Name="Hausnummer" Type="varchar" MaxLength="4" Nullable="false" />
   </EntityType>
   <EntityType Name="Anmeldung">
     <Key>
@@ -180,12 +180,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6035: Beziehung 'fk_Benutzer_Administrator' enthält Spalten, die nicht zum Schlüssel der Tabelle auf der Primärseite der Beziehung gehören. Die Beziehung wurde ausgeschlossen.
-        <Association Name="fk_Benutzer_Administrator" />-->
-  <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6035: Beziehung 'fk_Benutzer_Vereinsverantwortlicher' enthält Spalten, die nicht zum Schlüssel der Tabelle auf der Primärseite der Beziehung gehören. Die Beziehung wurde ausgeschlossen.
-        <Association Name="fk_Benutzer_Vereinsverantwortlicher" />-->
   <Association Name="fk_Disziplin_Disziplin">
     <End Role="Disziplin" Type="Self.Disziplin" Multiplicity="1" />
     <End Role="Wahldisziplin" Type="Self.Wahldisziplin" Multiplicity="*" />

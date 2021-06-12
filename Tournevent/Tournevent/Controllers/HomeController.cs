@@ -35,10 +35,43 @@ namespace Tournevent.Controllers
             }
             if (rolle == "Administrator")
             {
+                Administrator administrator = (from a in db.Administrator
+                                               where a.Mailadresse == User.Identity.Name
+                                               select a).SingleOrDefault();
+                List<Wettkampf> wList = (from w in db.Wettkampf
+                                         where w.ID_Administrator == administrator.ID_Administrator
+                                         orderby w.Datum descending
+                                         select w).ToList();
+                if(wList.Count > 0)
+                {
+                    GlobalData.currentWettkampf = wList.First();
+                    GlobalData.wettkampfList = wList;
+                    TempData["CurrentWettkampf"] = wList.First();
+                    TempData["WettkampfList"] = wList;
+                }
                 return RedirectToAction("Index", "Anfrage");
             }
             if (rolle == "Vereinsverantwortlicher")
             {
+                Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
+                                                                   where v.Mailadresse == User.Identity.Name
+                                                                   select v).SingleOrDefault();
+                if (vereinsverantwortlicher != null)
+                {
+                    Verein verein = vereinsverantwortlicher.Verein;
+                    TempData["Verein"] = verein;
+                    List<Wettkampf> wList = (from w in db.Wettkampf
+                                             join a in db.Anmeldung on w.ID_Wettkampf equals a.ID_Wettkampf
+                                             where a.ID_Verein == verein.ID_Verein
+                                             orderby w.Datum descending
+                                             select w).ToList();
+                    TempData["CurrentWettkampf"] = wList.First();
+                    TempData["WettkampfList"] = wList;
+                    GlobalData.verein = verein;
+                    GlobalData.currentWettkampf = wList.First();
+                    GlobalData.wettkampfList = wList;
+
+                }
                 return RedirectToAction("Index", "Athleten");
             }
             return View();

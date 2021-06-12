@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 
@@ -30,21 +31,34 @@ namespace Tournevent.Models
                 PLZ = vereinsverantwortlicher.Adresse.PLZ;
             }
         }
+        public VereinsverantwortlicherDaten(Vereinsverantwortlicher vereinsverantwortlicher)
+        {
+            vereinsId = vereinsverantwortlicher.ID_Verein;
+            Vorname = vereinsverantwortlicher.Vorname;
+            Nachname = vereinsverantwortlicher.Nachname;
+            Email = vereinsverantwortlicher.Mailadresse;
+            Strasse = vereinsverantwortlicher.Adresse.Strasse;
+            Hausnummer = vereinsverantwortlicher.Adresse.Hausnummer;
+            Ort = vereinsverantwortlicher.Adresse.Ort;
+            PLZ = vereinsverantwortlicher.Adresse.PLZ;
+        }
 
         public void Update()
         {
-            Vereinsverantwortlicher vereinsverantwortlicher = new Vereinsverantwortlicher();
-            vereinsverantwortlicher.ID_Verein = vereinsId;
-            vereinsverantwortlicher.Vorname = Vorname;
-            vereinsverantwortlicher.Nachname = Nachname;
-            vereinsverantwortlicher.Mailadresse = Email;
-            vereinsverantwortlicher.Adresse.Strasse = Strasse;
-            vereinsverantwortlicher.Adresse.Hausnummer = Hausnummer;
-            vereinsverantwortlicher.Adresse.Ort = Ort;
-            vereinsverantwortlicher.Adresse.PLZ = PLZ;
             using (DataContext db = new DataContext())
             {
-                db.Vereinsverantwortlicher.Add(vereinsverantwortlicher);
+                Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher where v.ID_Verein == vereinsId select v).Single();
+                Adresse adresse = vereinsverantwortlicher.Adresse;
+                vereinsverantwortlicher.Vorname = Vorname;
+                vereinsverantwortlicher.Nachname = Nachname;
+                vereinsverantwortlicher.Mailadresse = Email;
+                adresse.Strasse = Strasse;
+                adresse.PLZ = PLZ;
+                adresse.Ort = Ort;
+                adresse.Hausnummer = Hausnummer;
+                vereinsverantwortlicher.Adresse = adresse;
+                db.Vereinsverantwortlicher.Attach(vereinsverantwortlicher);
+                ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(vereinsverantwortlicher, System.Data.Entity.EntityState.Modified);
                 db.SaveChanges();
             }
         }
@@ -53,12 +67,11 @@ namespace Tournevent.Models
         public string Vorname { get; set; }
         [Required]
         public string Nachname { get; set; }
-        [Required]
         public string Email { get; set; }
         [Required]
         public string Strasse { get; set; }
         [Required]
-        public short Hausnummer { get; set; }
+        public string Hausnummer { get; set; }
         [Required]
         public string Ort { get; set; }
         [Required]

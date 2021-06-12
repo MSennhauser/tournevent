@@ -177,7 +177,7 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DisziplinenDaten.cs" />
-    <Compile Include="Models\GlobalVariables.cs" />
+    <Compile Include="Models\GlobalData.cs" />
     <Compile Include="Models\Kategore_Disziplin.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

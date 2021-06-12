@@ -17,7 +17,7 @@ namespace Tournevent.Controllers
         // GET: Startnummer
         public ActionResult Index()
         {
-            int wettkampfId = GlobalVariables.WettkampfId;
+            int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
             List<Startnummer> allNummbers = (from s in db.Startnummer where s.ID_Wettkampf == wettkampfId select s).ToList();
             List<List<int>> nums = new List<List<int>>();
             List<int> tmpLst = new List<int>();
@@ -37,7 +37,7 @@ namespace Tournevent.Controllers
         // GET: Startnummer/Details/5
         public ActionResult Details(int id)
         {
-            int athletenId = (from s in db.Startnummer where s.Startnr == id && s.ID_Wettkampf == GlobalVariables.WettkampfId select s.ID_Athlet).Single();
+            int athletenId = (from s in db.Startnummer where s.Startnr == id && s.ID_Wettkampf == GlobalData.currentWettkampf.ID_Wettkampf select s.ID_Athlet).Single();
             return RedirectToAction("Edit", new RouteValueDictionary(
                     new { controller = "Athleten", action = "Edit", Id = athletenId }));
         }

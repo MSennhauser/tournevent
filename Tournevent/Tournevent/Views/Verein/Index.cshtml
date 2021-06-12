@@ -35,7 +35,7 @@
     {
         <tr>
             <td>
-                @Html.HiddenFor(modelItem => item.userId)
+                @Html.HiddenFor(modelItem => item.KontoDaten.userId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.VereinsDaten.VereinsName)
@@ -50,9 +50,9 @@
                 @Html.DisplayFor(modelItem => item.KontoDaten.Telefon)
             </td>
             <td class="tableActions">
-                @Html.ActionLink("Athletenübersicht", "Athleten", new { id = item.userId }) |
-                @Html.ActionLink("Edit", "Edit", new { id = item.userId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.userId })
+                @Html.ActionLink("Athletenübersicht", "Athleten", new { id = item.KontoDaten.userId }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.KontoDaten.userId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.KontoDaten.userId })
             </td>
         </tr>
     }

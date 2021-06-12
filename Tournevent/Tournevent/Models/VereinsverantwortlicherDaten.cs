@@ -53,7 +53,6 @@ namespace Tournevent.Models
         public string Vorname { get; set; }
         [Required]
         public string Nachname { get; set; }
-        [Required]
         public string Email { get; set; }
         [Required]
         public string Strasse { get; set; }

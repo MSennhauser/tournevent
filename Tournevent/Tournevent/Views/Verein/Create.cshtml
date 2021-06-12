@@ -34,7 +34,7 @@
                     foreach (var id in item.Anmeldung)
                     {
 
-                        contains = (id.ID_Wettkampf == GlobalVariables.WettkampfId);
+                        contains = (id.ID_Wettkampf == GlobalData.currentWettkampf.ID_Wettkampf);
                     }
                     if (!contains)
                     {

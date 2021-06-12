@@ -15,7 +15,7 @@ namespace Tournevent.Controllers
         [Authorize(Roles = "Vereinsverantwortlicher")]
         public ActionResult Index()
         {
-            int wettkampfId = GlobalVariables.WettkampfId;
+            int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
             Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher where v.Mailadresse == User.Identity.Name select v).Single();
             List<Startnummer> startnummerList = (from s in db.Startnummer
                                                join a in db.Athlet on s.ID_Athlet equals a.ID_Athlet
@@ -32,7 +32,7 @@ namespace Tournevent.Controllers
         // Gibt Alle Athleten im aktuellen Wettkampf zurück
         public ActionResult Overview(int id)
         {
-            int wettkampfId = GlobalVariables.WettkampfId;
+            int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
             List<Startnummer> startnummern = (from s in db.Startnummer
                                                join a in db.Athlet on s.ID_Athlet equals a.ID_Athlet
                                                where s.ID_Wettkampf == wettkampfId && a.ID_Verein == id
@@ -52,7 +52,7 @@ namespace Tournevent.Controllers
         public ActionResult Create()
         {
             AthletDaten data = new AthletDaten();
-            int wettkampfId = GlobalVariables.WettkampfId;
+            int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
             if (wettkampfId != 0)
             {
                 var nr = (from s in db.Startnummer where s.ID_Wettkampf == wettkampfId select s).FirstOrDefault();
@@ -81,20 +81,20 @@ namespace Tournevent.Controllers
             if (ModelState.IsValid)
             {
                 Athlet athlet = (from a in db.Athlet
-                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Geburtsdatum == athletDaten.Geburtsdatum && a.ID_Verein == GlobalVariables.VereinsId
-                                   select a).SingleOrDefault();
+                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Geburtsdatum == athletDaten.Geburtsdatum && a.ID_Verein == GlobalData.verein.ID_Verein
+                                 select a).SingleOrDefault();
                 if (athlet == null)
                 {
                     // TODO: Add insert logic here
-                    int wettkampfId = GlobalVariables.WettkampfId;
+                    int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
                     var startnummer = (from s in db.Startnummer where s.Startnr == athletDaten.Startnummer && s.ID_Wettkampf == wettkampfId select s).SingleOrDefault();
 
-                    if (startnummer == null && GlobalVariables.WettkampfId != 0)
+                    if (startnummer == null && GlobalData.currentWettkampf.ID_Wettkampf != 0)
                     {
                         athletDaten.New();
                         if (User.IsInRole("Administrator"))
                         {
-                            return RedirectToAction("Overview", new { id = GlobalVariables.VereinsId });
+                            return RedirectToAction("Overview", new { id = GlobalData.verein.ID_Verein });
                         }
                         return RedirectToAction("Index");
                     }
@@ -113,7 +113,7 @@ namespace Tournevent.Controllers
         // Athlet kann Editiert werden
         public ActionResult Edit(int id)
         {
-            int wettkampfId = GlobalVariables.WettkampfId;
+            int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
             Athlet athlet = (from a in db.Athlet where a.ID_Athlet == id select a).Single();
             Startnummer nr = (from s in db.Startnummer where s.ID_Athlet == id && s.ID_Wettkampf == wettkampfId select s).Single();
             return View(new AthletDaten(athlet, nr.Startnr));
@@ -126,21 +126,21 @@ namespace Tournevent.Controllers
             if (ModelState.IsValid)
             {
                 Athlet athlet = (from a in db.Athlet
-                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Geburtsdatum == athletDaten.Geburtsdatum && a.ID_Verein == GlobalVariables.VereinsId
-                                   select a).SingleOrDefault();
+                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Geburtsdatum == athletDaten.Geburtsdatum && a.ID_Verein == GlobalData.verein.ID_Verein
+                                 select a).SingleOrDefault();
                 if (athlet == null)
                 {
-                    int wettkampfId = GlobalVariables.WettkampfId;
+                    int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
                     var startnummer = (from s in db.Startnummer
                                        where s.Startnr == athletDaten.Startnummer && s.ID_Athlet != athletDaten.Id && s.ID_Wettkampf == wettkampfId
                                        select s).SingleOrDefault();
 
-                    if (startnummer == null && GlobalVariables.WettkampfId != 0)
+                    if (startnummer == null && GlobalData.currentWettkampf.ID_Wettkampf != 0)
                     {
                         athletDaten.Update();
                         if (User.IsInRole("Administrator"))
                         {
-                            return RedirectToAction("Overview", new { id = GlobalVariables.VereinsId });
+                            return RedirectToAction("Overview", new { id = GlobalData.verein.ID_Verein });
                         }
                         return RedirectToAction("Index");
                     }
@@ -166,7 +166,7 @@ namespace Tournevent.Controllers
             db.SaveChanges();
             if (User.IsInRole("Administrator"))
             {
-                return RedirectToAction("Overview", new { id = GlobalVariables.VereinsId });
+                return RedirectToAction("Overview", new { id = GlobalData.verein.ID_Verein });
             }
             return RedirectToAction("Index");
         }

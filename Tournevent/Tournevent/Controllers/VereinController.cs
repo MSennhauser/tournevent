@@ -15,7 +15,7 @@ namespace Tournevent.Controllers
         // GET: Verein
         public ActionResult Index()
         {
-            int wettkampfId = GlobalVariables.WettkampfId;
+            int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
             List<VereinKontoDaten> lst = new List<VereinKontoDaten>();
             List<Verein> vereinList = new List<Verein>();
             vereinList = (from v in db.Verein
@@ -25,7 +25,7 @@ namespace Tournevent.Controllers
             
             foreach(Verein verein in vereinList)
             {
-                Vereinsverantwortlicher vereinsverantwortlicher = (from ve in db.Vereinsverantwortlicher where ve.ID_Verein == ve.ID_Verein select ve).SingleOrDefault();
+                Vereinsverantwortlicher vereinsverantwortlicher = (from ve in db.Vereinsverantwortlicher where ve.ID_Verein == verein.ID_Verein select ve).SingleOrDefault();
                 Benutzer benutzer = (from b in db.Benutzer where b.Rolle != "WartetAufBestaetigung" && b.Email == vereinsverantwortlicher.Mailadresse select b).SingleOrDefault();
                 VereinKontoDaten vereinKontoDaten = new VereinKontoDaten();
                 vereinKontoDaten.KontoDaten = new KontoDaten(benutzer);
@@ -79,7 +79,8 @@ namespace Tournevent.Controllers
         public ActionResult Edit(int id)
         {
             Benutzer benutzer = (from b in db.Benutzer where b.ID_Benutzer == id select b).Single();
-            VereinsverantwortlicherDaten vkDaten = new VereinsverantwortlicherDaten(benutzer);
+            VereinKontoDaten vkDaten = new VereinKontoDaten();
+            vkDaten.userId = benutzer.ID_Benutzer;
             return View(vkDaten);
         }
         [HttpPost]
@@ -120,14 +121,14 @@ namespace Tournevent.Controllers
             Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
                                                                where v.Mailadresse == benutzer.Email
                                                                select v).SingleOrDefault();
-            GlobalVariables.VereinsId = vereinsverantwortlicher.ID_Verein;
+            GlobalData.verein = vereinsverantwortlicher.Verein;
             return RedirectToAction("Overview", "Athleten", new { id = vereinsverantwortlicher.ID_Verein });
         }
 
         // GET: Verein/Edit/5
         public ActionResult Add(int id)
         {
-            int wettkampfId = GlobalVariables.WettkampfId;
+            int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
             Anmeldung anmeldung = new Anmeldung();
             anmeldung.ID_Verein = id;
             anmeldung.ID_Wettkampf = wettkampfId;
@@ -139,7 +140,7 @@ namespace Tournevent.Controllers
         // GET: Verein/Delete/5
         public ActionResult Remove(int id)
         {
-            int wettkampfId = GlobalVariables.WettkampfId;
+            int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
             Anmeldung anmeldung = (from a in db.Anmeldung where a.ID_Verein == id && a.ID_Wettkampf == wettkampfId select a).Single();
             db.Anmeldung.Remove(anmeldung);
             db.SaveChanges();

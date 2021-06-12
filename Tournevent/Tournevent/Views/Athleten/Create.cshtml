@@ -50,11 +50,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Geschlecht, htmlAttributes: new { @class = "control-label" })
             <div class="dropdownForm">
-                @Html.DropDownList("GeschlechtId", new List<SelectListItem>
+                @Html.DropDownList("Geschlecht", new List<SelectListItem>
                 {
                     new SelectListItem { Text = "Weiblich", Value = "w", Selected=true},
                     new SelectListItem { Text = "Männlich", Value = "m", Selected=false}
-                }, new { @class = "wettkampf" })
+                }, new { @class = "athlet" })
             </div>
         </div>
         <div class="actionGroup">

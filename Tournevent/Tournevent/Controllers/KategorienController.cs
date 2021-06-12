@@ -15,7 +15,7 @@ namespace Tournevent.Controllers
         // GET: Kategorien
         public ActionResult Index()
         {
-            int wettkampfID = GlobalVariables.WettkampfId;
+            int wettkampfID = GlobalData.currentWettkampf.ID_Wettkampf;
             List<Kategorie> kategorien = (from k in db.Kategorie
                                      where k.ID_Wettkampf == wettkampfID
                                      select k).ToList();

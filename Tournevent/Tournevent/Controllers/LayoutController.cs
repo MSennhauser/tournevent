@@ -31,12 +31,10 @@ namespace Tournevent.Controllers
         public ActionResult Wettkaempfe(FormCollection collection)
         {
             string id = collection.Get("Wettkampf");
-            if(id != "")
+            if(id != "" && id != null)
             {
                 int ID_Wettkampf = Convert.ToInt32(id);
-                Wettkampf wettkampf = (from w in db.Wettkampf where w.ID_Wettkampf == ID_Wettkampf select w).SingleOrDefault();
-                ViewBag.Wettkampf = wettkampf;
-                GlobalVariables.WettkampfId = Convert.ToInt32(id);
+                GlobalData.currentWettkampf = (from w in db.Wettkampf where w.ID_Wettkampf == ID_Wettkampf select w).SingleOrDefault();
             }
             
             
@@ -59,43 +57,15 @@ namespace Tournevent.Controllers
         private List<SelectListItem> getWettkaempfe()
         {
             List<SelectListItem> lst = new List<SelectListItem>();
-            List<Wettkampf> wettkampf = new List<Wettkampf>();
-            if (User.IsInRole("Administrator"))
+            foreach (Wettkampf tmp in GlobalData.wettkampfList)
             {
-                wettkampf = (from w in db.Wettkampf select w).ToList();
-
-            }
-            else if (User.IsInRole("Vereinsverantwortlicher"))
-            {
-                var email = User.Identity.Name;
-                Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
-                                                                   where v.Mailadresse == email
-                                                                   select v).SingleOrDefault();
-                Verein verein = vereinsverantwortlicher.Verein;
-
-                wettkampf = (from w in db.Wettkampf
-                                join a in db.Anmeldung on w.ID_Wettkampf equals a.ID_Wettkampf
-                                where a.ID_Verein == verein.ID_Verein
-                                select w).ToList();
-            }
-            if(wettkampf.Count() == 1)
-            {
-                GlobalVariables.WettkampfId = wettkampf.ElementAt(0).ID_Wettkampf;
-            }
-            foreach (Wettkampf tmp in wettkampf)
-            {
-                if (tmp.ID_Wettkampf == GlobalVariables.WettkampfId)
+                if (tmp.ID_Wettkampf == GlobalData.currentWettkampf.ID_Wettkampf)
                 {
                     lst.Add(new SelectListItem() { Text = tmp.Name, Value = tmp.ID_Wettkampf.ToString(), Selected = true });
                 }
                 else
                 {
                     lst.Add(new SelectListItem() { Text = tmp.Name, Value = tmp.ID_Wettkampf.ToString(), Selected = false });
-                }
-
-                if(GlobalVariables.WettkampfId == 0)
-                {
-                    GlobalVariables.WettkampfId = Convert.ToInt32(lst.ElementAt(0).Value);
                 }
 
             }

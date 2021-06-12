@@ -43,16 +43,17 @@ namespace Tournevent.Models
             athlet.Vorname = Vorname;
             athlet.Nachname = Nachname;
             athlet.Geburtsdatum = Geburtsdatum;
-            athlet.ID_Verein = GlobalVariables.VereinsId;
+            athlet.ID_Verein = GlobalData.verein.ID_Verein;
             athlet.Geschlecht = Geschlecht;
+            // Add Adresse
             db.Athlet.Add(athlet);
             db.SaveChanges();
 
             Startnummer nr = new Startnummer();
             
-            nr.ID_Athlet = (from a in db.Athlet where a.Vorname == Vorname && a.Nachname == Nachname && a.Geburtsdatum == Geburtsdatum && a.ID_Verein == GlobalVariables.VereinsId
-                           select a.ID_Athlet).Single();
-            nr.ID_Wettkampf = GlobalVariables.WettkampfId;
+            nr.ID_Athlet = (from a in db.Athlet where a.Vorname == Vorname && a.Nachname == Nachname && a.Geburtsdatum == Geburtsdatum && a.ID_Verein == GlobalData.verein.ID_Verein
+                            select a.ID_Athlet).Single();
+            nr.ID_Wettkampf = GlobalData.currentWettkampf.ID_Wettkampf;
             nr.Startnr = Startnummer;
             db.Startnummer.Add(nr);
             db.SaveChanges();
@@ -69,7 +70,7 @@ namespace Tournevent.Models
             ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(athlet, System.Data.Entity.EntityState.Modified);
             db.SaveChanges();
 
-            Startnummer nr = (from s in db.Startnummer where s.ID_Athlet == athlet.ID_Athlet && s.ID_Wettkampf == GlobalVariables.WettkampfId select s).Single();
+            Startnummer nr = (from s in db.Startnummer where s.ID_Athlet == athlet.ID_Athlet && s.ID_Wettkampf == GlobalData.currentWettkampf.ID_Wettkampf select s).Single();
             nr.Startnr = Startnummer;
             db.Startnummer.Attach(nr);
             ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager.ChangeObjectState(nr, System.Data.Entity.EntityState.Modified);

@@ -37,14 +37,7 @@ namespace Tournevent.Controllers
                 if (IsValidUser)
                 {
                     FormsAuthentication.SetAuthCookie(user.Email, false);
-                    Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
-                                                                       where v.Mailadresse == user.Email
-                                                                       select v).SingleOrDefault();
-                    if (vereinsverantwortlicher != null)
-                    {
-                        TempData["Verein"] = vereinsverantwortlicher.Verein;
-
-                    }
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -112,8 +105,8 @@ namespace Tournevent.Controllers
                 Vereinsverantwortlicher vereinsverantwortlicher = new Vereinsverantwortlicher();
                 Adresse adresse = new Adresse();
 
-                vereinsverantwortlicher.Mailadresse = User.Identity.Name;
                 vereinsverantwortlicher.Nachname = data.Nachname;
+                vereinsverantwortlicher.Mailadresse = User.Identity.Name;
                 vereinsverantwortlicher.Vorname = data.Vorname;
                 adresse.Strasse = data.Strasse;
                 adresse.PLZ = data.PLZ;

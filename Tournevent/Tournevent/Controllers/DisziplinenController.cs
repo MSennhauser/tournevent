@@ -15,7 +15,7 @@ namespace Tournevent.Controllers
         // GET: Disziplinen
         public ActionResult Index()
         {
-            int wettkampfID = GlobalVariables.WettkampfId;
+            int wettkampfID = GlobalData.currentWettkampf.ID_Wettkampf;
             List<Disziplin> disziplinen = (from d in db.Disziplin
                                            where d.ID_Wettkampf == wettkampfID
                                            select d).ToList();

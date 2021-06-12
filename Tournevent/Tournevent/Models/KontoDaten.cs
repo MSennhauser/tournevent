@@ -16,6 +16,7 @@ namespace Tournevent.Models
         }
         public KontoDaten(Benutzer benutzer)
         {
+            userId = benutzer.ID_Benutzer;
             Email = benutzer.Email;
             Telefon = benutzer.Telefon;
             Passwort = benutzer.Passwort;
@@ -25,7 +26,7 @@ namespace Tournevent.Models
         {
             using (DataContext db = new DataContext())
             {
-                Benutzer benutzer = (from b in db.Benutzer where b.Email == Email select b).Single();
+                Benutzer benutzer = (from b in db.Benutzer where b.ID_Benutzer == userId select b).Single();
                 benutzer.Email = Email;
                 benutzer.Telefon = Telefon;
                 benutzer.Passwort = Passwort;
@@ -35,7 +36,7 @@ namespace Tournevent.Models
 
             }
         }
-
+        public int userId { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }

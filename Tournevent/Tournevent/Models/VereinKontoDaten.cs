@@ -13,7 +13,6 @@ namespace Tournevent.Models
         {
 
         }
-        public int userId { get; set; }
         public VereinsverantwortlicherDaten VereinsverantwortlicherDaten { get; set; }
         public VereinsDaten VereinsDaten { get; set; }
         public KontoDaten KontoDaten { get; set; }

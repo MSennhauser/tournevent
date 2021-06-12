@@ -31,7 +31,6 @@ namespace Tournevent.Controllers
                 vereinKontoDaten.KontoDaten = new KontoDaten(benutzer);
                 vereinKontoDaten.VereinsverantwortlicherDaten = new VereinsverantwortlicherDaten(benutzer);
                 vereinKontoDaten.VereinsDaten = new VereinsDaten(verein);
-                vereinKontoDaten.userId = benutzer.ID_Benutzer;
                 lst.Add(vereinKontoDaten);
             }
             return View(lst);
@@ -81,7 +80,6 @@ namespace Tournevent.Controllers
             Benutzer benutzer = (from b in db.Benutzer where b.ID_Benutzer == id select b).SingleOrDefault();
             Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher where v.Mailadresse == benutzer.Email select v).SingleOrDefault();
             VereinKontoDaten vkDaten = new VereinKontoDaten();
-            vkDaten.userId = benutzer.ID_Benutzer;
             vkDaten.KontoDaten = new KontoDaten(benutzer);
             vkDaten.VereinsverantwortlicherDaten = new VereinsverantwortlicherDaten(vereinsverantwortlicher);
             vkDaten.VereinsDaten = new VereinsDaten(vereinsverantwortlicher.Verein);
@@ -92,21 +90,24 @@ namespace Tournevent.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(vkDaten.KontoDaten != null)
+
+                Benutzer email = (from b in db.Benutzer
+                                    where b.ID_Benutzer != vkDaten.KontoDaten.userId && b.Email == vkDaten.KontoDaten.Email
+                                    select b).SingleOrDefault();
+                if (email == null)
                 {
-                    vkDaten.KontoDaten.Update();
-                }
-                if (vkDaten.VereinsverantwortlicherDaten != null)
-                {
+                    vkDaten.VereinsverantwortlicherDaten.Email = vkDaten.KontoDaten.Email;
                     vkDaten.VereinsverantwortlicherDaten.Update();
-                }
-                if (vkDaten.VereinsDaten != null)
-                {
+                    vkDaten.KontoDaten.Update();
                     vkDaten.VereinsDaten.Update();
                 }
-                return RedirectToAction("Index");
+                else
+                {
+                    ModelState.AddModelError("KontoDaten.Email", "Diese Email Adresse existiert bereits.");
+                }
+                
             }
-            return View();
+            return View(vkDaten);
         }
 
         public ActionResult Delete(int id)

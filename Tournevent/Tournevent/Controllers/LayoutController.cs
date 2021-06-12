@@ -35,6 +35,12 @@ namespace Tournevent.Controllers
             {
                 int ID_Wettkampf = Convert.ToInt32(id);
                 GlobalData.currentWettkampf = (from w in db.Wettkampf where w.ID_Wettkampf == ID_Wettkampf select w).SingleOrDefault();
+                // Reload page after value changed.
+                String previousUrl = Request.UrlReferrer.AbsolutePath;
+                List<String> paths = previousUrl.Split('/').ToList();
+                String controller = paths.ElementAt(1);
+                String method = paths.ElementAt(2);
+                String value = paths.ElementAt(3);
             }
             
             

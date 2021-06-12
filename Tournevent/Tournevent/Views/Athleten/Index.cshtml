@@ -62,3 +62,10 @@
     }
 
 </table>
+<div class="actionGroup tableActions">
+
+    @if (User.IsInRole("Administrator"))
+    {
+        @Html.ActionLink("Zurück", "Index", "Verein")
+    }
+</div>

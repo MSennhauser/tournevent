@@ -125,32 +125,41 @@ namespace Tournevent.Controllers
         {
             if (ModelState.IsValid)
             {
+                int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
                 Athlet athlet = (from a in db.Athlet
-                                   where a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Geburtsdatum == athletDaten.Geburtsdatum && a.ID_Verein == GlobalData.verein.ID_Verein
+                                 join s in db.Startnummer on a.ID_Athlet equals s.ID_Athlet
+                                 where a.ID_Athlet != athletDaten.Id && s.ID_Wettkampf == wettkampfId && a.Vorname == athletDaten.Vorname && a.Nachname == athletDaten.Nachname && a.Geburtsdatum == athletDaten.Geburtsdatum
                                  select a).SingleOrDefault();
-                if (athlet == null)
+                if(athlet == null)
                 {
-                    int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
                     var startnummer = (from s in db.Startnummer
                                        where s.Startnr == athletDaten.Startnummer && s.ID_Athlet != athletDaten.Id && s.ID_Wettkampf == wettkampfId
                                        select s).SingleOrDefault();
 
-                    if (startnummer == null && GlobalData.currentWettkampf.ID_Wettkampf != 0)
+                    if (startnummer == null && GlobalData.currentWettkampf != null)
                     {
                         athletDaten.Update();
                         if (User.IsInRole("Administrator"))
                         {
-                            return RedirectToAction("Overview", new { id = GlobalData.verein.ID_Verein });
+                            if(GlobalData.verein != null)
+                            {
+                                return RedirectToAction("Overview", new { id = GlobalData.verein.ID_Verein });
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Startnummer");
+                            }
+                            
                         }
                         return RedirectToAction("Index");
                     }
                     ModelState.AddModelError("Startnummer", "Diese Startnummer ist bereits vergeben.");
-                }
-                else
+                } else
                 {
-                    ModelState.AddModelError("Vorname", "Dieser Athlet existiert bereits.");
+                    ModelState.AddModelError("Vorname", "Dieser Athlet ist bereits angemeldet.");
                 }
             }
+            
             return View();
         }
 
@@ -163,6 +172,8 @@ namespace Tournevent.Controllers
                                select s).Single();
             db.Startnummer.Remove(nr);
             db.Athlet.Remove(athlet);
+            db.SaveChanges();
+            db.Adresse.Remove(athlet.Adresse);
             db.SaveChanges();
             if (User.IsInRole("Administrator"))
             {

@@ -78,9 +78,13 @@ namespace Tournevent.Controllers
         }
         public ActionResult Edit(int id)
         {
-            Benutzer benutzer = (from b in db.Benutzer where b.ID_Benutzer == id select b).Single();
+            Benutzer benutzer = (from b in db.Benutzer where b.ID_Benutzer == id select b).SingleOrDefault();
+            Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher where v.Mailadresse == benutzer.Email select v).SingleOrDefault();
             VereinKontoDaten vkDaten = new VereinKontoDaten();
             vkDaten.userId = benutzer.ID_Benutzer;
+            vkDaten.KontoDaten = new KontoDaten(benutzer);
+            vkDaten.VereinsverantwortlicherDaten = new VereinsverantwortlicherDaten(vereinsverantwortlicher);
+            vkDaten.VereinsDaten = new VereinsDaten(vereinsverantwortlicher.Verein);
             return View(vkDaten);
         }
         [HttpPost]
@@ -88,7 +92,18 @@ namespace Tournevent.Controllers
         {
             if (ModelState.IsValid)
             {
-                /*vkDaten.Update();*/
+                if(vkDaten.KontoDaten != null)
+                {
+                    vkDaten.KontoDaten.Update();
+                }
+                if (vkDaten.VereinsverantwortlicherDaten != null)
+                {
+                    vkDaten.VereinsverantwortlicherDaten.Update();
+                }
+                if (vkDaten.VereinsDaten != null)
+                {
+                    vkDaten.VereinsDaten.Update();
+                }
                 return RedirectToAction("Index");
             }
             return View();
@@ -96,22 +111,31 @@ namespace Tournevent.Controllers
 
         public ActionResult Delete(int id)
         {
-            Vereinsverantwortlicher vereinsverantwortlicher = (from v in db.Vereinsverantwortlicher
-                                                               where v.Mailadresse == User.Identity.Name
-                                                               select v).SingleOrDefault();
-            // Statement könnte nicht funktionieren, da Benutzer noch überarbeitet werden muss
-            List<Athlet> lstAthleten = (from a in db.Athlet where a.ID_Verein == vereinsverantwortlicher.ID_Verein select a).ToList();
+            Verein verein = (from v in db.Verein
+                             where v.ID_Verein == id
+                             select v).SingleOrDefault();
+            List<Athlet> lstAthleten = (from a in db.Athlet where a.ID_Verein == verein.ID_Verein select a).ToList();
             foreach(var athlet in lstAthleten)
             {
+                foreach(Startnummer nr in athlet.Startnummer)
+                {
+                    db.Startnummer.Remove(nr);
+                }
+                db.SaveChanges();
                 db.Athlet.Remove(athlet);
             }
             
             Anmeldung anmeldung = (from a in db.Anmeldung
-                                   where a.ID_Verein == vereinsverantwortlicher.ID_Verein
+                                   where a.ID_Verein == verein.ID_Verein
                                    select a).SingleOrDefault();
             db.Anmeldung.Remove(anmeldung);
-            db.Verein.Remove(vereinsverantwortlicher.Verein);
-            db.Vereinsverantwortlicher.Remove(vereinsverantwortlicher);
+            List<Vereinsverantwortlicher> lstVereinsverantwortlicher = verein.Vereinsverantwortlicher.ToList();
+            foreach(Vereinsverantwortlicher vereinsverantwortlicher in lstVereinsverantwortlicher)
+            {
+                db.Vereinsverantwortlicher.Remove(vereinsverantwortlicher);
+            }
+            db.SaveChanges();
+            db.Verein.Remove(verein);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -124,7 +148,8 @@ namespace Tournevent.Controllers
             GlobalData.verein = vereinsverantwortlicher.Verein;
             return RedirectToAction("Overview", "Athleten", new { id = vereinsverantwortlicher.ID_Verein });
         }
-
+        
+        //Wettkampf hinzufügen
         // GET: Verein/Edit/5
         public ActionResult Add(int id)
         {
@@ -136,7 +161,7 @@ namespace Tournevent.Controllers
             db.SaveChanges();
             return RedirectToAction("Create");
         }
-
+        // Wettkampf entfernen
         // GET: Verein/Delete/5
         public ActionResult Remove(int id)
         {

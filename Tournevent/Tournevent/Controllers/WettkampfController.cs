@@ -10,6 +10,20 @@ namespace Tournevent.Controllers
     [Authorize(Roles = "Administrator")]
     public class WettkampfController : Controller
     {
+        public ActionResult Index()
+        {
+            List<WettkampfDaten> wettkampfDatenList = new List<WettkampfDaten>();
+            using (DataContext db = new DataContext())
+            {
+                List<Wettkampf> wettkampfList = (from w in db.Wettkampf select w).ToList();
+                
+                foreach(Wettkampf wettkampf in wettkampfList)
+                {
+                    wettkampfDatenList.Add(new WettkampfDaten(wettkampf));
+                }
+            }
+            return View(wettkampfDatenList);
+        }
 
         // GET: Wettkampf/Create
         public ActionResult Create()
@@ -23,8 +37,8 @@ namespace Tournevent.Controllers
         {
             if (ModelState.IsValid)
             {
-                wettkampfDaten.New();
-                return RedirectToAction("Index", "Home");
+                wettkampfDaten.New(User.Identity.Name);
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -32,45 +46,31 @@ namespace Tournevent.Controllers
         // GET: Wettkampf/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Wettkampf wettkampf = new Wettkampf();
+            using (DataContext db = new DataContext())
+            {
+                wettkampf = (from w in db.Wettkampf where w.ID_Wettkampf == id select w).FirstOrDefault();
+            }
+            return View(new WettkampfDaten(wettkampf));
         }
 
         // POST: Wettkampf/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(WettkampfDaten wettkampfDaten)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                wettkampfDaten.Update();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Wettkampf/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Wettkampf/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            // Add Delete when Kategorien und disziplinen bestehen
+            return RedirectToAction("Index");
         }
     }
 }

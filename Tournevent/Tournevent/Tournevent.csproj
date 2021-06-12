@@ -277,8 +277,10 @@
     <Content Include="Views\Disziplinen\Index.cshtml" />
     <Content Include="Views\Shared\Wettkampf.cshtml" />
     <Content Include="Views\Verein\Edit.cshtml" />
-    <Content Include="Views\Wettkampf\Create.cshtml" />
     <Content Include="Views\Login\VereinsverantwortlicherDaten.cshtml" />
+    <Content Include="Views\Wettkampf\Index.cshtml" />
+    <Content Include="Views\Wettkampf\Edit.cshtml" />
+    <Content Include="Views\Wettkampf\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

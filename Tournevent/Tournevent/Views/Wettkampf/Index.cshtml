@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Tournevent.Models.WettkampfDaten>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/Site.css")
+@Styles.Render("~/Content/Add.css")
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Neuer Wettkampf", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.wettkampfId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WettkampfName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeilnahmeBeginn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeilnahmeSchluss)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NummerVon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NummerBis)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.wettkampfId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WettkampfName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeilnahmeBeginn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeilnahmeSchluss)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NummerVon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NummerBis)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.wettkampfId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.wettkampfId })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -34,6 +34,7 @@ namespace Tournevent.Models
         [Required]
         public string Nachname { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Geburtsdatum { get; set; }
         [Required]
         public string Geschlecht { get; set; }

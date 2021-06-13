@@ -9,7 +9,6 @@
     <EntitySet Name="Startnummer" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer" />
     <EntitySet Name="Verein" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Verein" />
     <EntitySet Name="Vereinsverantwortlicher" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Vereinsverantwortlicher" />
-    <EntitySet Name="Wahldisziplin" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin" />
     <EntitySet Name="Wettkampf" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" />
     <AssociationSet Name="fk_Administrator_Wettkampf" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Administrator_Wettkampf">
       <End Role="Administrator" EntitySet="Administrator" />
@@ -53,14 +52,6 @@
       <End Role="Vereinsverantwortlicher" EntitySet="Vereinsverantwortlicher" />
     </AssociationSet>
     <EntitySet Name="Disziplin" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" />
-    <AssociationSet Name="fk_Disziplin_Disziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin">
-      <End Role="Disziplin" EntitySet="Disziplin" />
-      <End Role="Wahldisziplin" EntitySet="Wahldisziplin" />
-    </AssociationSet>
-    <AssociationSet Name="fk_Disziplin_Wahldisziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin">
-      <End Role="Disziplin" EntitySet="Disziplin" />
-      <End Role="Wahldisziplin" EntitySet="Wahldisziplin" />
-    </AssociationSet>
     <AssociationSet Name="fk_Wettkampf_Disziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Disziplin">
       <End Role="Wettkampf" EntitySet="Wettkampf" />
       <End Role="Disziplin" EntitySet="Disziplin" />
@@ -73,6 +64,15 @@
     <AssociationSet Name="fk_Kategorie_Kategore_Disziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin">
       <End Role="Kategorie" EntitySet="Kategorie" />
       <End Role="Kategorie_Disziplin" EntitySet="Kategorie_Disziplin" />
+    </AssociationSet>
+    <EntitySet Name="Wahldisziplin" EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin" />
+    <AssociationSet Name="fk_Disziplin_Disziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin">
+      <End Role="Disziplin" EntitySet="Disziplin" />
+      <End Role="Wahldisziplin" EntitySet="Wahldisziplin" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Disziplin_Wahldisziplin" Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin">
+      <End Role="Disziplin" EntitySet="Disziplin" />
+      <End Role="Wahldisziplin" EntitySet="Wahldisziplin" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Administrator">
@@ -171,16 +171,6 @@
     <Property Name="Nachname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Verein" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Vereinsverantwortlicher" FromRole="Vereinsverantwortlicher" ToRole="Verein" />
     <NavigationProperty Name="Adresse" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher" FromRole="Vereinsverantwortlicher" ToRole="Adresse" />
-  </EntityType>
-  <EntityType Name="Wahldisziplin">
-    <Key>
-      <PropertyRef Name="ID_Wahldisziplin" />
-    </Key>
-    <Property Name="ID_Wahldisziplin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Wahldisziplin_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ID_Disziplin" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin" FromRole="Wahldisziplin" ToRole="Disziplin" />
-    <NavigationProperty Name="Disziplin1" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin" FromRole="Wahldisziplin" ToRole="Disziplin" />
   </EntityType>
   <EntityType Name="Wettkampf">
     <Key>
@@ -342,35 +332,11 @@
     <Property Name="Abkuerzung" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ZeitTeilnehmer" Type="Int16" />
     <Property Name="AnzahlVersuche" Type="Int32" />
-    <NavigationProperty Name="Wahldisziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin" FromRole="Disziplin" ToRole="Wahldisziplin" />
-    <NavigationProperty Name="Wahldisziplin1" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin" FromRole="Disziplin" ToRole="Wahldisziplin" />
     <NavigationProperty Name="Wettkampf" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Disziplin" FromRole="Disziplin" ToRole="Wettkampf" />
     <NavigationProperty Name="Kategorie_Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Kategore_Disziplin" FromRole="Disziplin" ToRole="Kategorie_Disziplin" />
+    <NavigationProperty Name="Wahldisziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin" FromRole="Disziplin" ToRole="Wahldisziplin" />
+    <NavigationProperty Name="Wahldisziplin1" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin" FromRole="Disziplin" ToRole="Wahldisziplin" />
   </EntityType>
-  <Association Name="fk_Disziplin_Disziplin">
-    <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Role="Disziplin" Multiplicity="1" />
-    <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin" Role="Wahldisziplin" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Disziplin">
-        <PropertyRef Name="ID_Disziplin" />
-      </Principal>
-      <Dependent Role="Wahldisziplin">
-        <PropertyRef Name="ID_Disziplin" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_Disziplin_Wahldisziplin">
-    <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Role="Disziplin" Multiplicity="1" />
-    <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin" Role="Wahldisziplin" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Disziplin">
-        <PropertyRef Name="ID_Disziplin" />
-      </Principal>
-      <Dependent Role="Wahldisziplin">
-        <PropertyRef Name="ID_Wahldisziplin" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_Wettkampf_Disziplin">
     <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf" Role="Wettkampf" Multiplicity="1" />
     <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Role="Disziplin" Multiplicity="*" />
@@ -414,6 +380,40 @@
       </Principal>
       <Dependent Role="Kategorie_Disziplin">
         <PropertyRef Name="ID_Kategorie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Wahldisziplin">
+    <Key>
+      <PropertyRef Name="ID_Wahldisziplin_Disziplin" />
+    </Key>
+    <Property Name="ID_Wahldisziplin_Disziplin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_Wahldisziplin" Type="Int32" Nullable="false" />
+    <Property Name="ID_Disziplin" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Disziplin" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin" FromRole="Wahldisziplin" ToRole="Disziplin" />
+    <NavigationProperty Name="Disziplin1" Relationship="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin" FromRole="Wahldisziplin" ToRole="Disziplin" />
+  </EntityType>
+  <Association Name="fk_Disziplin_Disziplin">
+    <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Role="Disziplin" Multiplicity="1" />
+    <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin" Role="Wahldisziplin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Disziplin">
+        <PropertyRef Name="ID_Disziplin" />
+      </Principal>
+      <Dependent Role="Wahldisziplin">
+        <PropertyRef Name="ID_Disziplin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Disziplin_Wahldisziplin">
+    <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Role="Disziplin" Multiplicity="1" />
+    <End Type="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin" Role="Wahldisziplin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Disziplin">
+        <PropertyRef Name="ID_Disziplin" />
+      </Principal>
+      <Dependent Role="Wahldisziplin">
+        <PropertyRef Name="ID_Wahldisziplin" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

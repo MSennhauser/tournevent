@@ -10,9 +10,10 @@ namespace Tournevent.Models
 {
     public class DisziplinenDaten
     {
+        private readonly DataContext db = new DataContext();
         public DisziplinenDaten()
         {
-
+            AvailableWahldisziplinen = new List<Disziplin>();
         }
         public DisziplinenDaten(Disziplin disziplin)
         {
@@ -21,8 +22,11 @@ namespace Tournevent.Models
             Abkuerzung = disziplin.Abkuerzung;
             ZeitTeilnehmer = disziplin.ZeitTeilnehmer;
             AnzahlVersuche = disziplin.AnzahlVersuche;
+
+            AvailableWahldisziplinen = (from d in db.Disziplin where d.ID_Wettkampf == GlobalData.currentWettkampf.ID_Wettkampf && d.ID_Disziplin != disziplinenId select d).ToList();
         }
         public int disziplinenId { get; set; }
+        public List<Disziplin> AvailableWahldisziplinen { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

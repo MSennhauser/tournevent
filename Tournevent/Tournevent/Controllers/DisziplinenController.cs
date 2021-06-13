@@ -12,6 +12,7 @@ namespace Tournevent.Controllers
     {
         private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
+        private readonly List<Disziplin> disziplinList = new List<Disziplin>();
         // GET: Disziplinen
         public ActionResult Index()
         {
@@ -89,6 +90,27 @@ namespace Tournevent.Controllers
             db.Disziplin.Remove(disziplin);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        //Disziplin hinzufügen
+        // GET: Verein/Edit/5
+        public ActionResult Add(int disziplinId, int wahldisziplinId)
+        {
+            Wahldisziplin wahldisziplin = new Wahldisziplin();
+            wahldisziplin.ID_Wahldisziplin = wahldisziplinId;
+            wahldisziplin.ID_Disziplin = disziplinId;
+            db.Wahldisziplin.Add(wahldisziplin);
+            db.SaveChanges();
+            return RedirectToAction("Edit", new { id = wahldisziplinId });
+        }
+        // Disziplin entfernen
+        // GET: Verein/Delete/5
+        public ActionResult Remove(int disziplinId, int wahldisziplinId)
+        {
+            Wahldisziplin wahldisziplin = (from w in db.Wahldisziplin where w.ID_Disziplin == disziplinId && w.ID_Wahldisziplin == wahldisziplinId select w).Single();
+            db.Wahldisziplin.Remove(wahldisziplin);
+            db.SaveChanges();
+            return RedirectToAction("Edit", new { id = wahldisziplinId });
         }
     }
 }

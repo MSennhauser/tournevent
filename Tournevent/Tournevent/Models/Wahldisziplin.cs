@@ -14,8 +14,8 @@ namespace Tournevent.Models
     
     public partial class Wahldisziplin
     {
+        public int ID_Wahldisziplin_Disziplin { get; set; }
         public int ID_Wahldisziplin { get; set; }
-        public string Wahldisziplin_Name { get; set; }
         public int ID_Disziplin { get; set; }
     
         public virtual Disziplin Disziplin { get; set; }

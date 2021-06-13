@@ -113,10 +113,10 @@
   </EntityType>
   <EntityType Name="Wahldisziplin">
     <Key>
-      <PropertyRef Name="ID_Wahldisziplin" />
+      <PropertyRef Name="ID_Wahldisziplin_Disziplin" />
     </Key>
-    <Property Name="ID_Wahldisziplin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Wahldisziplin_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_Wahldisziplin_Disziplin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Wahldisziplin" Type="int" Nullable="false" />
     <Property Name="ID_Disziplin" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Wettkampf">
@@ -206,7 +206,7 @@
   </Association>
   <Association Name="fk_Disziplin_Wahldisziplin">
     <End Role="Disziplin" Type="Self.Disziplin" Multiplicity="1" />
-    <End Role="Wahldisziplin" Type="Self.Wahldisziplin" Multiplicity="0..1" />
+    <End Role="Wahldisziplin" Type="Self.Wahldisziplin" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Disziplin">
         <PropertyRef Name="ID_Disziplin" />

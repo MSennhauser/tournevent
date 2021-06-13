@@ -33,10 +33,10 @@ namespace Tournevent.Models
         public virtual DbSet<Startnummer> Startnummer { get; set; }
         public virtual DbSet<Verein> Verein { get; set; }
         public virtual DbSet<Vereinsverantwortlicher> Vereinsverantwortlicher { get; set; }
-        public virtual DbSet<Wahldisziplin> Wahldisziplin { get; set; }
         public virtual DbSet<Wettkampf> Wettkampf { get; set; }
         public virtual DbSet<Adresse> Adresse { get; set; }
         public virtual DbSet<Disziplin> Disziplin { get; set; }
         public virtual DbSet<Kategorie_Disziplin> Kategorie_Disziplin { get; set; }
+        public virtual DbSet<Wahldisziplin> Wahldisziplin { get; set; }
     }
 }

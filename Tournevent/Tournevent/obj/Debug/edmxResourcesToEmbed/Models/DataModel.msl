@@ -91,15 +91,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Wahldisziplin">
-      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin">
-        <MappingFragment StoreEntitySet="Wahldisziplin">
-          <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
-          <ScalarProperty Name="Wahldisziplin_Name" ColumnName="Wahldisziplin_Name" />
-          <ScalarProperty Name="ID_Wahldisziplin" ColumnName="ID_Wahldisziplin" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Wettkampf">
       <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Wettkampf">
         <MappingFragment StoreEntitySet="Wettkampf">
@@ -143,6 +134,15 @@
           <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
           <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
           <ScalarProperty Name="ID_Kategore_Disziplin" ColumnName="ID_Kategore_Disziplin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wahldisziplin">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Wahldisziplin">
+        <MappingFragment StoreEntitySet="Wahldisziplin">
+          <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
+          <ScalarProperty Name="ID_Wahldisziplin" ColumnName="ID_Wahldisziplin" />
+          <ScalarProperty Name="ID_Wahldisziplin_Disziplin" ColumnName="ID_Wahldisziplin_Disziplin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -147,6 +147,7 @@
     <Compile Include="Models\Adresse.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WahldisziplinDaten.cs" />
     <Compile Include="Models\Kategorie_Disziplin.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -285,6 +286,7 @@
     <Content Include="Views\Kategorien\Create.cshtml" />
     <Content Include="Views\Disziplinen\Create.cshtml" />
     <Content Include="Views\Disziplinen\Edit.cshtml" />
+    <Content Include="Views\Disziplinen\CreateWahldisziplin.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

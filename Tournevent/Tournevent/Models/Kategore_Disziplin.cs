@@ -18,7 +18,7 @@ namespace Tournevent.Models
         public int ID_Disziplin { get; set; }
         public int ID_Kategorie { get; set; }
     
-        public virtual Disziplin Disziplin { get; set; }
         public virtual Kategorie Kategorie { get; set; }
+        public virtual Disziplin Disziplin { get; set; }
     }
 }

@@ -45,18 +45,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Disziplin">
-      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin">
-        <MappingFragment StoreEntitySet="Disziplin">
-          <ScalarProperty Name="AnzahlVersuche" ColumnName="AnzahlVersuche" />
-          <ScalarProperty Name="ZeitTeilnehmer" ColumnName="ZeitTeilnehmer" />
-          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
-          <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Kategore_Disziplin">
       <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin">
         <MappingFragment StoreEntitySet="Kategore_Disziplin">
@@ -143,6 +131,18 @@
           <ScalarProperty Name="Ort" ColumnName="Ort" />
           <ScalarProperty Name="Strasse" ColumnName="Strasse" />
           <ScalarProperty Name="ID_Adresse" ColumnName="ID_Adresse" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Disziplin">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin">
+        <MappingFragment StoreEntitySet="Disziplin">
+          <ScalarProperty Name="AnzahlVersuche" ColumnName="AnzahlVersuche" />
+          <ScalarProperty Name="ZeitTeilnehmer" ColumnName="ZeitTeilnehmer" />
+          <ScalarProperty Name="Abkuerzung" ColumnName="Abkuerzung" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
+          <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

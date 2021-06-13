@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Anmeldung" Width="1.5" PointX="5.25" PointY="7.625" />
         <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Athlet" Width="1.5" PointX="3" PointY="1.25" />
         <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Benutzer" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Width="1.5" PointX="5.25" PointY="15" />
         <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin" Width="1.5" PointX="7.5" PointY="13.75" />
         <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie" Width="1.5" PointX="5.25" PointY="11.5" />
         <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Startnummer" Width="1.5" PointX="5.25" PointY="4.5" />
@@ -22,10 +21,6 @@
         <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Anmeldung" />
         <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Athlet_Startnummer" />
         <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Verein_Athlet" />
-        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin" />
-        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Kategore_Disziplin" />
-        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin" />
-        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Disziplin" />
         <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Kategorie_Kategore_Disziplin" />
         <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Kategorie" />
         <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Startnummer" />
@@ -33,6 +28,11 @@
         <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Adresse" Width="1.5" PointX="7.375" PointY="4" />
         <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Athlet" />
         <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Adresse_Vereinsverantwortlicher" />
+        <EntityTypeShape EntityType="RLP2021_INAI3a_Gruppe5_IDModel.Disziplin" Width="1.5" PointX="5.25" PointY="15.125" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Disziplin" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Kategore_Disziplin" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Disziplin_Wahldisziplin" />
+        <AssociationConnector Association="RLP2021_INAI3a_Gruppe5_IDModel.fk_Wettkampf_Disziplin" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

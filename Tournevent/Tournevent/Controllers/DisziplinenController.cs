@@ -27,12 +27,6 @@ namespace Tournevent.Controllers
             return View(lst);
         }
 
-        // GET: Disziplinen/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Disziplinen/Create
         public ActionResult Create()
         {
@@ -41,62 +35,44 @@ namespace Tournevent.Controllers
 
         // POST: Disziplinen/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(DisziplinenDaten data)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                data.New();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Disziplinen/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Disziplin disziplin = new Disziplin();
+            int wettkampfID = GlobalData.currentWettkampf.ID_Wettkampf;
+            using (DataContext db = new DataContext())
+            {
+                disziplin = (from d in db.Disziplin where d.ID_Disziplin == id select d).FirstOrDefault();
+            }
+            return View(new DisziplinenDaten(disziplin));
         }
 
         // POST: Disziplinen/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(DisziplinenDaten data)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                data.Update();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Disziplinen/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Disziplinen/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }

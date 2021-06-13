@@ -59,7 +59,7 @@
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Abkuerzung" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ZeitTeilnehmer" Type="smallint" />
-    <Property Name="AnzahlVersuche" Type="tinyint" Nullable="false" />
+    <Property Name="AnzahlVersuche" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Kategore_Disziplin">
     <Key>

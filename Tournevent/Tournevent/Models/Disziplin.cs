@@ -26,7 +26,7 @@ namespace Tournevent.Models
         public string Name { get; set; }
         public string Abkuerzung { get; set; }
         public Nullable<short> ZeitTeilnehmer { get; set; }
-        public byte AnzahlVersuche { get; set; }
+        public int AnzahlVersuche { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wahldisziplin> Wahldisziplin { get; set; }

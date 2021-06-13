@@ -8,14 +8,14 @@
 
 <h2>Kategorien</h2>
 
-@*<p>
+<p>
     @Html.ActionLink("Hinzufügen", "Create")
-</p>*@
+</p>
 <table class="table">
     <tr>
         <th></th>
         <th>
-            @Html.DisplayNameFor(model => model.Kategorie)
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Abkuerzung)
@@ -39,7 +39,7 @@
         @Html.DisplayFor(modelItem => item.kategorieID)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Kategorie)
+        @Html.DisplayFor(modelItem => item.Name)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Abkuerzung)
@@ -54,9 +54,8 @@
         @Html.DisplayFor(modelItem => item.Geschlecht)
     </td>
     <td class="tableActions">
-        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        @Html.ActionLink("Edit", "Edit", new {  id=item.kategorieID  }) |
+        @Html.ActionLink("Delete", "Delete", new {  id=item.kategorieID })
     </td>
 </tr>
     }

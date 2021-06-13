@@ -281,6 +281,10 @@
     <Content Include="Views\Wettkampf\Index.cshtml" />
     <Content Include="Views\Wettkampf\Edit.cshtml" />
     <Content Include="Views\Wettkampf\Create.cshtml" />
+    <Content Include="Views\Kategorien\Edit.cshtml" />
+    <Content Include="Views\Kategorien\Create.cshtml" />
+    <Content Include="Views\Disziplinen\Create.cshtml" />
+    <Content Include="Views\Disziplinen\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

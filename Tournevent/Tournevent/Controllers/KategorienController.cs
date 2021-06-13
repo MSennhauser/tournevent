@@ -41,40 +41,39 @@ namespace Tournevent.Controllers
 
         // POST: Kategorien/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(KategorienDaten data)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                data.New();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
+            
         }
 
         // GET: Kategorien/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Kategorie kategorie = new Kategorie();
+            int wettkampfID = GlobalData.currentWettkampf.ID_Wettkampf;
+            using (DataContext db = new DataContext())
+            {
+                kategorie = (from k in db.Kategorie where k.ID_Kategorie == id select k).FirstOrDefault();
+            }
+            return View(new KategorienDaten(kategorie));
         }
 
         // POST: Kategorien/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(KategorienDaten data)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                data.Update();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Kategorien/Delete/5

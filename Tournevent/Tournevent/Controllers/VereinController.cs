@@ -16,6 +16,7 @@ namespace Tournevent.Controllers
         public ActionResult Index()
         {
             int wettkampfId = GlobalData.currentWettkampf.ID_Wettkampf;
+            GlobalData.verein = null;
             List<VereinKontoDaten> lst = new List<VereinKontoDaten>();
             List<Verein> vereinList = new List<Verein>();
             vereinList = (from v in db.Verein

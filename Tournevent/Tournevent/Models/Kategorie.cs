@@ -17,7 +17,7 @@ namespace Tournevent.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Kategorie()
         {
-            this.Kategore_Disziplin = new HashSet<Kategore_Disziplin>();
+            this.Kategorie_Disziplin = new HashSet<Kategorie_Disziplin>();
         }
     
         public int ID_Kategorie { get; set; }
@@ -28,8 +28,8 @@ namespace Tournevent.Models
         public short JahrgangVon { get; set; }
         public short JahrgangBis { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Kategore_Disziplin> Kategore_Disziplin { get; set; }
         public virtual Wettkampf Wettkampf { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Kategorie_Disziplin> Kategorie_Disziplin { get; set; }
     }
 }

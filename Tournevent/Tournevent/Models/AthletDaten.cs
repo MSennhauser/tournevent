@@ -63,7 +63,9 @@ namespace Tournevent.Models
             adresse.PLZ = PLZ;
             adresse.Ort = Ort;
             adresse.Hausnummer = Hausnummer;
-            athlet.Adresse = adresse;
+            db.Adresse.Add(adresse);
+            db.SaveChanges();
+            athlet.ID_Adresse = adresse.ID_Adresse;
             db.Athlet.Add(athlet);
             db.SaveChanges();
 

@@ -29,14 +29,14 @@ namespace Tournevent.Models
         public virtual DbSet<Anmeldung> Anmeldung { get; set; }
         public virtual DbSet<Athlet> Athlet { get; set; }
         public virtual DbSet<Benutzer> Benutzer { get; set; }
-        public virtual DbSet<Disziplin> Disziplin { get; set; }
-        public virtual DbSet<Kategore_Disziplin> Kategore_Disziplin { get; set; }
         public virtual DbSet<Kategorie> Kategorie { get; set; }
         public virtual DbSet<Startnummer> Startnummer { get; set; }
         public virtual DbSet<Verein> Verein { get; set; }
         public virtual DbSet<Vereinsverantwortlicher> Vereinsverantwortlicher { get; set; }
-        public virtual DbSet<Wahldisziplin> Wahldisziplin { get; set; }
         public virtual DbSet<Wettkampf> Wettkampf { get; set; }
         public virtual DbSet<Adresse> Adresse { get; set; }
+        public virtual DbSet<Disziplin> Disziplin { get; set; }
+        public virtual DbSet<Kategorie_Disziplin> Kategorie_Disziplin { get; set; }
+        public virtual DbSet<Wahldisziplin> Wahldisziplin { get; set; }
     }
 }

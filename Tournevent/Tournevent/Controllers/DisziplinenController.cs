@@ -12,6 +12,7 @@ namespace Tournevent.Controllers
     {
         private readonly DataContext db = new DataContext();
         private readonly UserRoleProvider roleProvider = new UserRoleProvider();
+        private readonly List<Disziplin> disziplinList = new List<Disziplin>();
         // GET: Disziplinen
         public ActionResult Index()
         {
@@ -27,12 +28,6 @@ namespace Tournevent.Controllers
             return View(lst);
         }
 
-        // GET: Disziplinen/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Disziplinen/Create
         public ActionResult Create()
         {
@@ -41,62 +36,81 @@ namespace Tournevent.Controllers
 
         // POST: Disziplinen/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(DisziplinenDaten data)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                data.New();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Disziplinen/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Disziplin disziplin = new Disziplin();
+            int wettkampfID = GlobalData.currentWettkampf.ID_Wettkampf;
+            using (DataContext db = new DataContext())
+            {
+                disziplin = (from d in db.Disziplin where d.ID_Disziplin == id select d).FirstOrDefault();
+            }
+            return View(new DisziplinenDaten(disziplin));
         }
 
         // POST: Disziplinen/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(DisziplinenDaten data)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                data.Update();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Disziplinen/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Disziplin disziplin = (from d in db.Disziplin where d.ID_Disziplin == id select d).FirstOrDefault();
+            List<Wahldisziplin> wahldisziplinList = disziplin.Wahldisziplin.ToList();
+            List<Kategorie_Disziplin> kategorieDisziplinList = (from d in db.Kategorie_Disziplin where d.ID_Disziplin == id select d).ToList();
+            foreach(Wahldisziplin wahldisziplin in wahldisziplinList)
+            {
+                db.Wahldisziplin.Remove(wahldisziplin);
+            }
+            db.SaveChanges();
+            foreach(Kategorie_Disziplin kategorieDisziplin in kategorieDisziplinList)
+            {
+                db.Kategorie_Disziplin.Remove(kategorieDisziplin);
+                
+            }
+            db.SaveChanges();
+            db.Disziplin.Remove(disziplin);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        // POST: Disziplinen/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        //Disziplin hinzufügen
+        // GET: Verein/Edit/5
+        public ActionResult Add(int disziplinId, int wahldisziplinId)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Wahldisziplin wahldisziplin = new Wahldisziplin();
+            wahldisziplin.ID_Wahldisziplin = wahldisziplinId;
+            wahldisziplin.ID_Disziplin = disziplinId;
+            db.Wahldisziplin.Add(wahldisziplin);
+            db.SaveChanges();
+            return RedirectToAction("Edit", new { id = wahldisziplinId });
+        }
+        // Disziplin entfernen
+        // GET: Verein/Delete/5
+        public ActionResult Remove(int disziplinId, int wahldisziplinId)
+        {
+            Wahldisziplin wahldisziplin = (from w in db.Wahldisziplin where w.ID_Disziplin == disziplinId && w.ID_Wahldisziplin == wahldisziplinId select w).Single();
+            db.Wahldisziplin.Remove(wahldisziplin);
+            db.SaveChanges();
+            return RedirectToAction("Edit", new { id = wahldisziplinId });
         }
     }
 }

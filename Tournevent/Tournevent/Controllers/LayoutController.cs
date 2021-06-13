@@ -36,11 +36,11 @@ namespace Tournevent.Controllers
                 int ID_Wettkampf = Convert.ToInt32(id);
                 GlobalData.currentWettkampf = (from w in db.Wettkampf where w.ID_Wettkampf == ID_Wettkampf select w).SingleOrDefault();
                 // Reload page after value changed.
-                String previousUrl = Request.UrlReferrer.AbsolutePath;
+                /*String previousUrl = Request.UrlReferrer.AbsolutePath;
                 List<String> paths = previousUrl.Split('/').ToList();
                 String controller = paths.ElementAt(1);
                 String method = paths.ElementAt(2);
-                String value = paths.ElementAt(3);
+                String value = paths.ElementAt(3);*/
             }
             
             
@@ -63,18 +63,22 @@ namespace Tournevent.Controllers
         private List<SelectListItem> getWettkaempfe()
         {
             List<SelectListItem> lst = new List<SelectListItem>();
-            foreach (Wettkampf tmp in GlobalData.wettkampfList)
+            if(GlobalData.wettkampfList != null)
             {
-                if (tmp.ID_Wettkampf == GlobalData.currentWettkampf.ID_Wettkampf)
+                foreach (Wettkampf tmp in GlobalData.wettkampfList)
                 {
-                    lst.Add(new SelectListItem() { Text = tmp.Name, Value = tmp.ID_Wettkampf.ToString(), Selected = true });
-                }
-                else
-                {
-                    lst.Add(new SelectListItem() { Text = tmp.Name, Value = tmp.ID_Wettkampf.ToString(), Selected = false });
-                }
+                    if (tmp.ID_Wettkampf == GlobalData.currentWettkampf.ID_Wettkampf)
+                    {
+                        lst.Add(new SelectListItem() { Text = tmp.Name, Value = tmp.ID_Wettkampf.ToString(), Selected = true });
+                    }
+                    else
+                    {
+                        lst.Add(new SelectListItem() { Text = tmp.Name, Value = tmp.ID_Wettkampf.ToString(), Selected = false });
+                    }
 
+                }
             }
+            
             return lst;
         }
     }

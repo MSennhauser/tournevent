@@ -18,9 +18,9 @@ namespace Tournevent.Models
         public Wettkampf()
         {
             this.Anmeldung = new HashSet<Anmeldung>();
-            this.Disziplin = new HashSet<Disziplin>();
             this.Kategorie = new HashSet<Kategorie>();
             this.Startnummer = new HashSet<Startnummer>();
+            this.Disziplin = new HashSet<Disziplin>();
         }
     
         public int ID_Wettkampf { get; set; }
@@ -36,10 +36,10 @@ namespace Tournevent.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Anmeldung> Anmeldung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Disziplin> Disziplin { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Kategorie> Kategorie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Startnummer> Startnummer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Disziplin> Disziplin { get; set; }
     }
 }

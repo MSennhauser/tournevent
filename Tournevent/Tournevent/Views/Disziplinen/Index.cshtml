@@ -7,18 +7,17 @@
 @Styles.Render("~/Content/Site.css")
 
 <h2>Disziplinen</h2>
-
+<p>
+    @Html.ActionLink("Hinzufügen", "Create")
+</p>
 <table class="table">
     <tr>
         <th></th>
         <th>
-            @Html.DisplayNameFor(model => model.Disziplin)
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Abkuerzung)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Wettkampfart)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AnzahlVersuche)
@@ -36,13 +35,10 @@
                 @Html.DisplayFor(modelItem => item.disziplinenId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Disziplin)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Abkuerzung)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Wettkampfart)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AnzahlVersuche)
@@ -51,9 +47,8 @@
                 @Html.DisplayFor(modelItem => item.ZeitTeilnehmer)
             </td>
             <td class="tableActions">
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new {  id=item.disziplinenId  }) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.disziplinenId })
             </td>
         </tr>
     }

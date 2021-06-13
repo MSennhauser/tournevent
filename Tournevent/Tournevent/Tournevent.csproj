@@ -147,6 +147,10 @@
     <Compile Include="Models\Adresse.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WahldisziplinDaten.cs" />
+    <Compile Include="Models\Kategorie_Disziplin.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VereinKontoDaten.cs" />
     <Compile Include="Models\Anmeldung.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -178,9 +182,6 @@
     </Compile>
     <Compile Include="Models\DisziplinenDaten.cs" />
     <Compile Include="Models\GlobalData.cs" />
-    <Compile Include="Models\Kategore_Disziplin.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Kategorie.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -281,6 +282,11 @@
     <Content Include="Views\Wettkampf\Index.cshtml" />
     <Content Include="Views\Wettkampf\Edit.cshtml" />
     <Content Include="Views\Wettkampf\Create.cshtml" />
+    <Content Include="Views\Kategorien\Edit.cshtml" />
+    <Content Include="Views\Kategorien\Create.cshtml" />
+    <Content Include="Views\Disziplinen\Create.cshtml" />
+    <Content Include="Views\Disziplinen\Edit.cshtml" />
+    <Content Include="Views\Disziplinen\CreateWahldisziplin.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

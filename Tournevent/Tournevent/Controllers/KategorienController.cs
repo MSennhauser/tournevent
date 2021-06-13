@@ -36,7 +36,8 @@ namespace Tournevent.Controllers
         // GET: Kategorien/Create
         public ActionResult Create()
         {
-            return View();
+            KategorienDaten kategorienDaten = new KategorienDaten();
+            return View(kategorienDaten);
         }
 
         // POST: Kategorien/Create
@@ -79,23 +80,37 @@ namespace Tournevent.Controllers
         // GET: Kategorien/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Kategorie kategorie = (from k in db.Kategorie where k.ID_Kategorie == id select k).FirstOrDefault();
+            List<Kategorie_Disziplin> kategorieDisziplinList = (from d in db.Kategorie_Disziplin where d.ID_Kategorie == id select d).ToList();
+            foreach (Kategorie_Disziplin kategorieDisziplin in kategorieDisziplinList)
+            {
+                db.Kategorie_Disziplin.Remove(kategorieDisziplin);
+
+            }
+            db.SaveChanges();
+            db.Kategorie.Remove(kategorie);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
-
-        // POST: Kategorien/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        //Disziplin hinzufügen
+        // GET: Verein/Edit/5
+        public ActionResult Add(int disziplinId, int kategorieId)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Kategorie_Disziplin kategorieDisziplin = new Kategorie_Disziplin();
+            kategorieDisziplin.ID_Kategorie = kategorieId;
+            kategorieDisziplin.ID_Disziplin = disziplinId;
+            db.Kategorie_Disziplin.Add(kategorieDisziplin);
+            db.SaveChanges();
+            return RedirectToAction("Edit", new { id = kategorieId });
+        }
+        // Disziplin entfernen
+        // GET: Verein/Delete/5
+        public ActionResult Remove(int disziplinId, int kategorieId)
+        {
+            Kategorie_Disziplin kategorieDisziplin = (from k in db.Kategorie_Disziplin where k.ID_Disziplin == disziplinId && k.ID_Kategorie == kategorieId select k).Single();
+            db.Kategorie_Disziplin.Remove(kategorieDisziplin);
+            db.SaveChanges();
+            return RedirectToAction("Edit", new { id = kategorieId });
         }
     }
 }

@@ -72,6 +72,22 @@ namespace Tournevent.Controllers
         // GET: Disziplinen/Delete/5
         public ActionResult Delete(int id)
         {
+            Disziplin disziplin = (from d in db.Disziplin where d.ID_Disziplin == id select d).FirstOrDefault();
+            List<Wahldisziplin> wahldisziplinList = disziplin.Wahldisziplin.ToList();
+            List<Kategorie_Disziplin> kategorieDisziplinList = (from d in db.Kategorie_Disziplin where d.ID_Disziplin == id select d).ToList();
+            foreach(Wahldisziplin wahldisziplin in wahldisziplinList)
+            {
+                db.Wahldisziplin.Remove(wahldisziplin);
+            }
+            db.SaveChanges();
+            foreach(Kategorie_Disziplin kategorieDisziplin in kategorieDisziplinList)
+            {
+                db.Kategorie_Disziplin.Remove(kategorieDisziplin);
+                
+            }
+            db.SaveChanges();
+            db.Disziplin.Remove(disziplin);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

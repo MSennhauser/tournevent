@@ -59,15 +59,7 @@
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Abkuerzung" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ZeitTeilnehmer" Type="smallint" />
-    <Property Name="AnzahlVersuche" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Kategore_Disziplin">
-    <Key>
-      <PropertyRef Name="ID_Kategore_Disziplin" />
-    </Key>
-    <Property Name="ID_Kategore_Disziplin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ID_Disziplin" Type="int" Nullable="false" />
-    <Property Name="ID_Kategorie" Type="int" Nullable="false" />
+    <Property Name="AnzahlVersuche" Type="int" />
   </EntityType>
   <EntityType Name="Kategorie">
     <Key>
@@ -80,6 +72,14 @@
     <Property Name="Geschlecht" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="JahrgangVon" Type="smallint" Nullable="false" />
     <Property Name="JahrgangBis" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kategorie_Disziplin">
+    <Key>
+      <PropertyRef Name="ID_Kategore_Disziplin" />
+    </Key>
+    <Property Name="ID_Kategore_Disziplin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Disziplin" Type="int" Nullable="false" />
+    <Property Name="ID_Kategorie" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Startnummer">
     <Key>
@@ -194,12 +194,12 @@
   </Association>
   <Association Name="fk_Disziplin_Kategore_Disziplin">
     <End Role="Disziplin" Type="Self.Disziplin" Multiplicity="1" />
-    <End Role="Kategore_Disziplin" Type="Self.Kategore_Disziplin" Multiplicity="*" />
+    <End Role="Kategorie_Disziplin" Type="Self.Kategorie_Disziplin" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Disziplin">
         <PropertyRef Name="ID_Disziplin" />
       </Principal>
-      <Dependent Role="Kategore_Disziplin">
+      <Dependent Role="Kategorie_Disziplin">
         <PropertyRef Name="ID_Disziplin" />
       </Dependent>
     </ReferentialConstraint>
@@ -218,12 +218,12 @@
   </Association>
   <Association Name="fk_Kategorie_Kategore_Disziplin">
     <End Role="Kategorie" Type="Self.Kategorie" Multiplicity="1" />
-    <End Role="Kategore_Disziplin" Type="Self.Kategore_Disziplin" Multiplicity="*" />
+    <End Role="Kategorie_Disziplin" Type="Self.Kategorie_Disziplin" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Kategorie">
         <PropertyRef Name="ID_Kategorie" />
       </Principal>
-      <Dependent Role="Kategore_Disziplin">
+      <Dependent Role="Kategorie_Disziplin">
         <PropertyRef Name="ID_Kategorie" />
       </Dependent>
     </ReferentialConstraint>
@@ -319,8 +319,8 @@
     <EntitySet Name="Athlet" EntityType="Self.Athlet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Benutzer" EntityType="Self.Benutzer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Disziplin" EntityType="Self.Disziplin" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Kategore_Disziplin" EntityType="Self.Kategore_Disziplin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Kategorie" EntityType="Self.Kategorie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kategorie_Disziplin" EntityType="Self.Kategorie_Disziplin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Startnummer" EntityType="Self.Startnummer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Verein" EntityType="Self.Verein" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vereinsverantwortlicher" EntityType="Self.Vereinsverantwortlicher" Schema="dbo" store:Type="Tables" />
@@ -348,7 +348,7 @@
     </AssociationSet>
     <AssociationSet Name="fk_Disziplin_Kategore_Disziplin" Association="Self.fk_Disziplin_Kategore_Disziplin">
       <End Role="Disziplin" EntitySet="Disziplin" />
-      <End Role="Kategore_Disziplin" EntitySet="Kategore_Disziplin" />
+      <End Role="Kategorie_Disziplin" EntitySet="Kategorie_Disziplin" />
     </AssociationSet>
     <AssociationSet Name="fk_Disziplin_Wahldisziplin" Association="Self.fk_Disziplin_Wahldisziplin">
       <End Role="Disziplin" EntitySet="Disziplin" />
@@ -356,7 +356,7 @@
     </AssociationSet>
     <AssociationSet Name="fk_Kategorie_Kategore_Disziplin" Association="Self.fk_Kategorie_Kategore_Disziplin">
       <End Role="Kategorie" EntitySet="Kategorie" />
-      <End Role="Kategore_Disziplin" EntitySet="Kategore_Disziplin" />
+      <End Role="Kategorie_Disziplin" EntitySet="Kategorie_Disziplin" />
     </AssociationSet>
     <AssociationSet Name="fk_Verein_Anmeldung" Association="Self.fk_Verein_Anmeldung">
       <End Role="Verein" EntitySet="Verein" />

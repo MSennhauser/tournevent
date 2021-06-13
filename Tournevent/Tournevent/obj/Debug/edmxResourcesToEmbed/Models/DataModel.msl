@@ -45,15 +45,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Kategore_Disziplin">
-      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategore_Disziplin">
-        <MappingFragment StoreEntitySet="Kategore_Disziplin">
-          <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
-          <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
-          <ScalarProperty Name="ID_Kategore_Disziplin" ColumnName="ID_Kategore_Disziplin" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Kategorie">
       <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie">
         <MappingFragment StoreEntitySet="Kategorie">
@@ -143,6 +134,15 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID_Wettkampf" ColumnName="ID_Wettkampf" />
           <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategorie_Disziplin">
+      <EntityTypeMapping TypeName="RLP2021_INAI3a_Gruppe5_IDModel.Kategorie_Disziplin">
+        <MappingFragment StoreEntitySet="Kategorie_Disziplin">
+          <ScalarProperty Name="ID_Kategorie" ColumnName="ID_Kategorie" />
+          <ScalarProperty Name="ID_Disziplin" ColumnName="ID_Disziplin" />
+          <ScalarProperty Name="ID_Kategore_Disziplin" ColumnName="ID_Kategore_Disziplin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

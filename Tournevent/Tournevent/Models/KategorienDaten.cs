@@ -5,14 +5,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Tournevent.Models
 {
     public class KategorienDaten
     {
+        private readonly DataContext db = new DataContext();
         public KategorienDaten()
         {
-
+            SetDisziplinen();
         }
         public KategorienDaten(Kategorie kategorie)
         {
@@ -22,8 +24,10 @@ namespace Tournevent.Models
             JahrgangVon = kategorie.JahrgangVon;
             JahrgangBis = kategorie.JahrgangBis;
             Geschlecht = kategorie.Geschlecht;
+            SetDisziplinen();
         }
         public int kategorieID { get; set; }
+        public List<Disziplin> AvailableDisziplinen { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -67,6 +71,10 @@ namespace Tournevent.Models
                 db.SaveChanges();
 
             }
+        }
+        private void SetDisziplinen()
+        {
+                AvailableDisziplinen = (from d in db.Disziplin where d.ID_Wettkampf == GlobalData.currentWettkampf.ID_Wettkampf select d).ToList();
         }
     }
 }

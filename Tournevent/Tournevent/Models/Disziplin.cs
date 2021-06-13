@@ -18,7 +18,7 @@ namespace Tournevent.Models
         public Disziplin()
         {
             this.Wahldisziplin = new HashSet<Wahldisziplin>();
-            this.Kategore_Disziplin = new HashSet<Kategore_Disziplin>();
+            this.Kategorie_Disziplin = new HashSet<Kategorie_Disziplin>();
         }
     
         public int ID_Disziplin { get; set; }
@@ -26,13 +26,13 @@ namespace Tournevent.Models
         public string Name { get; set; }
         public string Abkuerzung { get; set; }
         public Nullable<short> ZeitTeilnehmer { get; set; }
-        public int AnzahlVersuche { get; set; }
+        public Nullable<int> AnzahlVersuche { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wahldisziplin> Wahldisziplin { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Kategore_Disziplin> Kategore_Disziplin { get; set; }
         public virtual Wahldisziplin Wahldisziplin1 { get; set; }
         public virtual Wettkampf Wettkampf { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Kategorie_Disziplin> Kategorie_Disziplin { get; set; }
     }
 }

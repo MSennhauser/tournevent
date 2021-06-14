@@ -167,13 +167,14 @@ namespace Tournevent.Controllers
         public ActionResult Delete(int id)
         {
             Athlet athlet = (from a in db.Athlet where a.ID_Athlet == id select a).Single();
+            Adresse adresse = (from a in db.Adresse where a.ID_Adresse == athlet.ID_Adresse select a).Single();
             Startnummer nr = (from s in db.Startnummer
                                where s.ID_Athlet == id
                                select s).Single();
             db.Startnummer.Remove(nr);
             db.Athlet.Remove(athlet);
             db.SaveChanges();
-            db.Adresse.Remove(athlet.Adresse);
+            db.Adresse.Remove(adresse);
             db.SaveChanges();
             if (User.IsInRole("Administrator"))
             {

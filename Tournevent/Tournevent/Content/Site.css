@@ -124,6 +124,7 @@ textarea {
 /*highlight error messages*/
 .text-danger {
     color:red;
+    display:block !important;
 }
 
 /*icons*/

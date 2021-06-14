@@ -27,7 +27,9 @@ namespace Tournevent.Controllers
             }
             if (rolle == "VereinsverantwortlicherDaten")
             {
-                return RedirectToAction("VereinsverantwortlicherDaten", "Login", new { userId = benutzer.ID_Benutzer });
+                // Miiiese workaround abr heyyyy :DDDD
+                Verein verein = (from v in db.Verein where !db.Vereinsverantwortlicher.Any(vv => vv.ID_Verein == v.ID_Verein) select v).FirstOrDefault();
+                return RedirectToAction("VereinsverantwortlicherDaten", "Login", new { vereinsId = verein.ID_Verein });
             }
             if (rolle == "VereinsDaten")
             {
@@ -48,8 +50,12 @@ namespace Tournevent.Controllers
                     GlobalData.wettkampfList = wList;
                     TempData["CurrentWettkampf"] = wList.First();
                     TempData["WettkampfList"] = wList;
+                    return RedirectToAction("Index", "Anfrage");
+                } else
+                {
+                    return RedirectToAction("Create", "Wettkampf");
                 }
-                return RedirectToAction("Index", "Anfrage");
+               
             }
             if (rolle == "Vereinsverantwortlicher")
             {

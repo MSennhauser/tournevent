@@ -38,7 +38,13 @@ namespace Tournevent.Controllers
             if (ModelState.IsValid)
             {
                 wettkampfDaten.New(User.Identity.Name);
-                return RedirectToAction("Index");
+                if (GlobalData.currentWettkampf != null)
+                {
+                    return RedirectToAction("Index");
+                } else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             return View();
         }
@@ -70,7 +76,67 @@ namespace Tournevent.Controllers
         public ActionResult Delete(int id)
         {
             // Add Delete when Kategorien und disziplinen bestehen
-            return RedirectToAction("Index");
+            using (DataContext db = new DataContext())
+            { 
+                Wettkampf wettkampf = (from w in db.Wettkampf where w.ID_Wettkampf == id select w).Single();
+                List<Kategorie> kategorieList = wettkampf.Kategorie.ToList();
+                List<Disziplin> disziplinList = wettkampf.Disziplin.ToList();
+                List<Startnummer> startnummerList = wettkampf.Startnummer.ToList();
+                List<Anmeldung> anmeldungList = wettkampf.Anmeldung.ToList();
+
+                foreach(Kategorie kategorie in kategorieList)
+                {
+                    List<Kategorie_Disziplin> kategorieDisziplinList = kategorie.Kategorie_Disziplin.ToList();
+                    foreach (Kategorie_Disziplin kategorieDisziplin in kategorieDisziplinList)
+                    {
+                        db.Kategorie_Disziplin.Remove(kategorieDisziplin);
+
+                    }
+                    db.SaveChanges();
+                    db.Kategorie.Remove(kategorie);
+                }
+                db.SaveChanges();
+                foreach (Disziplin disziplin in disziplinList)
+                {
+                    List<Wahldisziplin> wahldisziplinList = disziplin.Wahldisziplin.ToList();
+                    foreach (Wahldisziplin wahldisziplin in wahldisziplinList)
+                    {
+                        db.Wahldisziplin.Remove(wahldisziplin);
+                    }
+                    db.SaveChanges();
+                    db.Disziplin.Remove(disziplin);
+                }
+                db.SaveChanges();
+                foreach (Startnummer startnummer in startnummerList)
+                {
+                    db.Startnummer.Remove(startnummer);
+                }
+                db.SaveChanges();
+                foreach (Anmeldung anmeldung in anmeldungList)
+                {
+                    db.Anmeldung.Remove(anmeldung);
+                }
+                db.SaveChanges();
+                db.Wettkampf.Remove(wettkampf);
+                db.SaveChanges();
+
+                Administrator administrator = (from a in db.Administrator
+                                               where a.Mailadresse == User.Identity.Name
+                                               select a).SingleOrDefault();
+                List<Wettkampf> wList = (from w in db.Wettkampf
+                                         where w.ID_Administrator == administrator.ID_Administrator
+                                         orderby w.Datum descending
+                                         select w).ToList();
+                if (wList.Count > 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    GlobalData.currentWettkampf = null;
+                    return RedirectToAction("Create", "Wettkampf");
+                }
+            }
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Tournevent.Models
         [Required]
         public string Nachname { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime Geburtsdatum { get; set; }
         [Required]

@@ -1,8 +1,13 @@
 ﻿@model Tournevent.Models.WettkampfDaten
-
+@using Tournevent.Models
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
+    if(GlobalData.currentWettkampf != null)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
 }
 @Styles.Render("~/Content/Site.css")
 @Styles.Render("~/Content/Add.css")

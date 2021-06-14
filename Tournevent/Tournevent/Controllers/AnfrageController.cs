@@ -33,6 +33,10 @@ namespace Tournevent.Controllers
                 }
             
             }
+            ViewBag.VereinsCount = (from b in db.Verein
+                                       select b).ToList().Count();
+            ViewBag.AthletsCount = (from b in db.Athlet
+                                    select b).ToList().Count();
             return View(lst); 
         }
         // Anfrage wird akzeptiert

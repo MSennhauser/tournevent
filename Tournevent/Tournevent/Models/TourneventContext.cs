@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace Tournevent.Models
                 DataSource = dataSource,
                 InitialCatalog = "RLP2021_INAI3a_Gruppe5_ID",
                 UserID = "RLP2021_" + UserRights,
-                Password = "RLP2021_" + UserRights,
+                Password = ConfigurationManager.AppSettings[UserRights],
             };
             EntityConnectionStringBuilder entityString = new EntityConnectionStringBuilder()
             {

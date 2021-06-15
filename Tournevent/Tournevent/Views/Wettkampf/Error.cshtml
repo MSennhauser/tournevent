@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = null;
+}
+@Styles.Render("~/Content/Login.css")
+@Styles.Render("~/Content/Site.css")
+<div class="content">
+    <div class="custom-card">
+        <h1 class="card-header">Sie sind keinem Wettkampf zugeteilt</h1>
+        <h3>Bitte wenden Sie sich an einen Administrator, um für einen Wettkampf eingeteilt zu werden.</h3>
+
+        <div class="actionGroup">
+            @Html.ActionLink("Zur Anmeldeseite", "Logout", "Login", null,
+                new { @class = "confirmationLink" })
+        </div>
+
+    </div>
+
+</div>

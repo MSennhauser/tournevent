@@ -78,11 +78,18 @@ namespace Tournevent.Controllers
                                                  where a.ID_Verein == verein.ID_Verein
                                                  orderby w.Datum descending
                                                  select w).ToList();
-                        TempData["CurrentWettkampf"] = wList.FirstOrDefault();
-                        TempData["WettkampfList"] = wList;
-                        GlobalData.verein = verein;
-                        GlobalData.currentWettkampf = wList.FirstOrDefault();
-                        GlobalData.wettkampfList = wList;
+                        if (wList.Count > 0)
+                        {
+                            TempData["CurrentWettkampf"] = wList.FirstOrDefault();
+                            TempData["WettkampfList"] = wList;
+                            GlobalData.verein = verein;
+                            GlobalData.currentWettkampf = wList.FirstOrDefault();
+                            GlobalData.wettkampfList = wList;
+                        }
+                        else
+                        {
+                            return RedirectToAction("Error", "Wettkampf");
+                        }
 
                     }
                     return RedirectToAction("Index", "Athleten");

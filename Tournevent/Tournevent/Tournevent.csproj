@@ -288,6 +288,7 @@
     <Content Include="Views\Disziplinen\Create.cshtml" />
     <Content Include="Views\Disziplinen\Edit.cshtml" />
     <Content Include="Views\Disziplinen\CreateWahldisziplin.cshtml" />
+    <Content Include="Views\Wettkampf\Error.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

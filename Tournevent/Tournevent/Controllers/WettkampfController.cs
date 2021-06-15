@@ -7,9 +7,10 @@ using Tournevent.Models;
 
 namespace Tournevent.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator, Vereinsverantwortlicher")]
     public class WettkampfController : Controller
     {
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             List<WettkampfDaten> wettkampfDatenList = new List<WettkampfDaten>();
@@ -26,6 +27,7 @@ namespace Tournevent.Controllers
         }
 
         // GET: Wettkampf/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
@@ -50,6 +52,7 @@ namespace Tournevent.Controllers
         }
 
         // GET: Wettkampf/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id)
         {
             Wettkampf wettkampf = new Wettkampf();
@@ -73,6 +76,7 @@ namespace Tournevent.Controllers
         }
 
         // GET: Wettkampf/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id)
         {
             // Add Delete when Kategorien und disziplinen bestehen
@@ -137,6 +141,12 @@ namespace Tournevent.Controllers
                     return RedirectToAction("Create", "Wettkampf");
                 }
             }
+        }
+        // GET: Wettkampf/Create
+        [Authorize(Roles = "Vereinsverantwortlicher")]
+        public ActionResult Error()
+        {
+            return View();
         }
     }
 }

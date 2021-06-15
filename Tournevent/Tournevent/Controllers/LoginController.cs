@@ -165,6 +165,7 @@ namespace Tournevent.Controllers
 
         public ActionResult Logout()
         {
+            TourneventContext.UserRights = "Benutzer";
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }

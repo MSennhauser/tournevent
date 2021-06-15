@@ -147,6 +147,7 @@
     <Compile Include="Models\Adresse.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TourneventContext.cs" />
     <Compile Include="Models\WahldisziplinDaten.cs" />
     <Compile Include="Models\Kategorie_Disziplin.cs">
       <DependentUpon>DataModel.tt</DependentUpon>

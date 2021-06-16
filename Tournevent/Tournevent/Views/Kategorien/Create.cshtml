@@ -16,9 +16,6 @@
 
     <div class="content">
         <div class="custom-card">
-            <div class="card-header">
-                <h4>KategorieDaten</h4>
-            </div>
             <div class="card-body">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -64,49 +61,6 @@
                         }, new { @class = "athlet" })
                     </div>
                 </div>
-
-
-                @*<table class="table">
-                        <tr>
-                            <th>
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Name)
-                            </th>
-                            <th></th>
-                        </tr>
-
-                        @foreach (var item in Model.AvailableDisziplinen)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.HiddenFor(modelItem => item.ID_Disziplin)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td class="tableActions">
-                                    @{
-                                        bool contains = false;
-                                        foreach (var id in item.Kategorie_Disziplin)
-                                        {
-
-                                            contains = (id.ID_Kategorie == Model.kategorieID);
-                                        }
-                                        if (!contains)
-                                        {
-                                            @Html.ActionLink("Hinzufügen", "Add", new { id = item.ID_Disziplin })
-                                        }
-                                        else
-                                        {
-                                            @Html.ActionLink("Entfernen", "Remove", new { id = item.ID_Disziplin })
-                                        }
-                                    }
-                                </td>
-                            </tr>
-                        }
-
-                    </table>*@
 
                 <div class="actionGroup">
                     <button type="submit" class="submit">Create</button>

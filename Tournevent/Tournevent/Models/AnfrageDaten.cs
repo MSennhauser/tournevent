@@ -39,7 +39,9 @@ namespace Tournevent.Models
         [Required]
         public string Nachname { get; set; }
 
+        [DisplayName("Registrierte Vereine")]
         public int VereinsCount { get; set; }
+        [DisplayName("Erfasste Athleten")]
         public int AthletsCount { get; set; }
     }
 }

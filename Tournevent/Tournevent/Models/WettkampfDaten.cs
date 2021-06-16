@@ -36,14 +36,18 @@ namespace Tournevent.Models
         [Required]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
+        [DisplayName("Teilnahme Startdatum")]
         public DateTime TeilnahmeBeginn { get; set; }
         [Required]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
+        [DisplayName("Teilnahme Schlussdatum")]
         public DateTime TeilnahmeSchluss { get; set; }
         [Required]
+        [DisplayName("Startnummer Von")]
         public int NummerVon { get; set; }
         [Required]
+        [DisplayName("Startnummer Bis")]
         public int NummerBis { get; set; }
 
         public void New(string email)

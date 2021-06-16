@@ -32,8 +32,9 @@ namespace Tournevent.Models
         [Required]
         [DisplayName("Abkürzung")]
         public string Abkuerzung { get; set; }
-        [DisplayName("AnzahlVersuche")]
+        [DisplayName("Anzahl Versuche")]
         public int? AnzahlVersuche { get; set; }
+        [DisplayName("Zeit pro Teilnehmer (sek)")]
         public short? ZeitTeilnehmer { get; set; }
 
         public void New()

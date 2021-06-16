@@ -1,4 +1,5 @@
 ﻿@model Tournevent.Models.AthletDaten
+@using Tournevent.Models
 
 @{
     ViewBag.Title = "Create";
@@ -64,7 +65,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Strasse, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div>
-                        @Html.EditorFor(model => model.Strasse, new { htmlAttributes = new { @class = "form-control", @maxlength = "4" } })
+                        @Html.EditorFor(model => model.Strasse, new { htmlAttributes = new { @class = "form-control"} })
                         @Html.ValidationMessageFor(model => model.Strasse, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -72,7 +73,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Hausnummer, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div>
-                        @Html.EditorFor(model => model.Hausnummer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Hausnummer, new { htmlAttributes = new { @class = "form-control", @maxlength = "4" } })
                         @Html.ValidationMessageFor(model => model.Hausnummer, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -94,13 +95,27 @@
                 </div>
                 <div class="actionGroup">
                     <input type="submit" value="Hinzufügen" class="submit" />
-                    @Html.ActionLink("Zurück zur Athletenübersicht", "Index", null,
-                       new { @class = "actionLink" })
+                    @if (User.IsInRole("Vereinsverantwortlicher"))
+                    {
+                        @Html.ActionLink("Zurück", "Index", new { @class = "actionLink" })
+                    }
+                    else
+                    {
+                        if (GlobalData.currentWettkampf == null)
+                        {
+                            @Html.ActionLink("Zurück", "Index", "Startnummer")
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Zurück", "Overview", "Athleten", new { id = GlobalData.verein.ID_Verein }, null)
+                        }
+
+                    }
                 </div>
             </div>
         </div>
     </div>
-            }
+}
 
 
 

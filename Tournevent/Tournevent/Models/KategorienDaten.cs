@@ -34,8 +34,10 @@ namespace Tournevent.Models
         [DisplayName("Abkürzung")]
         public string Abkuerzung { get; set; }
         [Required]
+        [DisplayName("Jahrgang Von")]
         public int JahrgangVon { get; set; }
         [Required]
+        [DisplayName("Jahrgang Bis")]
         public int JahrgangBis { get; set; }
         [Required]
         public string Geschlecht { get; set; }

@@ -1,4 +1,5 @@
 ﻿@model Tournevent.Models.AthletDaten
+@using Tournevent.Models
 
 @{
     ViewBag.Title = "Edit";
@@ -106,7 +107,15 @@
             }
             else
             {
-                @Html.ActionLink("Zurück", "Index", "Startnummer")
+                if (GlobalData.currentWettkampf == null)
+                {
+                    @Html.ActionLink("Zurück", "Index", "Startnummer")
+                }
+                else
+                {
+                    @Html.ActionLink("Zurück", "Overview", "Athleten", new { id = GlobalData.verein.ID_Verein }, null)
+                }
+
             }
         </div>
     </div>

@@ -52,7 +52,7 @@
             <td class="tableActions">
                 @Html.ActionLink("Athletenübersicht", "Athleten", new { id = item.KontoDaten.userId }) |
                 @Html.ActionLink("Edit", "Edit", new { id = item.KontoDaten.userId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.KontoDaten.userId })
+                @Html.ActionLink("Delete", "Delete", new { id = item.VereinsDaten.vereinsId })
             </td>
         </tr>
     }

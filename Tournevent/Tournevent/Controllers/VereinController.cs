@@ -43,19 +43,6 @@ namespace Tournevent.Controllers
             if (ModelState.IsValid)
             {
                 List<Verein> vereinList = (from v in db.Verein select v).ToList();
-                /*
-                List<VereinKontoDaten> vwList = new List<VereinKontoDaten>();
-                foreach (Verein v in vereinList)
-                {
-                    Vereinsverantwortlicher vereinsverantwortlicher = (from ve in db.Vereinsverantwortlicher where ve.ID_Verein == ve.ID_Verein select ve).SingleOrDefault();
-                    Benutzer benutzer = (from b in db.Benutzer where b.Rolle != "WartetAufBestaetigung" && b.Email == vereinsverantwortlicher.Mailadresse select b).SingleOrDefault();
-                    VereinKontoDaten vereinKontoDaten = new VereinKontoDaten();
-                    vereinKontoDaten.KontoDaten = new KontoDaten(benutzer);
-                    vereinKontoDaten.VereinsverantwortlicherDaten = new VereinsverantwortlicherDaten(benutzer);
-                    vereinKontoDaten.VereinsDaten = new VereinsDaten(v);
-                    vereinKontoDaten.userId = benutzer.ID_Benutzer;
-                    vwList.Add(vereinKontoDaten);
-                }*/
                 return View(vereinList);
             }
             return View();
@@ -117,20 +104,23 @@ namespace Tournevent.Controllers
                              where v.ID_Verein == id
                              select v).SingleOrDefault();
             List<Athlet> lstAthleten = (from a in db.Athlet where a.ID_Verein == verein.ID_Verein select a).ToList();
-            foreach(var athlet in lstAthleten)
+            foreach (var athlet in lstAthleten)
             {
-                foreach(Startnummer nr in athlet.Startnummer)
+                List<Startnummer> lstStartnummer = athlet.Startnummer.ToList();
+                foreach (Startnummer nr in lstStartnummer)
                 {
                     db.Startnummer.Remove(nr);
                 }
                 db.SaveChanges();
                 db.Athlet.Remove(athlet);
             }
-            
-            Anmeldung anmeldung = (from a in db.Anmeldung
-                                   where a.ID_Verein == verein.ID_Verein
-                                   select a).SingleOrDefault();
-            db.Anmeldung.Remove(anmeldung);
+            List<Anmeldung> lstAnmeldung = (from a in db.Anmeldung
+                                            where a.ID_Verein == verein.ID_Verein
+                                            select a).ToList();
+            foreach (Anmeldung anmeldung in lstAnmeldung)
+            {
+                db.Anmeldung.Remove(anmeldung);
+            }
             List<Vereinsverantwortlicher> lstVereinsverantwortlicher = verein.Vereinsverantwortlicher.ToList();
             foreach(Vereinsverantwortlicher vereinsverantwortlicher in lstVereinsverantwortlicher)
             {
